@@ -1,0 +1,60 @@
+
+.user {
+  width:calc(100% - 250px);
+  height:100%;
+}
+.u-right-bar {
+  background-color: #121e25 ;
+  width:250px;
+  text-align:center;
+  padding:0 0px;
+  right:0;
+  min-height:calc(100vh - 80px);
+}
+.u-right-bar>.section>.n-photos>.n-photo {
+  width:90px;
+  height:90px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  display:inline-block;
+  margin:0;
+  padding:0;
+}
+.u-right-bar>.section>.n-photos>.n-photo > a {
+  display:inline-block;
+  width:100%;
+  height:100%;
+}
+
+
+/** profile section **/
+
+.user > .background {
+  width:100%;
+  height:300px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+.user > .background > .background-bottom {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.user > .background > .background-bottom > .avatar{
+  width:200px;
+  height:200px;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+
+}
+.user > .background > .background-bottom > ul{
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type:none;
+}
+
+

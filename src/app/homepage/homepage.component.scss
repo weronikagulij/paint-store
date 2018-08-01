@@ -1,0 +1,187 @@
+@mixin transition($time, $type, $property) {
+  transition: $time $type $property;
+  -moz-transition: $time $type $property;
+  -webkit-transition: $time $type $property;
+}
+
+.animation-container {
+  width:100vw;
+  height: calc(100vh + 1px);
+  background-color:white;
+  display: flex;
+  align-items:center;
+  @include transition(0.6s, ease, height);
+  border-bottom: 1px solid grey;
+}
+
+.animation-content {
+  @include transition(0.4s, ease, opacity);
+  background:url('https://www.designyourway.net/diverse/drawtuts/drawing-the-human-eye.jpg') -25px -50px;
+  background-repeat:no-repeat;
+  width:400px;
+  height:400px;
+  margin:0 auto;
+  background-size: calc(100% + 50px);
+}
+
+.completed {
+  height:200px;
+  .animation-content {
+    height:100%;
+  }
+}
+.hidden {
+  opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//@mixin border-radius($radius) {
+//  border-radius: $radius;
+//  -moz-border-radius: $radius;
+//  -webkit-border-radius: $radius;
+//}
+//@mixin box-shadow($shadow) {
+//  box-shadow: $shadow;
+//  -moz-box-shadow: $shadow;
+//  -webkit-box-shadow: $shadow;
+//}
+
+//@mixin background() {
+//
+//  background-position:center center;
+//  background-repeat:no-repeat;
+//  background-size:cover;
+//}
+//$black:#1e1e1e;
+//$blackSubtitle:#4c4c4c;
+//.displayable {
+//  //display:none;
+//}
+//
+//
+//
+//  .image {
+//    display:inline-block;
+//    margin:15px;
+//    width:250px;
+//    background-color:white;
+//    @include border-radius(5px 5px 3px 3px);
+//    @include box-shadow(0px 2px 3px 1px #cecece);
+//    //border:1px solid #cecece;
+//    .img {
+//      height:210px;
+//      width:100%;
+//      background-color:white;
+//      @include background();
+//      @include border-radius(3px 3px 0 0);
+//
+//      a {
+//        display:block;
+//        width:100%;
+//        height:100%;
+//
+//        .img-cover {
+//          background-color:rgba(40,40,40,0.0);
+//          width:100%;
+//          height:100%;
+//          @include border-radius(3px 3px 0 0);
+//          @include transition(0.2s, ease, background-color);
+//        }
+//      }
+//    }
+//
+//    .img:hover > a > .img-cover {
+//      background-color:rgba(40,40,40,0.2);
+//    }
+//
+//    .title {
+//      padding:20px 10px 5px 10px;
+//      a{
+//        color:$black;
+//        text-decoration:none;
+//        font-weight:700;
+//        font-size:14px;
+//      }
+//      a:hover {
+//        color:#383838;
+//      }
+//    }
+//
+//    .subtitle {
+//      padding:0px 10px 18px 10px;
+//      a{
+//        color:$blackSubtitle;
+//        text-decoration:none;
+//        font-size:13px;
+//        display:inline-block;
+//
+//        .avatar {
+//          display:inline-block;
+//          width:16px;
+//          height:16px;
+//          margin:0 3px -3px 0;
+//          @include border-radius(8px);
+//          @include background();
+//
+//          .avatar-cover {
+//            display: block;
+//            width: 100%;
+//            height: 100%;
+//            @include border-radius(50%);
+//            background-color: rgba(40, 40, 40, 0.0);
+//            @include transition(0.2s, ease, background-color);
+//          }
+//        }
+//      }
+//      a:hover {
+//        color:#636363;
+//
+//        .avatar > .avatar-cover {
+//          background-color: rgba(40, 40, 40, 0.2);
+//        }
+//      }
+//      a:nth-of-type(2) {
+//        float:right;
+//      }
+//    }
+//  }
+
+//app-menu {
+//  width: 100%;
+//  height:100%;
+//}
+//  .square {
+//    width:250px;
+//    height:300px;
+//    //margin:15px;
+//    background-color:red;
+//  }
+//
+//.grid-wrapper {
+//  display: grid;
+//  grid-template-columns: 250px 250px 250px;
+//  margin:0 auto;
+//  grid-gap: 20px;
+//}
+//.centered {
+//  display:inline-block;
+//  margin: 0 auto;
+//}
+//.container{
+//  text-align: center;
+//}

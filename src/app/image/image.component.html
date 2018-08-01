@@ -1,0 +1,51 @@
+<div class="photo-centered">
+  <div class="photo">
+    <img src="http://localhost/rysujemy/assets/art/{{image.img_src}}"/>
+    <div class="photo-content">
+      <div class="header">
+        <span class="title">{{image.title}}</span>
+        <!--<span class="likes">lajki</span>-->
+      </div>
+      <p>
+        {{image.description}}
+      </p>
+      <p class="pv2">Dodano: {{image.date}} przez <a routerLink="/user/{{image.user_link}}">{{image.user_name}}</a></p>
+      <p class="comment-title">Komentarze ({{numberOfComments}})</p>
+      <!--<div class="add-comment">-->
+        <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">
+        <span class="avatar"></span>
+          <textarea id="text" name="text" ngModel></textarea>
+        <button>Wyślij</button>
+        </form>
+
+        <div class="alert alert-success alert-dismissible fade" role="alert">
+          <span>Komentarz został wysłany.</span>
+          <button (click)="fade(0)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade" role="alert">
+          <span>Proszę wypełnić pole.</span>
+          <button (click)="fade(1)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <!--</div>-->
+
+
+      <div class="comment" *ngFor="let comment of comments">
+        <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+comment.avatar_src+')'}"><a routerLink="/user/{{comment.link}}">
+          <div class="img-cover"></div>
+        </a></div>
+        <div class="content">
+          <span class="author"><a routerLink="/user/{{comment.user_name}}">{{comment.user_name}}</a></span>
+          <span class="date">{{comment.date}}</span>
+          <p>
+            {{comment.content}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear:both"></div>
+</div>

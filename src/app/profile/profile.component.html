@@ -1,0 +1,24 @@
+<div class="user">
+  <div class="background" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+person.background_src+')'}">
+
+    <div class="buttons">
+      <button class="btn btn-sm">Obserwuj</button>
+      <button class="btn btn-sm">Wyślij wiadomość</button>
+    </div>
+    <div class="background-bottom">
+      <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+person.avatar_src+')'}">
+      </div>
+      <!--<ul>-->
+        <!--<li><h1><p (click)="onClick('gallery')">{{person.name}}</p></h1></li>-->
+        <!--<li><h3><p (click)="onClick('gallery')">Galeria</p></h3></li>-->
+        <!--<li><h3><p (click)="onClick('information')">Informacje</p></h3></li>-->
+      <!--</ul>-->
+    </div>
+  </div>
+  <div class="user-content">
+    <!--<app-gallery *ngIf="section=='gallery'"></app-gallery>-->
+    <!--<app-information *ngIf="section=='information'"></app-information>-->
+    <!--<app-followed *ngIf="section=='followed'"></app-followed>-->
+  </div>
+
+</div>

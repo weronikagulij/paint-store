@@ -1,0 +1,172 @@
+$white:#f2f3f4;
+$black:#1e1e1e;
+$blackSubtitle:#4c4c4c;
+$linkColor:red;
+$avatarSize:40px;
+$padding:20px;
+$radius:5px;
+@mixin border-radius($radius) {
+  border-radius: $radius;
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+}
+
+@mixin box-shadow($shadow) {
+  box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  -webkit-box-shadow: $shadow;
+}
+
+@mixin transition($time, $type, $property) {
+  transition: $time $type $property;
+  -moz-transition: $time $type $property;
+  -webkit-transition: $time $type $property;
+}
+
+@mixin background() {
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+  .photo-centered {
+    margin:0 auto;
+    max-width:1000px;
+    margin:20px auto;
+    padding:20px;
+  }
+/*
+.img-cover {
+
+  background-color:rgba(40,40,40,0.0);
+  width:100%;
+  height:100%;
+  @include transition(0.2s, ease, background-color);
+}
+
+a:hover > .img-cover {
+  background-color:rgba(40,40,40,0.2);
+}
+*/
+
+.photo {
+  font-size:13px;
+  float:left;
+  background-color:white;
+  color:$black;
+  @include border-radius($radius);
+  //@include box-shadow(0px 2px 3px 1px #cecece);
+
+  .photo-content {
+    padding:10px $padding;
+    text-align:justify;
+
+    .header > .title {
+      font-size:20px;
+      font-weight:bold;
+      margin:25px 0 10px;
+      display:inline-block;
+    }
+    .comment-title {
+      font-size:15px;
+      margin:40px 0 30px 0;
+    }
+
+    .pv2 {
+      font-size:12px;
+      margin-top:10px;
+    }
+
+    .comment {
+
+      display:flex;
+      flex-wrap: wrap;
+      margin:40px 0;
+
+      .avatar {
+        display:inline-block;
+        margin-top:3px;
+        margin-right:$padding - 5px;
+        width:$avatarSize;
+        height:$avatarSize;
+        @include border-radius($avatarSize*0.5);
+        background-color:lightgrey;
+        background-position:center center;
+        background-repeat:no-repeat;
+        background-size:cover;
+
+        a {
+          display:block;
+          width:100%;
+          height:100%;
+
+          .img-cover {
+            @include border-radius(50%);
+          }
+        }
+      }
+
+
+
+      .content {
+
+        display:inline-block;
+        width:calc(100% - 55px);
+
+        .author > a {
+          color:$black;
+          text-decoration:none;
+          font-weight:bold;
+        }
+        .author > a:hover {
+          color:$linkColor;
+        }
+        .date {
+          font-size:12px;
+        }
+        p {
+          display:inline-block;
+          margin-top:10px;
+        }
+      }
+    }
+
+    .add-comment {
+
+      .avatar {
+        display:inline-block;
+        width:$avatarSize;
+        height:$avatarSize;
+        @include border-radius($avatarSize*0.5);
+        margin-right:15px;
+        margin-bottom:60px-$avatarSize;
+        background-color:grey;
+      }
+
+      textarea {
+        border: 1px solid #cccccc;
+        width:calc(100% - 55px);
+        height:60px;
+        resize:none;
+        @include border-radius(3px);
+      }
+
+      button {
+        margin-top:5px;
+        font-size:11px;
+        text-transform:uppercase;
+        display:inline-block;
+        float:right;
+      }
+
+    }
+
+  }
+
+  img {
+    width:100%;
+    @include border-radius($radius $radius 0 0);
+  }
+
+
+}
