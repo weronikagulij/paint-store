@@ -1,72 +1,43 @@
-
-
-
-    <!--<div class="centered">-->
-      <!--<div class="image" *ngFor="let image of images">-->
-        <!--<div class="img" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/art/'+image.img_src+')'}">-->
-          <!--<a routerLink="image/{{image.img_link}}">-->
-            <!--<div class="img-cover"></div>-->
-
-          <!--</a>-->
-        <!--</div>-->
-        <!--<div class="title">-->
-          <!--<a routerLink="image/{{image.img_link}}">{{image.name}}</a>-->
-        <!--</div>-->
-        <!--<div class="subtitle">-->
-          <!--<a routerLink="user/{{image.user_link}}">-->
-            <!--<span class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+image.avatar_src+')'}"><span class="avatar-cover"></span></span>-->
-            <!--{{image.user_link}}-->
-          <!--</a>-->
-          <!--&lt;!&ndash;<a href="user/{{image.user_link}}">123 ♥</a>&ndash;&gt;-->
-          <!--<div class="clear:both"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-
-
-
-
-
-
-
-
-
-      <!--<div class="image">-->
-        <!--<div class="img">-->
-          <!--<a routerLink="#">-->
-            <!--<div class="img-cover"></div>-->
-
-          <!--</a>-->
-        <!--</div>-->
-        <!--<div class="title">-->
-          <!--<a routerLink="#">Aaa nazwa</a>-->
-        <!--</div>-->
-        <!--<div class="subtitle">-->
-          <!--<a routerLink="#">-->
-            <!--<span class="avatar"><span class="avatar-cover"></span></span>-->
-            <!--User link-->
-          <!--</a>-->
-          <!--&lt;!&ndash;<a href="user/{{image.user_link}}">123 ♥</a>&ndash;&gt;-->
-          <!--<div class="clear:both"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="container">-->
-      <!--<div class="centered">-->
-        <!--<div class="grid-wrapper">-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-          <!--<div class="square"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="animation-container">
+<app-menu-left></app-menu-left>
+<app-menu></app-menu>
+    <div class="container">
+      <div class="centered">
+        <ul class="menu-list">
+          <li><a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact: true}">Followed</a></li>
+          <li><a routerLinkActive="active" routerLink="/trending">Trending</a></li>
+          <li><a routerLinkActive="active" routerLink="/recent">Recent</a></li>
+        </ul>
+        <div class="image-wrapper">
+          <div class="image-element">
+            <div class="image-cropped">
+              <a routerLink="">
+                <img src="https://via.placeholder.com/320x250">
+              </a>
+            </div>
+            <div class="image-info">
+              <h3><a href="">Otherside</a></h3>
+              <span class="image-author">
+                <a class="image-avatar" href="">
+                  <img src="https://via.placeholder.com/22x22">
+                </a>
+                <a href="">Red Hot Chili Peppers</a>
+              </span>
+            </div>
+          </div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+          <div class="image-element"></div>
+        </div>
+      </div>
+    </div>
+    <!-- ANIMATION -->
+    <!-- <div class="animation-container completed">
       <div class="animation-content">
         <h1 class="title">rysujemy</h1>
       </div>
-    </div>
+    </div> -->
 

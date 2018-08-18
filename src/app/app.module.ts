@@ -21,6 +21,7 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MenuLeftComponent } from './homepage/menu-left/menu-left.component';
 
 const appRoutes: Routes = [
   {
@@ -32,6 +33,14 @@ const appRoutes: Routes = [
   //   redirectTo: '/login',
   //   pathMatch: 'full'
   // },
+  {
+    path: 'trending',
+    component: HomepageComponent
+  },
+  {
+    path: 'recent',
+    component: HomepageComponent
+  },
   {
     path: 'image/:id',
     component: ImageComponent
@@ -45,7 +54,7 @@ const appRoutes: Routes = [
     component: ProfileComponent
   },
   {
-    path: 'upload_image',
+    path: 'upload-image',
     component: AddPhotoComponent
   },
   {
@@ -85,7 +94,8 @@ const appRoutes: Routes = [
     SignInComponent,
     SignUpComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    MenuLeftComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

@@ -1,0 +1,99 @@
+import { Component, OnInit, ViewChild, ViewChildren, Renderer2, ElementRef, AfterViewInit, QueryList } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-menu-left',
+  templateUrl: './menu-left.component.html',
+  styleUrls: ['./menu-left.component.scss']
+})
+export class MenuLeftComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('menuLeft') menuLeft: ElementRef;
+  @ViewChildren('li') li: QueryList<ElementRef>;
+  private categoryList = ['cat1', 'cat2', 'cat3', 'cat4'];
+  private queryParams = {
+    categories: []
+  }
+
+  constructor(private renderer: Renderer2, private router: Router, private route: ActivatedRoute) { }
+
+  ngAfterViewInit() {
+    // bind events to menuLeft
+    this.renderer.listen(this.menuLeft.nativeElement, 'mouseenter', () => {
+      this.renderer.addClass(this.menuLeft.nativeElement, 'opened');
+    });
+    this.renderer.listen(this.menuLeft.nativeElement, 'mouseleave', () => {
+      this.renderer.removeClass(this.menuLeft.nativeElement, 'opened');
+    });
+
+    this.li.forEach((li, index) => {
+      this.renderer.listen(li.nativeElement, 'click', () => {
+        this.setQueryParamsAndRedirect(index);
+      });
+    });
+  }
+
+  ngOnInit() {
+    // set categories after reload
+    this.checkCategoriesByPath();
+
+    // set li elements active if change path
+    //...
+  }
+
+  setQueryParamsAndRedirect(index) {
+    // set query params
+    let listElement = this.categoryList[index];
+
+    if(this.queryParams.categories.includes(listElement)) {
+      // remove element from an array
+      let indexInCategories = this.queryParams.categories.indexOf(listElement);
+      if (indexInCategories !== -1) this.queryParams.categories.splice(indexInCategories, 1);
+    } else {
+      // add element to an array
+      this.queryParams.categories.push(listElement);
+    }
+
+    console.log(this.queryParams.categories);
+
+    // redirect
+    let url = this.separateRoute();
+    if(url === '') {
+      this.router.navigate(['/'], { queryParams: this.queryParams });
+    } else {
+      this.router.navigate(['/', url], { queryParams: this.queryParams });
+    }
+  }
+
+  separateRoute() {
+    let url = '';
+    for(let i = 1; i < this.router.url.length && this.router.url[i] !== '?'; i++) {
+      url += this.router.url[i];
+    }
+    return url;
+  }
+
+  checkCategoriesByPath() {
+    // this.queryParams.categories = this.route.snapshot.queryParams['categories'];
+    // console.log(this.queryParams.categories);
+    console.log(this.route.snapshot.queryParams['categories']);
+    let tempParams = this.route.snapshot.queryParams['categories'];
+    if(Array.isArray(tempParams)) {
+      this.queryParams.categories = tempParams;
+    } else {
+      let paramsArray = [];
+      paramsArray.push(tempParams)
+      this.queryParams.categories = paramsArray;
+    }
+    console.log(this.queryParams.categories);
+    // this.route.queryParams
+    //   .subscribe(params => {
+    //     console.log(params); // {order: "popular"}
+    //     let paramsArray = [];
+    //     paramsArray.push(params.categories)
+    //     this.queryParams.categories = paramsArray;
+    //     console.log(this.queryParams); // popular
+    //   });
+  }
+
+}
