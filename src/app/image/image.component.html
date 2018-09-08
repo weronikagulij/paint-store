@@ -9,7 +9,7 @@
       <p>
         {{image.description}}
       </p>
-      <p class="pv2">Dodano: {{image.date}} przez <a routerLink="/user/{{image.user_link}}">{{image.user_name}}</a></p>
+      <p class="pv2">Dodano: {{image.date}} przez <a routerLink="/user/{{image.user_link}}">{{image.ownerPath}}</a></p>
       <p class="comment-title">Komentarze ({{numberOfComments}})</p>
       <!--<div class="add-comment">-->
         <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">

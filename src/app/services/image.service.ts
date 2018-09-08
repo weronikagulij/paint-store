@@ -11,8 +11,8 @@ export class ImageService {
     return this._http.get('http://localhost/rysujemy/selectImages.php');
   }
 
-  public ImageByPath(path: string) {
-    return this._http.post('http://localhost/rysujemy/selectImageById.php', path);
+  public ImageByPath(path: any) {
+    return this._http.post('http://localhost:5000/api/ImageGet', path);
   }
 
   public CommentsByImgPath(path: string) {

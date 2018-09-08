@@ -21,10 +21,10 @@ export class ImageComponent implements OnInit {
   constructor(private service: ImageService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.service.ImageByPath(this.route.snapshot.params.id)
+    this.service.ImageByPath({ImgLink: this.route.snapshot.params.id})
        .subscribe(res => {
          this.image = res[0];
-         //console.log(res);
+         console.log("KUPA", res);
        });
     this.service.CommentsByImgPath(this.route.snapshot.params.id)
       .subscribe(res => {
