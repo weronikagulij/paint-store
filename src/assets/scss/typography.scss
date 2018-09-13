@@ -1,5 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,600");
 
-html, body {
-    font-family: 'Montserrat', sans-serif;
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  font-size: 25px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+.content-secondary {
+  color: $color-light-grey;
+  font-size: 14px;
+
+  a {
+    display: inline-block;
+  }
 }

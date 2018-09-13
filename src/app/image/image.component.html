@@ -1,21 +1,27 @@
 <div class="photo-centered">
   <div class="photo">
-    <img src="http://localhost/rysujemy/assets/art/{{image.img_src}}"/>
+    <!-- <img src="http://localhost/rysujemy/assets/art/{{image.img_src}}"/> -->
+    <img src="https://via.placeholder.com/320x250">
     <div class="photo-content">
-      <div class="header">
-        <span class="title">{{image.title}}</span>
-        <!--<span class="likes">lajki</span>-->
+      <div class="photo-header">
+        <!-- <span class="title">{{image.title}} Random Title</span> -->
+        <p class="content-secondary">Added 20.20.2000 by <a routerLink="}">Ania</a></p>
+        <h2>Random Title</h2>
+        <!-- <p>
+        {{image.description}} Random Description
+      </p> -->
+        <p>
+          Random Description
+        </p>
+        <!-- <p class="pv2">Added {{image.content-secondary}} by <a routerLink="/user/{{image.user_link}}">{{image.ownerPath}}</a></p> -->
+
       </div>
-      <p>
-        {{image.description}}
-      </p>
-      <p class="pv2">Dodano: {{image.date}} przez <a routerLink="/user/{{image.user_link}}">{{image.ownerPath}}</a></p>
-      <p class="comment-title">Komentarze ({{numberOfComments}})</p>
-      <!--<div class="add-comment">-->
+      <p class="comment-title">Comments (1)</p>
+      <div class="add-comment">
         <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">
-        <span class="avatar"></span>
+          <span class="avatar"></span>
           <textarea id="text" name="text" ngModel></textarea>
-        <button>Wyślij</button>
+          <button>Wyślij</button>
         </form>
 
         <div class="alert alert-success alert-dismissible fade" role="alert">
@@ -30,19 +36,82 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-      <!--</div>-->
+      </div>
 
 
-      <div class="comment" *ngFor="let comment of comments">
-        <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+comment.avatar_src+')'}"><a routerLink="/user/{{comment.link}}">
-          <div class="img-cover"></div>
-        </a></div>
-        <div class="content">
+      <!-- <div class="comment" *ngFor="let comment of comments">
+        <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+comment.avatar_src+')'}"><a
+            routerLink="/user/{{comment.link}}">
+            <div class="img-cover"></div>
+          </a></div>
+        <div class="comment-content">
           <span class="author"><a routerLink="/user/{{comment.user_name}}">{{comment.user_name}}</a></span>
-          <span class="date">{{comment.date}}</span>
+          <span class="content-secondary">{{comment.content-secondary}}</span>
           <p>
             {{comment.content}}
           </p>
+        </div>
+      </div> -->
+      <div class="comments-group">
+
+
+
+        <div class="comment">
+          <div class="image-author">
+            <a class="image-avatar" href="">
+              <img src="https://via.placeholder.com/40x40">
+            </a>
+          </div>
+          <div class="comment-content">
+            <h4 class="author"><a routerLink="">UserName</a></h4>
+            <p class="content-secondary">20.20.2000</p>
+            <p>
+              LOLOL
+            </p>
+          </div>
+        </div>
+
+        <div class="comment">
+          <div class="image-author">
+            <a class="image-avatar" href="">
+              <img src="https://via.placeholder.com/40x40">
+            </a>
+          </div>
+          <div class="comment-content">
+            <h4 class="author"><a routerLink="">UserName</a></h4>
+            <p class="content-secondary">20.20.2000</p>
+            <p>
+              LOLOL
+            </p>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="image-author">
+            <a class="image-avatar" href="">
+              <img src="https://via.placeholder.com/40x40">
+            </a>
+          </div>
+          <div class="comment-content">
+            <h4 class="author"><a routerLink="">UserName</a></h4>
+            <p class="content-secondary">20.20.2000</p>
+            <p>
+              LOLOL
+            </p>
+          </div>
+        </div>
+        <div class="comment">
+          <div class="image-author">
+            <a class="image-avatar" href="">
+              <img src="https://via.placeholder.com/40x40">
+            </a>
+          </div>
+          <div class="comment-content">
+            <h4 class="author"><a routerLink="">UserName</a></h4>
+            <p class="content-secondary">20.20.2000</p>
+            <p>
+              LOLOL
+            </p>
+          </div>
         </div>
       </div>
     </div>
