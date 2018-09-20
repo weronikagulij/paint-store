@@ -1,24 +1,93 @@
-<div class="user">
-  <div class="background" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+person.background_src+')'}">
+<app-menu></app-menu>
+<div class="centered-profile">
+  <div class="flex-wrapper">
+    <div class="profile-introduction-container">
+      <div class="profile-introduction">
+        <div class="profile-section">
+          <div class="image-with-description">
+            <div class="avatar-container huge-avatar">
+              <a class="avatar-link" href="">
+                <img src="https://via.placeholder.com/70x70">
+              </a>
+            </div>
 
-    <div class="buttons">
-      <button class="btn btn-sm">Obserwuj</button>
-      <button class="btn btn-sm">Wyślij wiadomość</button>
-    </div>
-    <div class="background-bottom">
-      <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+person.avatar_src+')'}">
+            <div class="description">
+              <h2><a href="">John Doe</a></h2>
+              <p class="content-secondary">I liverpool</p>
+            </div>
+          </div>
+
+          <div class="buttons-wrapper">
+            <button type="button" area-label="follow" class="button-colored">I Follow</button>
+            <button type="button" area-label="follow" class="button-colored default">I Send message</button>
+          </div>
+        </div>
+
+        <div class="profile-section about-section">
+          <h3>About</h3>
+          <p class="content-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et
+            dolore magna aliqua. </p>
+        </div>
+
+        <div class="profile-section statistic-section">
+          <h3>Statistics</h3>
+          <p class="content-secondary">
+            <span>Following</span>
+            <span>13</span>
+          </p>
+          <p class="content-secondary">
+            <span>Followed by</span>
+            <span>120</span>
+          </p>
+          <p class="content-secondary">
+            <span>Likes</span>
+            <span>120</span>
+          </p>
+          <p class="content-secondary">
+            <span>Most popular technique</span>
+            <span>Paint</span>
+          </p>
+        </div>
       </div>
-      <!--<ul>-->
-        <!--<li><h1><p (click)="onClick('gallery')">{{person.name}}</p></h1></li>-->
-        <!--<li><h3><p (click)="onClick('gallery')">Galeria</p></h3></li>-->
-        <!--<li><h3><p (click)="onClick('information')">Informacje</p></h3></li>-->
-      <!--</ul>-->
+    </div>
+    <div class="profile-images-container">
+
+      <ul class="menu-list">
+        <li><a routerLinkActive="active" routerLink="#">Trending</a></li>
+        <li><a routerLinkActive="active" routerLink="#">Recent</a></li>
+      </ul>
+      <div class="image-wrapper">
+
+
+        <div class="image-element">
+          <div class="image-cropped">
+            <a routerLink="image/randomImage">
+              <img src="https://via.placeholder.com/320x250">
+            </a>
+          </div>
+          <div class="image-info">
+            <h3><a href="">Otherside</a></h3>
+            <div class="image-author">
+              <div class="avatar-container">
+                <a class="avatar-link" href="">
+                  <img src="https://via.placeholder.com/22x22">
+                </a>
+              </div>
+              <div class="image-author-name">
+                <a href="">Red Hot Chili Peppers</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="image-element"></div>
+        <div class="image-element"></div>
+        <div class="image-element"></div>
+        <div class="image-element"></div>
+        <div class="image-element"></div>
+
+      </div>
     </div>
   </div>
-  <div class="user-content">
-    <!--<app-gallery *ngIf="section=='gallery'"></app-gallery>-->
-    <!--<app-information *ngIf="section=='information'"></app-information>-->
-    <!--<app-followed *ngIf="section=='followed'"></app-followed>-->
-  </div>
-
 </div>

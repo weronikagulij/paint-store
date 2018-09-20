@@ -1,38 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { ImageService } from '../services/image.service';
-import * as $ from 'jquery';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ImageService } from "../services/image.service";
+import * as $ from "jquery";
+import { ActivatedRoute } from "../../../node_modules/@angular/router";
 
 @Component({
-  selector: 'app-homepage',
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss']
+  selector: "app-homepage",
+  templateUrl: "./homepage.component.html",
+  styleUrls: ["./homepage.component.scss"]
 })
 export class HomepageComponent implements OnInit {
   // private images: any = [];
-  
+
   // private animationSpeed = 500;
   // private animationDelay = 1000;
 
-  constructor(private imgService: ImageService, private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private imgService: ImageService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     // console.log(this.menuLeft.nativeElement);
     // this.params = this.activatedRoute.snapshot.queryParams;
     // console.log(this.params);
-    // this.imgService.selectImages()
-    //   .subscribe(res => {
-    //     this.images = res;
-    //     //console.log(res);
-    //   }, error => {
-    //     //console.log(error);
-    //   });
+    this.imgService.selectImages().subscribe(
+      res => {
+        // this.images = res;
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    );
     //
-    
+
     // this.animatePage();
     // $(document).one('mousewheel', this.animatePage);
-
-    
   }
 
   // animatePage() {
@@ -59,5 +62,4 @@ export class HomepageComponent implements OnInit {
   //     $('.animation-content').css("background-position", newvalueX+"px     "+newvalueY+"px");
   //   });
   // }
-
 }

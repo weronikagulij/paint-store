@@ -1,43 +1,66 @@
-<div class="photo-centered">
+<app-menu></app-menu>
+<div class="centered">
+
+  <div class="hero-img">
+    <img src="https://via.placeholder.com/1200x250" />
+  </div>
   <div class="photo">
     <!-- <img src="http://localhost/rysujemy/assets/art/{{image.img_src}}"/> -->
-    <img src="https://via.placeholder.com/320x250">
     <div class="photo-content">
+
       <div class="photo-header">
         <!-- <span class="title">{{image.title}} Random Title</span> -->
-        <p class="content-secondary">Added 20.20.2000 by <a routerLink="}">Ania</a></p>
-        <h2>Random Title</h2>
+        <p class="content-secondary">Added 20.20.2000 by <a class="author-link" routerLink="/user/ania">Ania</a></p>
+        <div class="photo-title">
+          <h2>Random Title</h2>
+          <div class="likes">123 I J</div>
+        </div>
         <!-- <p>
         {{image.description}} Random Description
       </p> -->
-        <p>
+        <p class="description">
           Random Description
+        </p>
+        <p class="photo-tags content-secondary">
+          <span class="tag-title">Category: </span><a href="">Paint</a>
+        </p>
+        <p class="photo-tags content-secondary">
+          <span class="tag-title">Tags: </span><span><a href="">tag1</a> <a href="">tag2</a> <a href="">tag3</a></span>
         </p>
         <!-- <p class="pv2">Added {{image.content-secondary}} by <a routerLink="/user/{{image.user_link}}">{{image.ownerPath}}</a></p> -->
 
       </div>
-      <p class="comment-title">Comments (1)</p>
       <div class="add-comment">
         <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">
-          <span class="avatar"></span>
-          <textarea id="text" name="text" ngModel></textarea>
-          <button>Wyślij</button>
+          <div class="flex-wrapper">
+            <div class="image-author">
+
+              <div class="avatar-container">
+                <a class="avatar-link" href="">
+                  <img src="https://via.placeholder.com/40x40">
+                </a>
+              </div>
+            </div>
+            <textarea id="text" name="text" ngModel></textarea>
+          </div>
+          <div class="button-wrapper"><button type="submit" class="button-colored">Wyślij</button></div>
         </form>
 
-        <div class="alert alert-success alert-dismissible fade" role="alert">
+        <div class="alert alert-success" role="alert">
           <span>Komentarz został wysłany.</span>
-          <button (click)="fade(0)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="alert alert-danger alert-dismissible fade" role="alert">
+        <div class="alert alert-warning" role="alert">
           <span>Proszę wypełnić pole.</span>
-          <button (click)="fade(1)" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       </div>
 
+      <p class="comment-title">Comments (1)</p>
 
       <!-- <div class="comment" *ngFor="let comment of comments">
         <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+comment.avatar_src+')'}"><a
@@ -58,9 +81,11 @@
 
         <div class="comment">
           <div class="image-author">
-            <a class="image-avatar" href="">
-              <img src="https://via.placeholder.com/40x40">
-            </a>
+            <div class="avatar-container">
+              <a class="avatar-link" href="">
+                <img src="https://via.placeholder.com/40x40">
+              </a>
+            </div>
           </div>
           <div class="comment-content">
             <h4 class="author"><a routerLink="">UserName</a></h4>
@@ -73,37 +98,11 @@
 
         <div class="comment">
           <div class="image-author">
-            <a class="image-avatar" href="">
-              <img src="https://via.placeholder.com/40x40">
-            </a>
-          </div>
-          <div class="comment-content">
-            <h4 class="author"><a routerLink="">UserName</a></h4>
-            <p class="content-secondary">20.20.2000</p>
-            <p>
-              LOLOL
-            </p>
-          </div>
-        </div>
-        <div class="comment">
-          <div class="image-author">
-            <a class="image-avatar" href="">
-              <img src="https://via.placeholder.com/40x40">
-            </a>
-          </div>
-          <div class="comment-content">
-            <h4 class="author"><a routerLink="">UserName</a></h4>
-            <p class="content-secondary">20.20.2000</p>
-            <p>
-              LOLOL
-            </p>
-          </div>
-        </div>
-        <div class="comment">
-          <div class="image-author">
-            <a class="image-avatar" href="">
-              <img src="https://via.placeholder.com/40x40">
-            </a>
+            <div class="avatar-container">
+              <a class="avatar-link" href="">
+                <img src="https://via.placeholder.com/40x40">
+              </a>
+            </div>
           </div>
           <div class="comment-content">
             <h4 class="author"><a routerLink="">UserName</a></h4>

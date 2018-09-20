@@ -3,7 +3,6 @@ $black: #333;
 $blackSubtitle: #4c4c4c;
 $color-grey: #707070;
 $color-light-grey: #787878;
-$linkColor: red;
 $avatarSize: 40px;
 $padding: 20px;
 $radius: 5px;
@@ -31,15 +30,50 @@ $radius: 5px;
   background-size: cover;
 }
 
+.centered {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.image-author {
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: 12px;
+}
+
+.avatar-container {
+  width: 40px;
+  height: 40px;
+}
+
+.hero-img {
+  background: #fff;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
+
 .photo-centered {
   margin: 0 auto;
   margin: 20px auto;
   padding: 20px;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
 a {
   color: #bb8866;
   text-decoration: none;
+}
+
+.author-link {
   font-weight: 600;
 }
 
@@ -54,25 +88,39 @@ a:hover {
     margin-top: 8px;
   }
 
-  h2 {
-    margin-bottom: 16px;
+  .content-secondary {
+    font-size: 13px;
+  }
+
+  .photo-tags {
+    font-size: 14px;
+    display: inline-block;
+    margin: 24px 16px 18px 0;
+    text-transform: lowercase;
+    a {
+      color: #787878;
+      margin-left: 4px;
+    }
+
+    span:nth-of-type(1) {
+      font-weight: 600;
+    }
   }
 }
 
 .comment-title {
   color: $color-grey;
-  margin: 32px 0 32px 0;
 }
 
 .comment-content {
-  .author > a {
+  a {
     color: $black;
     text-decoration: none;
     font-weight: bold;
-  }
 
-  .author > a:hover {
-    color: $linkColor;
+    &:hover {
+      color: #474747;
+    }
   }
 
   p:nth-of-type(2) {
@@ -99,32 +147,34 @@ a:hover {
   }
 }
 
-.image-author {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 12px;
-  flex-grow: 0;
-  flex-shrink: 0;
+.likes {
+  color: #787878;
+}
 
-  a {
-    display: block;
-    width: 100%;
-    height: 100%;
+.photo-title {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+
+  h2,
+  p,
+  span {
+    margin-top: 0;
   }
 }
 
 .photo {
   background-color: white;
   color: $black;
-  @include border-radius($radius);
+  overflow: hidden;
 
   .photo-content {
     padding: 10px $padding;
     text-align: justify;
 
     .add-comment {
+      margin: 5px 0;
+
       .avatar {
         display: inline-block;
         width: $avatarSize;
@@ -136,25 +186,23 @@ a:hover {
       }
 
       textarea {
-        border: 1px solid #cccccc;
+        border: 1px solid #e4e4e4;
         width: calc(100% - 55px);
         height: 60px;
         resize: none;
         @include border-radius(3px);
-      }
-
-      button {
-        margin-top: 5px;
-        font-size: 11px;
-        text-transform: uppercase;
-        display: inline-block;
-        float: right;
       }
     }
   }
 
   img {
     width: 100%;
-    @include border-radius($radius $radius 0 0);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .centered {
+    margin-bottom: 0;
+    margin-top: 0;
   }
 }

@@ -14,7 +14,7 @@ menu {
   height: 70px;
 
   a {
-    color:  #727272;
+    color: #727272;
   }
 
   .icon-mail-alt {
@@ -45,7 +45,6 @@ menu {
     padding-right: 0;
     a {
       color: #111;
-
     }
     img {
       border-radius: 15px;
@@ -69,7 +68,6 @@ menu {
   // display: none;
 }
 
-
 .menu-user {
   position: relative;
 }
@@ -80,7 +78,7 @@ menu {
   right: 0;
   background: #fff;
   font-size: 15px;
-  width: 240px;
+  width: 225px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 5px 5px;
   height: 0;
@@ -89,7 +87,7 @@ menu {
 
   a {
     display: block;
-    width: 100%;        
+    width: 100%;
   }
 
   .splitter {
@@ -115,17 +113,16 @@ menu {
   a {
     color: #333;
     transition: color ease 0.7s;
-    
+
     i {
       color: #333;
     }
   }
 
   a:hover {
-    color: #7f7f7f; 
+    color: #7f7f7f;
   }
 }
-
 
 .container-menu .menu-user:hover .menu-toggled {
   height: 184px;
@@ -140,5 +137,5 @@ menu {
 }
 
 .container-menu .menu-toggle-down:focus + .menu-toggled {
-  height: 184px;  
+  height: 184px;
 }

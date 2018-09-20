@@ -1,30 +1,51 @@
-<h3>File upload</h3>
+<app-menu></app-menu>
+<div class="upload-centered">
+
+  <h2>Upload a file</h2>
 
 
-<form #imgUpload="ngForm" (ngSubmit)="onFormUpload(imgUpload)">
+  <form #imgUpload="ngForm" (ngSubmit)="onFormUpload(imgUpload)">
 
-  <input type="text" id="title" name="title" placeholder="Tytuł" ngModel/>
+    <div class="flex-wrapper">
+      <div class="image-description">
+        <input type="text" id="title" name="title" placeholder="Tytuł" ngModel />
+        <textarea name="description" id="description" ngModel></textarea>
 
-  <label for="description"></label>
-  <textarea name="description" id="description" ngModel></textarea>
+        <div class="categories-wrapper">
+          <label for="category">Choose category: </label>
+          <select id="category" ngModel>
+            <option value="cat1">Cat 1</option>
+            <option value="Cat 2">Cat 2</option>
+            <option value="Cat 3">Cat 3</option>
+            <option value="Cat 4">Cat 4</option>
+          </select>
+        </div>
 
-  <input type="file" (change)="onFileSelected($event)" name="image" ngModel>
+        <tag-input [maxItems]="'10'" [addOnPaste]="'true'" [animationDuration]="{enter: '0ms', leave: '0ms'}"
+          [placeholder]="'Press Enter to add item'"></tag-input>
+      </div>
+      <div class="image-file">
+        <input type="file" (change)="onFileSelected($event)" name="image" id="image" ngModel>
+        <label for="image"></label>
+      </div>
+    </div>
+    <button>Submit</button>
 
-  <button>Submit</button>
-
-</form>
+  </form>
 
 
-<div class="alert alert-success alert-dismissible fade" role="alert">
-  <span>Zdjęce zostało wysłane.</span>
-  <button (click)="fade(0)" type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
+  <div class="alert alert-success alert-dismissible fade" role="alert">
+    <span>Zdjęce zostało wysłane.</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-<div class="alert alert-danger alert-dismissible fade" role="alert">
-  <span>{{validationText}}</span>
-  <button (click)="fade(1)" type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <div class="alert alert-danger alert-dismissible fade" role="alert">
+    <span>{{validationText}}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
 </div>

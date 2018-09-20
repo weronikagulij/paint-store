@@ -1,31 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule} from '@angular/common/http';
-import { FormsModule} from '@angular/forms';
-// import { NbThemeModule } from '@nebular/theme';
-// import { NbSidebarModule, NbLayoutModule, NbSidebarService } from '@nebular/theme';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { HttpClientModule } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TagInputModule } from "ngx-chips";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { AppComponent } from './app.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { ImageComponent } from './image/image.component';
-import { MessagesComponent } from './messages/messages.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { SearchComponent } from './search/search.component';
-import { UserComponent } from './user/user.component';
-import { ImageService } from './services/image.service';
-import { AddPhotoComponent } from './add-photo/add-photo.component';
-import { MenuComponent } from './menu/menu.component';
-import { RegisterComponent } from './register/register.component';
-import { SignInComponent } from './user/sign-in/sign-in.component';
-import { SignUpComponent } from './user/sign-up/sign-up.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { MenuLeftComponent } from './homepage/menu-left/menu-left.component';
+import { AppComponent } from "./app.component";
+import { HomepageComponent } from "./homepage/homepage.component";
+import { ImageComponent } from "./image/image.component";
+import { MessagesComponent } from "./messages/messages.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { SearchComponent } from "./search/search.component";
+import { UserComponent } from "./user/user.component";
+import { ImageService } from "./services/image.service";
+import { AddPhotoComponent } from "./add-photo/add-photo.component";
+import { MenuComponent } from "./menu/menu.component";
+import { RegisterComponent } from "./register/register.component";
+import { SignInComponent } from "./user/sign-in/sign-in.component";
+import { SignUpComponent } from "./user/sign-up/sign-up.component";
+import { HomeComponent } from "./home/home.component";
+import { ProfileComponent } from "./profile/profile.component";
+import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
 
 const appRoutes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomepageComponent
   },
   // {
@@ -34,50 +34,58 @@ const appRoutes: Routes = [
   //   pathMatch: 'full'
   // },
   {
-    path: 'trending',
+    path: "trending",
     component: HomepageComponent
   },
   {
-    path: 'recent',
+    path: "recent",
     component: HomepageComponent
   },
   {
-    path: 'image/:id',
+    path: "image/:id",
     component: ImageComponent
   },
   {
-    path: 'messages',
+    path: "messages",
     component: MessagesComponent
   },
   {
-    path: 'user/:id',
+    path: "user/:id",
     component: ProfileComponent
   },
   {
-    path: 'upload-image',
+    path: "upload-image",
     component: AddPhotoComponent
   },
   {
-    path: 'signup',
-    component: UserComponent,
-    children: [{
-      path: '', component: SignUpComponent
-    }]
+    path: "homepage",
+    component: UserComponent
   },
   {
-    path: 'login',
+    path: "sign-up",
     component: UserComponent,
-    children: [{
-      path:'', component: SignInComponent
-    }]
+    children: [
+      {
+        path: "",
+        component: SignUpComponent
+      }
+    ]
   },
   {
-    path: '**',
+    path: "sign-in",
+    component: UserComponent,
+    children: [
+      {
+        path: "",
+        component: SignInComponent
+      }
+    ]
+  },
+  {
+    path: "**",
     component: NotFoundComponent
   }
 ];
-
-
 
 @NgModule({
   declarations: [
@@ -99,16 +107,14 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
-    // NbLayoutModule,
-    // NbSidebarModule,
-   // NbThemeModule.forRoot({ name: 'cosmic' }), // or cosmic for other theme
+    TagInputModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
-    HttpClientModule,
-    FormsModule
+    HttpClientModule
   ],
-  providers: [//NbSidebarService
-    ImageService
-  ],
+  providers: [ImageService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
