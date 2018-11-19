@@ -1,10 +1,16 @@
+$color-grey: #707070;
+
+h2 {
+  margin-bottom: 30px;
+}
+
 .upload-centered {
   background: #fff;
   margin: 30px auto;
   max-width: 1000px;
   border-radius: 3px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  padding: 20px 40px;
+  padding: 30px 40px;
 }
 .flex-wrapper {
   justify-content: space-between;
@@ -32,18 +38,87 @@ select {
 textarea {
   border: 2px solid #efefef;
 }
-.categories-wrapper {
-  display: flex;
+.label-wrapper {
+  display: block;
 
-  select {
-    flex-grow: 1;
+  label {
+    display: block;
   }
+  // select {
+  //   flex-grow: 1;
+  // }
+}
+
+input,
+textarea,
+select,
+option {
+  color: #444;
+}
+
+input,
+textarea,
+select,
+button,
+option {
+  font-family: "Roboto", sans-serif;
 }
 
 .image-description {
   input,
-  textarea,
-  .categories-wrapper {
-    margin-bottom: 20px;
+  textarea {
+    padding: 5px 2px;
   }
+  input,
+  textarea,
+  select {
+    margin-bottom: 16px;
+    border: 2px solid #efefef;
+  }
+  select {
+    width: 100%;
+  }
+
+  .input-description {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: $color-grey;
+  }
+}
+
+.button-colored {
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.file-input {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.file-label {
+  box-sizing: border-box;
+  height: calc(100% - 20px);
+  width: 100%;
+  border: 2px dashed #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.label-content {
+  color: #919191;
+  text-align: center;
+  font-size: 16px;
+}
+
+.label-element {
+  display: block;
+}
+
+.message {
+  display: block;
+  margin-top: 5px;
 }

@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,700");
+
+:host ::ng-deep app-menu menu {
+  box-shadow: none;
+
+  .container-menu li.menu-user {
+    display: none;
+  }
+
+  .join-us-button {
+    display: block;
+  }
+}
+
+.homepage-container {
+  padding: 0 70px;
+  font-family: "Playfair Display", serif;
+}
+
+.button-colored {
+  border-radius: 20px;
+  padding: 10px 25px;
+  margin: 40px 0 0 60px;
+}
+
+.text {
+  position: relative;
+  top: 50%;
+  transform: translateY(-60%);
+
+  p {
+    padding: 70px 0 0 60px;
+    width: 60%;
+  }
+}
+
+h4 {
+  text-align: center;
+}
+
+.title {
+  height: 140px;
+  position: relative;
+
+  h3 {
+    color: black;
+    font-size: 80px;
+    padding: 0;
+    top: 60px;
+    left: 60px;
+  }
+
+  span {
+    color: #f2f2f2;
+    font-size: 105px;
+    top: 0;
+  }
+
+  h3,
+  span {
+    position: absolute;
+  }
+}
+
+h3,
+h4 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  color: #5e5e5e;
+  font-size: 24px;
+  padding: 70px 0;
+  strong {
+    color: #333;
+    display: inline-block;
+    text-decoration: underline;
+  }
+}
+
+.white-background {
+  min-height: 100vh;
+  background: #fff;
+}
+
+.main-view {
+  height: 100vh;
+  position: relative;
+  .hands-wrapper {
+    right: 0;
+    height: 94vh;
+    top: 3vh;
+    position: absolute;
+  }
+  svg {
+    height: 100%;
+    width: auto;
+  }
+}
+.see-examples {
+  .flex-wrapper {
+    margin: 0 auto;
+    width: 890px;
+    justify-content: space-between;
+    position: relative;
+  }
+  .right-section-images {
+    position: absolute;
+    left: 490px;
+    top: 50px;
+  }
+  .left-section-images {
+    position: relative;
+  }
+  .image {
+    margin-bottom: 30px;
+
+    img {
+      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.17);
+    }
+  }
+  .content {
+    position: relative;
+    z-index: 50;
+  }
+  .content:hover + .overlay.allowVisibility {
+    opacity: 0.1;
+  }
+  .overlay.allowVisibility:hover {
+    opacity: 0.1;
+  }
+  .overlay {
+    width: 460px;
+    transform: translateX(-30px);
+    height: 75vh;
+    max-height: 600px;
+    background-image: url("../../assets/img/tlo2.png");
+    position: fixed;
+    top: 12.5vh;
+    z-index: 0;
+    opacity: 0;
+    transition-duration: 0.5s;
+  }
+}
+@keyframes opacity {
+  100% {
+    opacity: 1;
+  }
+}
+path {
+  stroke-dasharray: 300;
+  stroke-dashoffset: -300;
+  animation-duration: 0.5s;
+  animation-delay: 0s; // todo: remove!!
+  animation-name: strokeAnimation;
+  animation-fill-mode: forwards;
+}
+@mixin animation($s) {
+  @for $i from 0 to 67 {
+    path:nth-of-type(#{$i + 1}) {
+      animation-delay: #{$i/10 + $s};
+    }
+  }
+}
+.right-hand {
+  .finger1 {
+    @include animation(0s);
+  }
+  .finger2 {
+    @include animation(2s);
+  }
+  .finger3 {
+    @include animation(4.5s);
+  }
+  .finger4 {
+    @include animation(8s);
+  }
+}
+.left-hand {
+  .finger1 {
+    @include animation(23.3s); // 21.3
+  }
+  .finger2 {
+    @include animation(20.8s);
+  }
+  .finger3 {
+    @include animation(18s);
+  }
+  .finger4 {
+    @include animation(15s);
+  }
+}
+@keyframes strokeAnimation {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

@@ -12,7 +12,6 @@ import { ImageComponent } from "./image/image.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { SearchComponent } from "./search/search.component";
-import { UserComponent } from "./user/user.component";
 import { ImageService } from "./services/image.service";
 import { AddPhotoComponent } from "./add-photo/add-photo.component";
 import { MenuComponent } from "./menu/menu.component";
@@ -22,6 +21,7 @@ import { SignUpComponent } from "./user/sign-up/sign-up.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
+import { IndexComponent } from "./user/index.component";
 
 const appRoutes: Routes = [
   {
@@ -59,11 +59,11 @@ const appRoutes: Routes = [
   },
   {
     path: "homepage",
-    component: UserComponent
+    component: IndexComponent
   },
   {
     path: "sign-up",
-    component: UserComponent,
+    component: IndexComponent,
     children: [
       {
         path: "",
@@ -73,7 +73,7 @@ const appRoutes: Routes = [
   },
   {
     path: "sign-in",
-    component: UserComponent,
+    component: IndexComponent,
     children: [
       {
         path: "",
@@ -95,7 +95,6 @@ const appRoutes: Routes = [
     MessagesComponent,
     NotFoundComponent,
     SearchComponent,
-    UserComponent,
     AddPhotoComponent,
     MenuComponent,
     RegisterComponent,
@@ -103,7 +102,8 @@ const appRoutes: Routes = [
     SignUpComponent,
     HomeComponent,
     ProfileComponent,
-    MenuLeftComponent
+    MenuLeftComponent,
+    IndexComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

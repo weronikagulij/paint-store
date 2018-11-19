@@ -21,7 +21,6 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
-    "jquery": "^3.3.1",
     "ngx-chips": "^1.9.7",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26"
@@ -37,6 +36,7 @@
     "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
+    "jquery": "^3.3.1",
     "karma": "~1.7.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.0",
