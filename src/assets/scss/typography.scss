@@ -57,6 +57,7 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding-top: 70px;
+  min-height: calc(100vh - 299px);
 }
 
 .button-colored {
@@ -296,10 +297,15 @@ form .button-colored {
   box-sizing: border-box;
   width: 100%;
   border: 2px dashed #efefef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   cursor: pointer;
+
+  .label-wrapper {
+    position: relative;
+    display: block;
+    top: 50%;
+    transform: translateY(-35px);
+  }
 }
 
 .label-content {

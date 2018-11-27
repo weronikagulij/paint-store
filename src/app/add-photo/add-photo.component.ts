@@ -10,6 +10,7 @@ import {
 } from "ngx-file-drop";
 
 import * as $ from "jquery";
+import { ValidateFileForm } from "../validate-file-form";
 
 @Component({
   selector: "app-add-photo",
@@ -19,16 +20,19 @@ import * as $ from "jquery";
 export class AddPhotoComponent implements OnInit {
   // @ViewChild("dragAndDrop") dragAndDrop: ElementRef;
 
-  private file: any = [];
+  // private file: any = [];
   private formData: FormData;
   private allowedTypes = ["image/png", "image/jpeg"];
   private allowedExtensions = ["png", "jpg"];
-  private information = "";
+  private information = "Drop a file here";
   private iconsToAnimate = ["svg-upload", "svg-success", "svg-fail"];
   private elements = [];
+  public validateMessage: ValidateFileForm;
+  private file: any = null;
 
   constructor() {
     this.formData = new FormData();
+    this.validateMessage = new ValidateFileForm();
   }
 
   ngOnInit() {
@@ -37,6 +41,7 @@ export class AddPhotoComponent implements OnInit {
       this.elements.push(document.getElementsByClassName(icon)[0]);
     });
 
+    // add listeners to label
     let $fileLabel = $(".file-label");
     $fileLabel
       .on("drag dragstart dragend dragover dragenter dragleave drop", function(
@@ -50,12 +55,27 @@ export class AddPhotoComponent implements OnInit {
       .on("dragleave dragend drop", function() {
         $fileLabel.removeClass("is-dragover");
       })
-      .on("drop", this.dropped.bind(this));
+      .on("drop", e => {
+        this.file = e.originalEvent.dataTransfer.files[0];
+        this.dropped();
+      });
+
+    // if label is clicked
+    let $fileInput = $(".file-input");
+    $fileInput.on("change", () => {
+      this.file = $fileInput.prop("files")[0];
+      this.dropped();
+    });
+
+    $fileLabel.on("keyup", function(e) {
+      if (e.keyCode == 13) {
+        $fileInput.trigger("click");
+      }
+    });
   }
 
   private validateFile() {
-    const droppedFile = this.file;
-
+    let droppedFile = this.file;
     if (
       typeof droppedFile === "undefined" ||
       typeof droppedFile.type === "undefined"
@@ -92,13 +112,10 @@ export class AddPhotoComponent implements OnInit {
     };
   }
 
-  animateIcon(icon: string) {
-    // if (this.elements[0].classList.contains("start-animation")) {
-    //   this.elements[0].classList.remove("start-animation");
-    //   this.elements[0].classList.add("end-animation");
-    // }
+  private animateIcon(icon: string) {
     this.elements.forEach(element => {
       if (element.classList.contains("start-animation")) {
+        if (element.classList.contains(icon)) return;
         element.classList.remove("start-animation");
         element.classList.add("end-animation");
       }
@@ -106,21 +123,15 @@ export class AddPhotoComponent implements OnInit {
 
     setTimeout(() => {
       let el = document.getElementsByClassName(icon)[0];
-      el.classList.remove("end-animation");
+      el.classList.remove("end-animation", "hidden");
       el.classList.add("start-animation");
-    }, 600);
+    }, 300);
   }
 
-  public dropped(e) {
-    this.file = e.originalEvent.dataTransfer.files[0];
+  private dropped() {
     let validation = this.validateFile();
 
     this.information = validation.information;
-
-    // $(this.svgSuccess).addClass("start-animation");
-
-    // let element = document.getElementsByClassName("svg-success")[0];
-    // element.classList.add("start-animation");
 
     if (validation.isFileOk === false) {
       this.animateIcon("svg-fail");
@@ -128,40 +139,80 @@ export class AddPhotoComponent implements OnInit {
     } else {
       this.animateIcon("svg-success");
       this.formData.append("image", this.file);
-      // console.log(this.file);
     }
+  }
+
+  public getValidationMessage(): ValidateFileForm {
+    return this.validateMessage;
   }
 
   public getInformation(): string {
     return this.information;
   }
 
-  // public fileOver(event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   console.log(event);
-  // }
-
-  // public fileLeave(event) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   console.log(event);
-  // }
-
-  onFormUpload(form: NgForm) {
+  public onFormUpload(form: NgForm) {
+    let formOk = true;
     this.formData.append("username", "ania");
-    this.formData.append("title", form.form.value.title);
+
+    if (form.form.value.title === null || form.form.value.title.length < 3) {
+      formOk = false;
+      this.validateMessage.title = "Title must be at least 4 characters long.";
+    } else {
+      this.formData.append("title", form.form.value.title);
+      this.validateMessage.title = "";
+    }
+
     this.formData.append("description", form.form.value.description);
-    this.formData.append("category", form.form.value.category);
+
+    if (form.form.value.category === null || form.form.value.category === "") {
+      formOk = false;
+      this.validateMessage.category = "You must choose a category.";
+    } else {
+      this.formData.append("category", form.form.value.category);
+      this.validateMessage.category = "";
+    }
+
+    if (this.file === null) {
+      formOk = false;
+      this.validateMessage.file = "You must choose a file.";
+    } else this.validateMessage.file = "";
 
     // form.form.value.tags are array of objects
-    // [
-    //   {
-    //      display: "tag1",
-    //      value: "tag1"
-    //   }
-    // ]
+    // [ { display: "tag1", value: "tag1" } ]
 
     this.formData.append("tags", form.form.value.tags);
+
+    if (formOk === true) {
+      form.reset();
+      this.file = null;
+      $(".file-input")[0].value = "";
+      this.animateIcon("svg-upload");
+      this.information = "Drop a file here";
+
+      // show confirmation message
+      let el = document.getElementsByClassName("message")[0];
+      el.classList.add("visible");
+
+      // remove message after 8 seconds
+      setTimeout(() => {
+        if (el.classList.contains("visible")) {
+          el.classList.add("hidden");
+          setTimeout(() => {
+            el.classList.remove("hidden");
+            el.classList.remove("visible");
+          }, 300);
+        }
+      }, 8000);
+    }
+  }
+
+  public closeMessage(id: number) {
+    let el = document.getElementsByClassName("message")[id];
+    el.classList.add("hidden");
+
+    setTimeout(() => {
+      el.classList.remove("hidden");
+      el.classList.remove("visible");
+    }, 300);
   }
 }

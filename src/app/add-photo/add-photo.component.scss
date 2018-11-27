@@ -6,30 +6,29 @@ $color-grey: #707070;
   }
 }
 
-// :host ::ng-deep file-drop {
-//   #dropZone {
-//     border-radius: 0;
-//     box-sizing: border-box;
-//     width: 100%;
-//     border: 2px dashed #efefef;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     cursor: pointer;
-//     margin-top: 22px;
-//     height: calc(100% - 22px);
-//     outline: 0;
-//     border-color: #dddddd;
-//     transition: 0.2s;
-//   }
-// }
+.svg-wrapper {
+  width: 99.5px;
+  display: block;
+  height: 61px;
+  position: relative;
+
+  margin: 0 auto;
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
 
 .file-label {
   margin-top: 22px;
   height: calc(100% - 22px);
   transition: 0.2s;
   word-break: break-all;
-  padding: 0 20px;
+
+  .warning {
+    text-align: center;
+  }
 }
 
 .file-label.is-dragover {
@@ -54,12 +53,27 @@ $color-grey: #707070;
 }
 
 @keyframes showAnimation {
+  0% {
+    stroke-dashoffset: -300;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes showReverse {
+  0% {
+    stroke-dashoffset: 300;
+  }
   100% {
     stroke-dashoffset: 0;
   }
 }
 
 @keyframes hideAnimation {
+  100% {
+    stroke-dashoffset: 0;
+  }
   100% {
     stroke-dashoffset: 300;
   }
@@ -69,19 +83,62 @@ $color-grey: #707070;
   path,
   line,
   polyline {
+    stroke-dashoffset: 0;
     stroke-dasharray: 300;
-    animation-duration: 0.8s;
+    animation-duration: 0.6s;
     animation-delay: 0s;
     animation-fill-mode: forwards;
   }
 }
 
-.svg-icon.svg-success,
-.svg-icon.svg-fail {
+.hidden {
   path,
   line,
   polyline {
-    stroke-dashoffset: -300;
+    stroke-dashoffset: 300;
+  }
+}
+
+.svg-fail.start-animation {
+  .line1 {
+    stroke-dashoffset: 300;
+    animation-delay: 0.2s;
+  }
+
+  .line2 {
+    stroke-dashoffset: 300;
+    animation-delay: 0.1s;
+  }
+}
+
+.svg-fail.end-animation {
+  .line2 {
+    stroke-dashoffset: 0;
+    animation-delay: 0.1s;
+  }
+}
+
+.svg-success.start-animation {
+  .line2 {
+    stroke-dashoffset: 300;
+    animation-delay: 0.2s;
+  }
+}
+
+.svg-success.end-animation {
+  .line2 {
+    stroke-dashoffset: 0;
+    animation-delay: 0.2s;
+  }
+}
+
+.svg-upload.start-animation {
+  path,
+  line,
+  polyline {
+    animation-duration: 1s;
+    stroke-dashoffset: 300;
+    animation-delay: 0.2s;
   }
 }
 
@@ -109,23 +166,15 @@ h2 {
 
 .image-file .file-input {
   display: none;
-  // visibility: hidden;
-  // width: 0;
-  // height: 0;
-  // margin: 0;
-  // box-sizing: border-box;
-  // border: none;
-  // outline: none;
-  // padding: 0;
 }
 
 .upload-centered {
   background: #fff;
   max-width: 1000px;
   border-radius: 3px;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
   padding: 30px 40px;
-  margin: 40px auto 0;
+  margin: 40px auto;
 }
 .flex-wrapper {
   justify-content: space-between;
@@ -139,4 +188,214 @@ h2 {
     display: block;
     width: 100%;
   }
+}
+
+.file-label:focus,
+.outline:focus {
+  outline: 0;
+}
+
+.file-label:focus .outline {
+  border: 2px solid #2196f3;
+}
+
+.outline {
+  transition: 0.3s;
+  border: 2px solid transparent;
+  display: block;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  padding: 0 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: -2px 0 0 -2px;
+  display: block;
+}
+
+.button-colored {
+  transition: 0.2s;
+}
+
+.button-colored:hover {
+  outline: none;
+  background: #a17e67;
+}
+
+.message {
+  position: fixed;
+  width: calc(100% - 8rem);
+  top: 2rem;
+  left: 4rem;
+  z-index: 1000;
+  height: 62px;
+  overflow: hidden;
+  margin: 0;
+  display: none;
+
+  // box-shadow: 0px 1px 5px 2px rgba(0,0,0,0.1);
+
+  .animated {
+    background: #2aef82;
+    width: 1px;
+    height: 1px;
+    visibility: hidden;
+    border-radius: 50%;
+    margin-left: 50vw;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    // transform: translate(60vw);
+    // width: 0px;
+    // overflow: hidden;
+    // top: 0;
+    // padding: 20px 0;
+  }
+
+  // .animated:after {
+  //   content: "";
+  //   position: absolute;
+  //   right: 0;
+  //   height: 100px;
+  //   width: 100px;
+  //   border-radius: 50%;
+  //   background: pink;
+  //   display: block;
+  //   top: -19px;
+  //   right:
+  // }
+
+  .content {
+    box-sizing: border-box;
+    position: fixed;
+    top: 2rem;
+    left: 4rem;
+    // margin-left: calc(-60vw + 20px);
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 8rem);
+    height: 62px;
+    align-items: center;
+    padding: 0 20px;
+    background: #4bff9b;
+    color: #144c2d;
+    font-weight: 500;
+
+    button {
+      color: #144c2d;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      color: #3a8059;
+    }
+  }
+}
+
+.message.visible {
+  display: block;
+}
+.message.hidden {
+  display: block;
+}
+
+@keyframes contentShow {
+  0% {
+    visibility: visible;
+  }
+  99% {
+    width: 150vw;
+    height: 150vw;
+    margin-top: -110vw;
+    margin-left: -30vw;
+    overflow: hidden;
+    display: block;
+    // transform: translate(-10vw, -80vw);
+  }
+
+  100% {
+    visibility: visible;
+    overflow: visible;
+    display: none;
+  }
+}
+
+@keyframes contentHide {
+  0% {
+    display: block;
+    visibility: visible;
+    width: 150vw;
+    height: 150vw;
+    margin-top: -110vw;
+    margin-left: -30vw;
+  }
+  99% {
+    overflow: hidden;
+    display: block;
+    visibility: visible;
+    // transform: translate(-10vw, -80vw);
+  }
+
+  100% {
+    visibility: visible;
+    overflow: visible;
+    display: none;
+    width: 1px;
+    height: 1px;
+    margin-left: 30vw;
+    margin-top: 20vw;
+  }
+}
+
+@keyframes showShadow {
+  0% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@keyframes hideShadow {
+  0% {
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+.visible {
+  animation-duration: 0.4s;
+  animation-name: showShadow;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+  box-shadow: 0px 1px 10px 2px rgba(0, 0, 0, 0.05);
+}
+
+.hidden {
+  animation-duration: 0.3s;
+  animation-name: hideShadow;
+  animation-fill-mode: forwards;
+}
+
+.visible .animated {
+  overflow: hidden;
+  animation-duration: 0.8s; //0.8
+  animation-name: contentShow;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
+}
+
+.hidden .animated {
+  overflow: hidden;
+  animation-duration: 0.5s; //0.8
+  animation-name: contentHide;
+  animation-delay: 0s;
+  animation-fill-mode: forwards;
 }
