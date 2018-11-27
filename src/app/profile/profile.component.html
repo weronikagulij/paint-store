@@ -7,7 +7,7 @@
           <div class="image-with-description">
             <div class="avatar-container huge-avatar">
               <a class="avatar-link" href="">
-                <img src="https://via.placeholder.com/70x70">
+                <img src="https://via.placeholder.com/70x70" />
               </a>
             </div>
 
@@ -18,52 +18,62 @@
           </div>
 
           <div class="buttons-wrapper">
-            <button type="button" area-label="follow" class="button-colored">I Follow</button>
-            <button type="button" area-label="follow" class="button-colored default">I Send message</button>
+            <button type="button" area-label="follow" class="button-colored">
+              I Follow
+            </button>
+            <!-- SEND MESSAGE - FOR LATER -->
+            <!--
+              <button
+                type="button"
+                area-label="follow"
+                class="button-colored default"
+              >
+                I Send message
+              </button>
+            -->
           </div>
         </div>
 
         <div class="profile-section about-section">
           <h3>About</h3>
-          <p class="content-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et
-            dolore magna aliqua. </p>
+          <p class="content-secondary">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </div>
 
         <div class="profile-section statistic-section">
           <h3>Statistics</h3>
           <p class="content-secondary">
-            <span>Following</span>
-            <span>13</span>
+            <span>Following</span> <span>13</span>
           </p>
           <p class="content-secondary">
-            <span>Followed by</span>
-            <span>120</span>
+            <span>Followed by</span> <span>120</span>
           </p>
+          <p class="content-secondary"><span>Likes</span> <span>120</span></p>
           <p class="content-secondary">
-            <span>Likes</span>
-            <span>120</span>
-          </p>
-          <p class="content-secondary">
-            <span>Most popular technique</span>
-            <span>Paint</span>
+            <span>Most popular technique</span> <span>Paint</span>
           </p>
         </div>
       </div>
     </div>
     <div class="profile-images-container">
-
       <ul class="menu-list">
-        <li><a routerLinkActive="active" routerLink="#">Trending</a></li>
-        <li><a routerLinkActive="active" routerLink="#">Recent</a></li>
+        <li>
+          <a
+            routerLinkActive="active"
+            [routerLink]="['/user', getUrl()]"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Trending
+          </a>
+        </li>
+        <li><a routerLinkActive="active" routerLink="recent">Recent</a></li>
       </ul>
       <div class="image-wrapper">
-
-
         <div class="image-element">
           <div class="image-cropped">
             <a routerLink="image/randomImage">
-              <img src="https://via.placeholder.com/320x250">
+              <img src="https://via.placeholder.com/320x250" />
             </a>
           </div>
           <div class="image-info">
@@ -71,7 +81,7 @@
             <div class="image-author">
               <div class="avatar-container">
                 <a class="avatar-link" href="">
-                  <img src="https://via.placeholder.com/22x22">
+                  <img src="https://via.placeholder.com/22x22" />
                 </a>
               </div>
               <div class="image-author-name">
@@ -86,7 +96,6 @@
         <div class="image-element"></div>
         <div class="image-element"></div>
         <div class="image-element"></div>
-
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TagInputModule } from "ngx-chips";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatTabsModule } from "@angular/material/tabs";
 
 import { AppComponent } from "./app.component";
 import { HomepageComponent } from "./homepage/homepage.component";
@@ -22,6 +23,8 @@ import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
 import { IndexComponent } from "./user/index.component";
+import { FooterComponent } from "./footer/footer.component";
+import { FileDropModule } from "ngx-file-drop";
 
 const appRoutes: Routes = [
   {
@@ -51,7 +54,13 @@ const appRoutes: Routes = [
   },
   {
     path: "user/:id",
-    component: ProfileComponent
+    component: ProfileComponent,
+    children: [
+      {
+        path: "recent",
+        component: ProfileComponent
+      }
+    ]
   },
   {
     path: "upload-image",
@@ -62,25 +71,19 @@ const appRoutes: Routes = [
     component: IndexComponent
   },
   {
-    path: "sign-up",
-    component: IndexComponent,
-    children: [
-      {
-        path: "",
-        component: SignUpComponent
-      }
-    ]
+    path: "homepage",
+    component: IndexComponent
   },
-  {
-    path: "sign-in",
-    component: IndexComponent,
-    children: [
-      {
-        path: "",
-        component: SignInComponent
-      }
-    ]
-  },
+  // {
+  //   path: "homepage",
+  //   component: IndexComponent,
+  //   children: [
+  //     {
+  //       path: "sign-in",
+  //       component: SignInComponent
+  //     }
+  //   ]
+  // },
   {
     path: "**",
     component: NotFoundComponent
@@ -103,7 +106,8 @@ const appRoutes: Routes = [
     HomeComponent,
     ProfileComponent,
     MenuLeftComponent,
-    IndexComponent
+    IndexComponent,
+    FooterComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -112,7 +116,9 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTabsModule,
+    FileDropModule
   ],
   providers: [ImageService],
   bootstrap: [AppComponent]

@@ -9,12 +9,12 @@ menu {
   transition-duration: 0.3s;
 }
 
-menu.not-visible {
-  background: none;
+.container-menu-ul .join-us-button {
+  display: none;
 }
 
-.join-us-button {
-  display: none;
+menu.not-visible {
+  background: none;
 }
 
 menu.visible {
@@ -116,7 +116,7 @@ menu.visible {
     border-left: 1px solid #e9e9e9;
     border-right: 1px solid #e9e9e9;
     opacity: 0;
-    visibility: hidden;
+    display: none;
     transition-duration: 0.2s;
   }
 
@@ -150,22 +150,30 @@ menu.visible {
   }
 }
 
-.container-menu .menu-user:hover .menu-toggled li {
+.container-menu .menu-toggled.menu-animate li {
   opacity: 1;
-  visibility: visible;
 }
 
-.container-menu .menu-toggled:hover li {
-  opacity: 1;
-  visibility: visible;
+.container-menu .menu-toggled.menu-visible li {
+  display: block;
 }
 
-.container-menu .menu-toggled:focus-within li {
-  opacity: 1;
-  visibility: visible;
-}
+// .container-menu .menu-user:hover .menu-toggled li {
+//   opacity: 1;
+//   visibility: visible;
+// }
 
-.container-menu .menu-toggle-down:focus + .menu-toggled li {
-  opacity: 1;
-  visibility: visible;
-}
+// .container-menu .menu-toggled:hover li {
+//   opacity: 1;
+//   visibility: visible;
+// }
+
+// .container-menu .menu-toggled:focus-within li {
+//   opacity: 1;
+//   visibility: visible;
+// }
+
+// .container-menu .menu-toggle-down:focus + .menu-toggled li {
+//   opacity: 1;
+//   visibility: visible;
+// }

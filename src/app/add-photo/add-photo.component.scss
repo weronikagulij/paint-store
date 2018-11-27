@@ -1,16 +1,131 @@
 $color-grey: #707070;
 
+:host ::ng-deep tag-input {
+  input {
+    margin-bottom: 0;
+  }
+}
+
+// :host ::ng-deep file-drop {
+//   #dropZone {
+//     border-radius: 0;
+//     box-sizing: border-box;
+//     width: 100%;
+//     border: 2px dashed #efefef;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
+//     margin-top: 22px;
+//     height: calc(100% - 22px);
+//     outline: 0;
+//     border-color: #dddddd;
+//     transition: 0.2s;
+//   }
+// }
+
+.file-label {
+  margin-top: 22px;
+  height: calc(100% - 22px);
+  transition: 0.2s;
+  word-break: break-all;
+  padding: 0 20px;
+}
+
+.file-label.is-dragover {
+  background: #ddd;
+
+  .svg-icon {
+    path,
+    line,
+    polyline {
+      stroke: #868686;
+    }
+  }
+}
+
+.svg-icon {
+  path,
+  line,
+  polyline {
+    transition: 0.2s;
+    stroke: #a3a3a3;
+  }
+}
+
+@keyframes showAnimation {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hideAnimation {
+  100% {
+    stroke-dashoffset: 300;
+  }
+}
+
+.svg-icon {
+  path,
+  line,
+  polyline {
+    stroke-dasharray: 300;
+    animation-duration: 0.8s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+  }
+}
+
+.svg-icon.svg-success,
+.svg-icon.svg-fail {
+  path,
+  line,
+  polyline {
+    stroke-dashoffset: -300;
+  }
+}
+
+.start-animation {
+  path,
+  line,
+  polyline {
+    // stroke-dashoffset: -300;
+    animation-name: showAnimation;
+  }
+}
+
+.end-animation {
+  path,
+  line,
+  polyline {
+    // stroke-dashoffset: 0;
+    animation-name: hideAnimation;
+  }
+}
+
 h2 {
   margin-bottom: 30px;
 }
 
+.image-file .file-input {
+  display: none;
+  // visibility: hidden;
+  // width: 0;
+  // height: 0;
+  // margin: 0;
+  // box-sizing: border-box;
+  // border: none;
+  // outline: none;
+  // padding: 0;
+}
+
 .upload-centered {
   background: #fff;
-  margin: 30px auto;
   max-width: 1000px;
   border-radius: 3px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   padding: 30px 40px;
+  margin: 40px auto 0;
 }
 .flex-wrapper {
   justify-content: space-between;
@@ -24,101 +139,4 @@ h2 {
     display: block;
     width: 100%;
   }
-}
-
-textarea,
-input,
-select {
-  border: 0;
-  border-bottom: 2px solid #efefef;
-  box-sizing: border-box;
-  outline: 0;
-}
-
-textarea {
-  border: 2px solid #efefef;
-}
-.label-wrapper {
-  display: block;
-
-  label {
-    display: block;
-  }
-  // select {
-  //   flex-grow: 1;
-  // }
-}
-
-input,
-textarea,
-select,
-option {
-  color: #444;
-}
-
-input,
-textarea,
-select,
-button,
-option {
-  font-family: "Roboto", sans-serif;
-}
-
-.image-description {
-  input,
-  textarea {
-    padding: 5px 2px;
-  }
-  input,
-  textarea,
-  select {
-    margin-bottom: 16px;
-    border: 2px solid #efefef;
-  }
-  select {
-    width: 100%;
-  }
-
-  .input-description {
-    margin-bottom: 6px;
-    font-size: 13px;
-    color: $color-grey;
-  }
-}
-
-.button-colored {
-  padding: 10px 20px;
-  border-radius: 20px;
-}
-
-.file-input {
-  visibility: hidden;
-  width: 0;
-  height: 0;
-}
-
-.file-label {
-  box-sizing: border-box;
-  height: calc(100% - 20px);
-  width: 100%;
-  border: 2px dashed #efefef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.label-content {
-  color: #919191;
-  text-align: center;
-  font-size: 16px;
-}
-
-.label-element {
-  display: block;
-}
-
-.message {
-  display: block;
-  margin-top: 5px;
 }

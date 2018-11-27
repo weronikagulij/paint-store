@@ -3,8 +3,14 @@
 :host ::ng-deep app-menu menu {
   box-shadow: none;
 
-  .container-menu li.menu-user {
-    display: none;
+  .container-menu {
+    li.menu-user {
+      display: none;
+    }
+
+    .container-menu-ul li.join-us-button {
+      display: flex;
+    }
   }
 
   .join-us-button {
@@ -17,10 +23,17 @@
   font-family: "Playfair Display", serif;
 }
 
-.button-colored {
-  border-radius: 20px;
-  padding: 10px 25px;
-  margin: 40px 0 0 60px;
+.form-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  height: 340px;
+}
+
+.registered {
+  font-size: 25px;
+  font-family: "Roboto", sans-serif;
+  color: #313131;
+  font-weight: 300;
 }
 
 .text {
@@ -84,10 +97,17 @@ h4 {
 .main-view {
   height: 100vh;
   position: relative;
+
+  .button-colored {
+    border-radius: 20px;
+    padding: 10px 25px;
+    margin: 40px 0 0 60px;
+  }
+
   .hands-wrapper {
-    right: 0;
+    right: 3vw;
     height: 94vh;
-    top: 3vh;
+    top: 6vh;
     position: absolute;
   }
   svg {
@@ -121,24 +141,24 @@ h4 {
     position: relative;
     z-index: 50;
   }
-  .content:hover + .overlay.allowVisibility {
-    opacity: 0.1;
-  }
-  .overlay.allowVisibility:hover {
-    opacity: 0.1;
-  }
-  .overlay {
-    width: 460px;
-    transform: translateX(-30px);
-    height: 75vh;
-    max-height: 600px;
-    background-image: url("../../assets/img/tlo2.png");
-    position: fixed;
-    top: 12.5vh;
-    z-index: 0;
-    opacity: 0;
-    transition-duration: 0.5s;
-  }
+  // .content:hover + .overlay.allowVisibility {
+  //   opacity: 0.1;
+  // }
+  // .overlay.allowVisibility:hover {
+  //   opacity: 0.1;
+  // }
+  // .overlay {
+  //   width: 460px;
+  //   transform: translateX(-30px);
+  //   height: 75vh;
+  //   max-height: 600px;
+  //   background-image: url("../../assets/img/tlo2.png");
+  //   position: fixed;
+  //   top: 12.5vh;
+  //   z-index: 0;
+  //   opacity: 0;
+  //   transition-duration: 0.5s;
+  // }
 }
 @keyframes opacity {
   100% {
@@ -149,7 +169,7 @@ path {
   stroke-dasharray: 300;
   stroke-dashoffset: -300;
   animation-duration: 0.5s;
-  animation-delay: 0s; // todo: remove!!
+  animation-delay: 0s;
   animation-name: strokeAnimation;
   animation-fill-mode: forwards;
 }
@@ -191,5 +211,45 @@ path {
 @keyframes strokeAnimation {
   100% {
     stroke-dashoffset: 0;
+  }
+}
+
+// // mat tab
+:host ::ng-deep mat-tab-group {
+  max-width: 700px;
+  margin: 0 auto;
+
+  .mat-tab-labels {
+    justify-content: center;
+
+    .mat-tab-label {
+      font-size: 24px;
+      width: 130px;
+      min-width: 0;
+      color: #333;
+      position: relative;
+      opacity: 1;
+      padding-bottom: 10px;
+    }
+    .mat-tab-label-active,
+    .mat-tab-label-focused {
+      color: #333;
+    }
+
+    .mat-tab-label-content {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .mat-tab-label-container {
+    margin: 70px 0 40px;
+  }
+
+  .mat-ink-bar {
+    background: #c5c5c5;
+    width: 40px !important;
+    transform: translateX(45px);
   }
 }

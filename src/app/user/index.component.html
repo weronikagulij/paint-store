@@ -519,7 +519,7 @@
               <img src="https://via.placeholder.com/400x360" />
             </div>
           </div>
-          <div class="overlay"></div>
+          <!-- <div class="overlay"></div> -->
         </div>
         <div class="right-section-images images">
           <div class="image">
@@ -531,8 +531,62 @@
         </div>
       </div>
     </div>
-    <div class="join">
-      <h4><a href="#">Sign in</a>/<a href="#">Join</a></h4>
+    <div id="join">
+
+	  <mat-tab-group>
+		<mat-tab label="Join">
+			<div class="form-wrapper">
+				<form *ngIf="this.registerFormRes.formOk === false" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
+					<div class="label-wrapper">
+					<label class="input-description" for="username">Username</label>
+					<input type="text" id="username" name="username" ngModel />
+					<div class="warning" *ngIf="this.registerFormRes.username.valid === false">{{this.registerFormRes.username.message}}</div>
+					</div>
+					<div class="label-wrapper">
+						<label class="input-description" for="password">Password</label>
+						<input type="password" id="password" name="password" ngModel/>
+						<div class="warning" *ngIf="this.registerFormRes.password.valid === false">{{this.registerFormRes.password.message}}</div>
+					</div>
+					<div class="label-wrapper">
+						<label class="input-description" for="confirmPassword"
+							>Confirm password</label
+							>
+						<input
+						type="password"
+						id="confirmPassword"
+						name="confirmPassword"
+						ngModel
+						/>
+						<div class="warning" *ngIf="this.registerFormRes.confirmPassword.valid === false">{{this.registerFormRes.confirmPassword.message}}</div>
+					</div>
+					<div class="label-wrapper">
+						<label class="input-description" for="email">E-mail</label>
+						<input type="text" id="email" name="email" ngModel/>
+						<div class="warning" *ngIf="this.registerFormRes.email.valid === false">{{this.registerFormRes.email.message}}</div>
+					</div>
+					<button class="submit-button button-colored">JOIN</button>
+				</form>
+				<div *ngIf="this.registerFormRes.formOk === true" class="registered">Thank You for registration! Log in.</div>
+			</div>		  
+		</mat-tab>
+		<mat-tab label="Sign in"> 
+			<div class="form-wrapper">
+				<form #logIn="ngForm"  (ngSubmit)="onLogin(logIn)">
+					<div class="label-wrapper">
+						<label class="input-description" for="username">Username</label>
+						<input type="text" id="username" name="username" ngModel />
+					</div>
+					<div class="label-wrapper">
+						<label class="input-description" for="password">Password</label>
+						<input type="password" id="password" name="password" ngModel />
+					<div class="warning" *ngIf="this.loginFormRes.valid === false">{{this.loginFormRes.message}}</div>	
+					</div>
+				<button class="submit-button button-colored">LOGIN</button>
+				</form>
+			</div>	  
+		</mat-tab>
+	  </mat-tab-group>
     </div>
   </div>
+  <app-footer></app-footer>
 </div>
