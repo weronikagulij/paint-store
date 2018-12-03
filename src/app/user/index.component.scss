@@ -2,20 +2,6 @@
 
 :host ::ng-deep app-menu menu {
   box-shadow: none;
-
-  .container-menu {
-    li.menu-user {
-      display: none;
-    }
-
-    .container-menu-ul li.join-us-button {
-      display: flex;
-    }
-  }
-
-  .join-us-button {
-    display: block;
-  }
 }
 
 .homepage-container {

@@ -4,6 +4,13 @@ import { NgForm } from "@angular/forms";
 import { FormValidationModel } from "../form-validation-model";
 import { ValidMessage } from "../valid-message";
 import { FormResponse } from "../form-response";
+import { TweenMax } from "gsap/TweenMax";
+// import "ScrollMagic/scrollmagic/uncompressed/plugins/animation.gsap";
+// import "scrollMagic/scrollmagic/minified/plugins/debug.addIndicators.min.js";
+import * as ScrollMagic from "ScrollMagic";
+import { Scroll } from "@angular/router";
+import { TweenLite } from "gsap";
+// import "gsap";
 
 @Component({
   selector: "app-index",
@@ -13,6 +20,7 @@ import { FormResponse } from "../form-response";
 export class IndexComponent implements OnInit {
   public registerFormRes: FormResponse;
   public loginFormRes: ValidMessage;
+  public loggedIn = false;
 
   constructor() {
     this.loginFormRes = new ValidMessage();
@@ -53,33 +61,47 @@ export class IndexComponent implements OnInit {
     let element = $(".right-section-images")[0];
     let divOffsetTop = $(".parallax-scrolling").offset().top;
 
-    let scroll = function() {
-      let difference = $(window).scrollTop() - divOffsetTop; // start counting when div wrapping element is on the top of the page
-      let elementHeight = 600;
+    let controller = new ScrollMagic.Controller();
 
-      if (difference > 0 && difference < elementHeight) {
-        $(element).css("top", difference / 2.4 + 50);
-      }
+    let scene = new ScrollMagic.Scene({
+      triggerElement: ".parallax-scrolling",
+      duration: "1182px"
+      // triggerHook: "0"
+    })
+      .setTween(TweenMax.from(".right-section-images", 1, { y: "-30%" }))
+      .setClassToggle(".parallax-scrolling", "scrollable")
+      .addTo(controller);
 
-      if ($(window).scrollTop() > 10) {
-        $(menu).removeClass("not-visible");
-      } else {
-        $(menu).addClass("not-visible");
-      }
-    };
+    //       npm install --save-dev gsap
+    // npm install --save-dev @types/gsap
 
-    let waiting = false;
-    $(window).scroll(function() {
-      if (waiting) {
-        return;
-      }
-      waiting = true;
+    // let scroll = function() {
+    //   let difference = $(window).scrollTop() - divOffsetTop; // start counting when div wrapping element is on the top of the page
+    //   let elementHeight = 600;
 
-      scroll();
+    //   if (difference > 0 && difference < elementHeight) {
+    //     $(element).css("top", difference / 2 + 50);
+    //   }
 
-      setTimeout(function() {
-        waiting = false;
-      }, 10);
-    });
+    //   if ($(window).scrollTop() > 10) {
+    //     $(menu).removeClass("not-visible");
+    //   } else {
+    //     $(menu).addClass("not-visible");
+    //   }
+    // };
+
+    // let waiting = false;
+    // $(window).scroll(function() {
+    //   if (waiting) {
+    //     return;
+    //   }
+    //   waiting = true;
+
+    //   scroll();
+
+    //   setTimeout(function() {
+    //     waiting = false;
+    //   }, 10);
+    // });
   }
 }

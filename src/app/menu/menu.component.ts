@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import * as $ from "jquery";
 
 @Component({
@@ -7,13 +7,18 @@ import * as $ from "jquery";
   styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent implements OnInit {
+  @Input() isLoggedIn: boolean;
   constructor() {}
 
   ngOnInit() {
+    if (this.isLoggedIn === false) {
+      $("menu").addClass("logged-out");
+    }
+
     let mainMenu = $(".menu-user");
     let toggledMenu = $(".menu-toggled");
-    let icon = mainMenu.find(".menu-toggle-down");
-    let isFocused = false;
+    let button = mainMenu.find(".menu-toggle-down");
+    let hoverable = $(".hoverable");
 
     function showMenu() {
       toggledMenu.addClass("menu-visible");
@@ -26,15 +31,42 @@ export class MenuComponent implements OnInit {
       toggledMenu.removeClass("menu-animate");
       setTimeout(() => {
         toggledMenu.removeClass("menu-visible");
-      }, 200);
+      }, 20);
     }
 
-    $(mainMenu)
+    function isNextHoverFocusable(e) {
+      if (
+        !(
+          $(e.relatedTarget).hasClass("hoverable") ||
+          $(e.relatedTarget)
+            .parents()
+            .hasClass("hoverable")
+        )
+      ) {
+        return false;
+      }
+      return true;
+    }
+
+    $(hoverable)
       .on("mouseenter touch", () => {
         showMenu();
       })
-      .on("mouseleave", () => {
-        hideMenu();
+      .on("mouseleave", e => {
+        if (!isNextHoverFocusable(e)) {
+          hideMenu();
+        }
+      })
+      .on("focusout", e => {
+        if (!isNextHoverFocusable(e)) {
+          hideMenu();
+        }
       });
+
+    $(button).on("keyup", function(e) {
+      if (e.keyCode == 13) {
+        showMenu();
+      }
+    });
   }
 }

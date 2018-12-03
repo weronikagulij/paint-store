@@ -5,13 +5,39 @@
         <a href=""><img src="https://via.placeholder.com/170x40"/></a>
       </li>
       <li><a href="">Browse</a></li>
+      <li>
+        <!-- TO DO: zapytac Wojtasa czy form moze byc -->
+        <!--
+          <form>
+            <div class="label-wrapper">
+              <input
+                placeholder="Login"
+                type="text"
+                id="username"
+                name="username"
+                ngModel
+              />
+            </div>
+            <div class="label-wrapper">
+              <input
+                placeholder="Password"
+                type="password"
+                id="password"
+                name="password"
+                ngModel
+              />
+            </div>
+            <button class="button-colored" type="submit">LOGIN</button>
+          </form>
+        -->
+      </li>
       <li class="menu-user">
         <a href=""><img src="https://via.placeholder.com/30x30"/></a>
         <span><a href="">Imie Nazwisko</a></span>
-        <button class="menu-toggle-down">
+        <button class="menu-toggle-down hoverable">
           <i class="icon-angle-down"></i>
         </button>
-        <div class="menu-toggled">
+        <div class="menu-toggled hoverable">
           <ul>
             <li>
               <a href=""><i class="icon-user"></i>Profile</a>
@@ -28,6 +54,7 @@
           </ul>
         </div>
       </li>
+
       <li class="join-us-button">
         <a routerLink="/homepage" fragment="join" class="button-colored"
           >JOIN</a
