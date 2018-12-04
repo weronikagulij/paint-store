@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output } from "@angular/core";
 import * as $ from "jquery";
+import * as ScrollMagic from "ScrollMagic";
+import { EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-menu",
@@ -8,6 +10,8 @@ import * as $ from "jquery";
 })
 export class MenuComponent implements OnInit {
   @Input() isLoggedIn: boolean;
+  @Output() emitter = new EventEmitter();
+
   constructor() {}
 
   ngOnInit() {
@@ -68,5 +72,9 @@ export class MenuComponent implements OnInit {
         showMenu();
       }
     });
+  }
+
+  scrollDown() {
+    this.emitter.emit();
   }
 }

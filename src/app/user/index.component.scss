@@ -2,6 +2,11 @@
 
 :host ::ng-deep app-menu menu {
   box-shadow: none;
+  background: none;
+}
+
+:host ::ng-deep app-menu .container-menu.visible {
+  background: #fff;
 }
 
 .homepage-container {
@@ -83,6 +88,7 @@ h4 {
 .main-view {
   height: 100vh;
   position: relative;
+  max-height: 1300px;
 
   .button-colored {
     border-radius: 20px;
@@ -91,8 +97,8 @@ h4 {
   }
 
   .hands-wrapper {
-    right: 3vw;
-    height: 94vh;
+    right: 3%;
+    height: 94%;
     top: 6vh;
     position: absolute;
   }
@@ -101,25 +107,42 @@ h4 {
     width: auto;
   }
 }
+
+.join {
+  padding-bottom: 70px;
+}
+
 .see-examples {
   .flex-wrapper {
     margin: 0 auto;
-    width: 890px;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: calc(50% - 30px) calc(50% - 30px);
     justify-content: space-between;
     position: relative;
   }
   .right-section-images {
-    position: absolute;
-    left: 490px;
-    top: 50px;
+    // position: absolute;
+    // left: 520px;
+    // top: 100px;
   }
   .left-section-images {
-    position: relative;
+    // position: relative;
   }
+  .images {
+    width: 100%;
+  }
+
+  .images:nth-of-type(2) {
+    padding-top: 30%;
+  }
+
   .image {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
 
     img {
+      width: 100%;
+      height: auto;
       box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.17);
     }
   }
@@ -230,7 +253,7 @@ path {
   }
 
   .mat-tab-label-container {
-    margin: 70px 0 40px;
+    margin: 100px 0 40px;
   }
 
   .mat-ink-bar {
@@ -238,4 +261,28 @@ path {
     width: 40px !important;
     transform: translateX(45px);
   }
+}
+
+.image {
+  // transform: translateY(0px);
+  margin-top: 100px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.image:nth-of-type(1) {
+  margin-top: 50px;
+  &.visible {
+    margin-top: 0px;
+  }
+}
+
+// .image:nth-of-type(1) {
+//   margin-top: 50px;
+// }
+
+.image.visible {
+  margin-top: 50px;
+  // transform: translateY(0);
+  opacity: 1;
 }

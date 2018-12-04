@@ -1,16 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import * as $ from "jquery";
 import { NgForm } from "@angular/forms";
 import { FormValidationModel } from "../form-validation-model";
 import { ValidMessage } from "../valid-message";
 import { FormResponse } from "../form-response";
-import { TweenMax } from "gsap/TweenMax";
-// import "ScrollMagic/scrollmagic/uncompressed/plugins/animation.gsap";
-// import "scrollMagic/scrollmagic/minified/plugins/debug.addIndicators.min.js";
 import * as ScrollMagic from "ScrollMagic";
-import { Scroll } from "@angular/router";
-import { TweenLite } from "gsap";
-// import "gsap";
 
 @Component({
   selector: "app-index",
@@ -37,6 +31,21 @@ export class IndexComponent implements OnInit {
     this.animateScrolling();
   }
 
+  childEmitter() {
+    this.scrollDown();
+  }
+
+  scrollDown() {
+    setTimeout(() => {
+      document
+        .getElementsByClassName("mat-tab-label-container")[0]
+        .scrollIntoView({
+          block: "center",
+          behavior: "smooth"
+        });
+    }, 100);
+  }
+
   onLogin(form: NgForm) {
     this.loginFormRes = FormValidationModel.validateLoginForm(
       form.form.value.username,
@@ -55,25 +64,30 @@ export class IndexComponent implements OnInit {
   }
 
   animateScrolling() {
-    let menu = $("menu");
-    $(menu).addClass("not-visible");
+    let name = ".img";
 
-    let element = $(".right-section-images")[0];
-    let divOffsetTop = $(".parallax-scrolling").offset().top;
+    for (let i = 1; i <= 6; i++) {
+      let controller = new ScrollMagic.Controller();
+
+      let scene = new ScrollMagic.Scene({
+        triggerElement: name + i,
+        triggerHook: 0.9
+      })
+        .setClassToggle(name + i, "visible")
+        .addTo(controller);
+    }
 
     let controller = new ScrollMagic.Controller();
 
     let scene = new ScrollMagic.Scene({
-      triggerElement: ".parallax-scrolling",
-      duration: "1182px"
-      // triggerHook: "0"
+      triggerElement: ".hands-wrapper",
+      triggerHook: 0,
+      offset: 100
     })
-      .setTween(TweenMax.from(".right-section-images", 1, { y: "-30%" }))
-      .setClassToggle(".parallax-scrolling", "scrollable")
+      .setClassToggle("menu", "visible")
       .addTo(controller);
 
-    //       npm install --save-dev gsap
-    // npm install --save-dev @types/gsap
+    // $(".mat-tab-label-container").css("marginTop", "101px");
 
     // let scroll = function() {
     //   let difference = $(window).scrollTop() - divOffsetTop; // start counting when div wrapping element is on the top of the page

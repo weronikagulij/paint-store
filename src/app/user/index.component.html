@@ -1,5 +1,5 @@
 <div class="white-background">
-  <app-menu [isLoggedIn]="loggedIn"></app-menu>
+  <app-menu [isLoggedIn]="loggedIn" (emitter)="childEmitter()"></app-menu>
   <div class="homepage-container common-wrapper">
     <div class="main-view">
 		<div class="text">
@@ -8,7 +8,7 @@
 				<h3>Paint Store</h3>
 			</div>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-			<button class="button-colored">JOIN US</button>
+			<button class="button-colored" (click)="scrollDown()">JOIN US</button>
 		</div>
 
 		<div class="hands-wrapper">
@@ -506,32 +506,32 @@
 
     <div class="see-examples">
       <h4>Discover. Design. <strong>Inspire.</strong></h4>
-      <div class="flex-wrapper parallax-scrolling">
-        <div class="left-section-images images">
-          <div class="content">
-            <div class="image">
+      <div class="flex-wrapper">
+        <div class="images">
+            <div class="image img1">
               <img src="https://via.placeholder.com/400x360" />
             </div>
-            <div class="image">
+            <div class="image img3">
               <img src="https://via.placeholder.com/400x360" />
             </div>
-            <div class="image">
+            <div class="image img5">
               <img src="https://via.placeholder.com/400x360" />
             </div>
-          </div>
-          <!-- <div class="overlay"></div> -->
         </div>
-        <div class="right-section-images images">
-          <div class="image">
+        <div class="images">
+          <div class="image img2">
             <img src="https://via.placeholder.com/400x360" />
           </div>
-          <div class="image">
+          <div class="image img4">
             <img src="https://via.placeholder.com/400x360" />
-          </div>
+		  </div>
+		  <div class="image img6">
+				<img src="https://via.placeholder.com/400x360" />
+			  </div>
         </div>
       </div>
     </div>
-    <div id="join">
+    <div class="join">
 
 	  <mat-tab-group>
 		<mat-tab label="Join">
@@ -588,5 +588,4 @@
 	  </mat-tab-group>
     </div>
   </div>
-  <app-footer></app-footer>
 </div>
