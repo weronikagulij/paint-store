@@ -25,6 +25,11 @@ import { MenuLeftComponent } from "./homepage/menu-left/menu-left.component";
 import { IndexComponent } from "./user/index.component";
 import { FooterComponent } from "./footer/footer.component";
 import { FileDropModule } from "ngx-file-drop";
+import { ConfirmationMessageComponent } from "./confirmation-message/confirmation-message.component";
+import { AgreeLabelComponent } from "./agree-label/agree-label.component";
+import { ImagesComponent } from "./images/images.component";
+import { FollowButtonComponent } from './follow-button/follow-button.component';
+import { InformationLabelComponent } from './information-label/information-label.component';
 
 const appRoutes: Routes = [
   {
@@ -57,8 +62,12 @@ const appRoutes: Routes = [
     component: ProfileComponent,
     children: [
       {
+        path: "",
+        component: ImagesComponent
+      },
+      {
         path: "recent",
-        component: ProfileComponent
+        component: ImagesComponent
       }
     ]
   },
@@ -107,7 +116,12 @@ const appRoutes: Routes = [
     ProfileComponent,
     MenuLeftComponent,
     IndexComponent,
-    FooterComponent
+    FooterComponent,
+    ConfirmationMessageComponent,
+    AgreeLabelComponent,
+    ImagesComponent,
+    FollowButtonComponent,
+    InformationLabelComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

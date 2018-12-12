@@ -9,8 +9,9 @@ import { EventEmitter } from "@angular/core";
   styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent implements OnInit {
-  @Input() isLoggedIn: boolean;
-  @Output() emitter = new EventEmitter();
+  // @Input() isLoggedIn: boolean;
+  // @Output() emitter = new EventEmitter();
+  private isLoggedIn = true;
 
   constructor() {}
 
@@ -74,7 +75,7 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  scrollDown() {
-    this.emitter.emit();
-  }
+  // scrollDown() {
+  //   this.emitter.emit();
+  // }
 }

@@ -35,6 +35,16 @@ $radius: 5px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
+.loading {
+  display: block;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.button-colored {
+  margin-top: 0;
+}
+
 .image-author {
   flex-shrink: 0;
   flex-grow: 0;
@@ -63,6 +73,7 @@ $radius: 5px;
 }
 
 .button-wrapper {
+  align-items: center;
   display: flex;
   justify-content: flex-end;
 }
@@ -160,6 +171,10 @@ a:hover {
   span {
     margin-top: 0;
   }
+
+  .like {
+    cursor: pointer;
+  }
 }
 
 .photo {
@@ -197,6 +212,10 @@ a:hover {
   img {
     width: 100%;
   }
+}
+
+.delete {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {

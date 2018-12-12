@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import * as $ from "jquery";
-import { ActivatedRoute } from "../../../node_modules/@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-homepage",
@@ -9,57 +9,72 @@ import { ActivatedRoute } from "../../../node_modules/@angular/router";
   styleUrls: ["./homepage.component.scss"]
 })
 export class HomepageComponent implements OnInit {
-  // private images: any = [];
+  private _images: Image[];
 
-  // private animationSpeed = 500;
-  // private animationDelay = 1000;
+  private user = {
+    loggedIn: true,
+    userId: 1
+  };
 
   constructor(
     private imgService: ImageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // console.log(this.menuLeft.nativeElement);
-    // this.params = this.activatedRoute.snapshot.queryParams;
-    // console.log(this.params);
-    this.imgService.selectImages().subscribe(
-      res => {
-        // this.images = res;
-        console.log(res);
-      },
-      error => {
-        console.log(error);
+    if (this.user.loggedIn) {
+      if (this.router.url === "/") {
+        this.followedImages();
+      } else if (this.router.url === "/trending") {
+        this.popularImages();
+      } else {
+        this.recentImages();
       }
-    );
-    //
-
-    // this.animatePage();
-    // $(document).one('mousewheel', this.animatePage);
+    } else {
+      if (this.router.url === "/") {
+        this.popularImages();
+      } else {
+        this.recentImages();
+      }
+    }
   }
 
-  // animatePage() {
-  //   $('.animation-content').addClass('hidden');
+  recentImages() {
+    this.imgService.selectRecentImages().subscribe(res => {
+      this._images = <Image[]>res;
+    });
+  }
 
-  //   setTimeout(function() {
-  //     $('.animation-container').addClass('completed');
-  //   }, 600 + 400);
+  popularImages() {
+    this.imgService.selectPopularImages().subscribe(res => {
+      this._images = <Image[]>res;
+    });
+  }
 
-  //   setTimeout(function() {
-  //     $('.animation-content').removeClass('hidden');
-  //   }, 1200 + 400);
-  // }
+  followedImages() {
+    this.imgService.selectFollowedImages(this.user.userId).subscribe(res => {
+      this._images = <Image[]>res;
+    });
+  }
 
-  // animateBackground() {
-  //   var movementStrength = 25;
-  //   var height = movementStrength / $(window).height();
-  //   var width = movementStrength / $(window).width();
-  //   $(".animation-content").mousemove(function(e){
-  //     var pageX = e.pageX - ($(window).width() / 2);
-  //     var pageY = e.pageY - ($(window).height() / 2);
-  //     var newvalueX = width * pageX * -1 - 25;
-  //     var newvalueY = height * pageY * -1 - 50;
-  //     $('.animation-content').css("background-position", newvalueX+"px     "+newvalueY+"px");
-  //   });
-  // }
+  get images(): Array<Image> {
+    return this._images;
+  }
+
+  public isLoggedIn(): boolean {
+    return this.user.loggedIn;
+  }
+}
+
+interface Image {
+  id: number;
+  userId: number;
+  userOwnerName: string;
+  userOwnerImgLink: string;
+  title: string;
+  imgLink: string;
+  likeCount: number;
+  viewCount: number;
+  commentsCount: number;
 }

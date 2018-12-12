@@ -1,4 +1,4 @@
-<app-menu></app-menu>
+<!-- <app-menu></app-menu> -->
 <div class="centered">
   <div class="upload-centered">
     <h2>Upload a file</h2>
@@ -189,12 +189,4 @@
     </form>
   </div>
 </div>
-<form (ngSubmit)="closeMessage(0)" class="success-message message">
-  <!-- <span class="animated-circle"></span> -->
-  <div class="animated">
-    <div class="content">
-      <span>Successfully uploaded a file.</span
-      ><button type="submit" area-label="close">X</button>
-    </div>
-  </div>
-</form>
+<app-confirmation-message #message></app-confirmation-message>

@@ -1,48 +1,50 @@
-<app-menu-left></app-menu-left>
-<app-menu></app-menu>
 <div class="container">
   <div class="centered">
     <ul class="menu-list">
-      <li><a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact: true}">Followed</a></li>
+      <li>
+        <a
+          routerLinkActive="active"
+          routerLink="/"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Followed</a
+        >
+      </li>
       <li><a routerLinkActive="active" routerLink="/trending">Trending</a></li>
       <li><a routerLinkActive="active" routerLink="/recent">Recent</a></li>
     </ul>
     <div class="image-wrapper">
-
-      <div class="image-element">
+      <div *ngFor="let image of images" class="image-element">
         <div class="image-cropped">
-          <a routerLink="image/randomImage">
-            <img src="https://via.placeholder.com/320x250">
+          <a routerLink="/image/{{image.id}}">
+            <img src="{{image.imgLink}}" />
           </a>
         </div>
         <div class="image-info">
-          <h3><a href="">Otherside</a></h3>
+          <h3>
+            <a routerLink="/image/{{image.id}}">{{ image.title }}</a>
+          </h3>
           <div class="image-author">
             <div class="avatar-container">
-              <a class="avatar-link" href="">
-                <img src="https://via.placeholder.com/22x22">
+              <a class="avatar-link" routerLink="/user/{{image.userId}}">
+                <img src="{{image.userOwnerImgLink}}" />
               </a>
             </div>
             <div class="image-author-name">
-              <a href="">Red Hot Chili Peppers</a>
+              <a routerLink="/user/{{image.userId}}">{{
+                image.userOwnerName
+              }}</a>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="image-element"></div>
-      <div class="image-element"></div>
-      <div class="image-element"></div>
-      <div class="image-element"></div>
-      <div class="image-element"></div>
-      <div class="image-element"></div>
-      <div class="image-element"></div>
     </div>
   </div>
 </div>
 <!-- ANIMATION -->
-<!-- <div class="animation-container completed">
-      <div class="animation-content">
-        <h1 class="title">rysujemy</h1>
-      </div>
-    </div> -->
+<!--
+  <div class="animation-container completed">
+    <div class="animation-content">
+      <h1 class="title">rysujemy</h1>
+    </div>
+  </div>
+-->

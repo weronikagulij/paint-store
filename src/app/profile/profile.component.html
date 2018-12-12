@@ -1,4 +1,4 @@
-<app-menu></app-menu>
+<!-- <app-menu></app-menu> -->
 <div class="centered-profile">
   <div class="flex-wrapper">
     <div class="profile-introduction-container">
@@ -6,18 +6,26 @@
         <div class="profile-section">
           <div class="image-with-description">
             <div class="avatar-container huge-avatar">
-              <a class="avatar-link" href="">
-                <img src="https://via.placeholder.com/70x70" />
+              <a class="avatar-link" routerLink="/user/{{getUser().accountId}}">
+                <img src="{{getUser().avatarImgLink}}" />
               </a>
             </div>
 
             <div class="description">
-              <h2><a href="">John Doe</a></h2>
+              <h2>
+                <a routerLink="/user/{{getUser().accountId}}">{{
+                  getUser().name
+                }}</a>
+              </h2>
               <p class="content-secondary">I liverpool</p>
+              <!-- to do: add info here -->
             </div>
           </div>
 
-          <div class="buttons-wrapper">
+          <div
+            class="buttons-wrapper"
+            *ngIf="getLoggedUser().userId != getUrl()"
+          >
             <button type="button" area-label="follow" class="button-colored">
               I Follow
             </button>
@@ -36,24 +44,28 @@
 
         <div class="profile-section about-section">
           <h3>About</h3>
-          <p class="content-secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          <p class="content-secondary">{{ getUser().about }}</p>
         </div>
 
         <div class="profile-section statistic-section">
           <h3>Statistics</h3>
           <p class="content-secondary">
-            <span>Following</span> <span>13</span>
+            <span (click)="showFollowing()">Following</span>
+            <span (click)="showFollowing()">{{
+              getUser().followingCount
+            }}</span>
           </p>
           <p class="content-secondary">
-            <span>Followed by</span> <span>120</span>
+            <span (click)="showFollowed()">Followed by</span>
+            <span (click)="showFollowed()">{{ getUser().followedCount }}</span>
           </p>
           <p class="content-secondary"><span>Likes</span> <span>120</span></p>
-          <p class="content-secondary">
-            <span>Most popular technique</span> <span>Paint</span>
-          </p>
+          <!-- to do: missing likes in database! -->
+          <!--
+            <p class="content-secondary">
+              <span>Most popular technique</span> <span>Paint</span>
+            </p>
+          -->
         </div>
       </div>
     </div>
@@ -69,34 +81,32 @@
         </li>
         <li><a routerLinkActive="active" routerLink="recent">Recent</a></li>
       </ul>
-      <div class="image-wrapper">
-        <div class="image-element">
-          <div class="image-cropped">
-            <a routerLink="image/randomImage">
-              <img src="https://via.placeholder.com/320x250" />
-            </a>
-          </div>
-          <div class="image-info">
-            <h3><a href="">Otherside</a></h3>
-            <div class="image-author">
-              <div class="avatar-container">
-                <a class="avatar-link" href="">
-                  <img src="https://via.placeholder.com/22x22" />
-                </a>
-              </div>
-              <div class="image-author-name">
-                <a href="">Red Hot Chili Peppers</a>
+      <!--
+        <div class="image-wrapper">
+          <div class="image-element">
+            <div class="image-cropped">
+              <a routerLink="image/randomImage">
+                <img src="https://via.placeholder.com/320x250" />
+              </a>
+            </div>
+            <div class="image-info">
+              <h3><a href="">Otherside</a></h3>
+              <div class="image-author">
+                <div class="avatar-container">
+                  <a class="avatar-link" href="">
+                    <img src="https://via.placeholder.com/22x22" />
+                  </a>
+                </div>
+                <div class="image-author-name">
+                  <a href="">Red Hot Chili Peppers</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="image-element"></div>
-        <div class="image-element"></div>
-        <div class="image-element"></div>
-        <div class="image-element"></div>
-        <div class="image-element"></div>
-      </div>
+        </div>
+      -->
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

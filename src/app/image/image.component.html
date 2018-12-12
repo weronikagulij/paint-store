@@ -1,115 +1,85 @@
-<app-menu></app-menu>
 <div class="centered">
-
-  <div class="hero-img">
-    <img src="https://via.placeholder.com/1200x250" />
-  </div>
+  <div class="hero-img"><img src="{{image.imgLink}}" /></div>
   <div class="photo">
-    <!-- <img src="http://localhost/rysujemy/assets/art/{{image.img_src}}"/> -->
     <div class="photo-content">
-
       <div class="photo-header">
-        <!-- <span class="title">{{image.title}} Random Title</span> -->
-        <p class="content-secondary">Added 20.20.2000 by <a class="author-link" routerLink="/user/ania">Ania</a></p>
+        <p class="content-secondary">
+          Added {{ image.creationDate }} by
+          <a class="author-link" href="/user/{{image.userId}}">{{
+            image.userOwnerName
+          }}</a>
+        </p>
         <div class="photo-title">
-          <h2>Random Title</h2>
-          <div class="likes">123 I J</div>
+          <h2>{{ image.title }}</h2>
+          <div class="likes">
+            {{ image.likeCount }}
+            <span (click)="photoLike()" class="like">Like</span>
+          </div>
         </div>
-        <!-- <p>
-        {{image.description}} Random Description
-      </p> -->
-        <p class="description">
-          Random Description
-        </p>
+        <p class="description">{{ image.description }}</p>
         <p class="photo-tags content-secondary">
-          <span class="tag-title">Category: </span><a href="">Paint</a>
+          <span class="tag-title">Tags: </span
+          ><span>{{ image.categoryTypeName }}</span>
         </p>
-        <p class="photo-tags content-secondary">
-          <span class="tag-title">Tags: </span><span><a href="">tag1</a> <a href="">tag2</a> <a href="">tag3</a></span>
-        </p>
-        <!-- <p class="pv2">Added {{image.content-secondary}} by <a routerLink="/user/{{image.user_link}}">{{image.ownerPath}}</a></p> -->
-
       </div>
       <div class="add-comment">
-        <form #commentUpload="ngForm" (ngSubmit)="onCommentUpload(commentUpload)">
+        <form
+          #commentUpload="ngForm"
+          (ngSubmit)="onCommentUpload(commentUpload)"
+        >
           <div class="flex-wrapper">
             <div class="image-author">
-
               <div class="avatar-container">
                 <a class="avatar-link" href="">
-                  <img src="https://via.placeholder.com/40x40">
+                  <img src="https://via.placeholder.com/40x40" />
                 </a>
               </div>
             </div>
             <textarea id="text" name="text" ngModel></textarea>
           </div>
-          <div class="button-wrapper"><button type="submit" class="button-colored">Wyślij</button></div>
+          <div class="warning" *ngIf="this.formValid === false">
+            Comment must contains at least 5 letters.
+          </div>
+          <div class="button-wrapper">
+            <span *ngIf="loading" class="loading"
+              ><img src="../../assets/svg/loading.svg"
+            /></span>
+            <button [disabled]="loading" type="submit" class="button-colored">
+              Send
+            </button>
+          </div>
         </form>
-
-        <div class="alert alert-success" role="alert">
-          <span>Komentarz został wysłany.</span>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="alert alert-warning" role="alert">
-          <span>Proszę wypełnić pole.</span>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
       </div>
 
-      <p class="comment-title">Comments (1)</p>
+      <p class="comment-title">Comments ({{ image.commentsCount }})</p>
 
-      <!-- <div class="comment" *ngFor="let comment of comments">
-        <div class="avatar" [ngStyle]="{'background-image':'url(http://localhost/rysujemy/assets/avatar/'+comment.avatar_src+')'}"><a
-            routerLink="/user/{{comment.link}}">
-            <div class="img-cover"></div>
-          </a></div>
-        <div class="comment-content">
-          <span class="author"><a routerLink="/user/{{comment.user_name}}">{{comment.user_name}}</a></span>
-          <span class="content-secondary">{{comment.content-secondary}}</span>
-          <p>
-            {{comment.content}}
-          </p>
-        </div>
-      </div> -->
       <div class="comments-group">
-
-
-
-        <div class="comment">
+        <div *ngFor="let comment of comments" class="comment">
           <div class="image-author">
             <div class="avatar-container">
-              <a class="avatar-link" href="">
-                <img src="https://via.placeholder.com/40x40">
+              <a class="avatar-link" href="/user/{{comment.userId}}">
+                <img src="{{comment.userOwnerImgLink}}" />
               </a>
             </div>
           </div>
           <div class="comment-content">
-            <h4 class="author"><a routerLink="">UserName</a></h4>
-            <p class="content-secondary">20.20.2000</p>
-            <p>
-              LOLOL
-            </p>
-          </div>
-        </div>
-
-        <div class="comment">
-          <div class="image-author">
-            <div class="avatar-container">
-              <a class="avatar-link" href="">
-                <img src="https://via.placeholder.com/40x40">
-              </a>
+            <div class="header">
+              <h4 class="author">
+                <a href="/user/{{comment.userId}}">UserName</a>
+              </h4>
+              <p class="content-secondary">{{ comment.creationDate }}</p>
+              <span
+                class="delete"
+                (click)="removeComment(comment.id)"
+                *ngIf="comment.userId === userId"
+              >
+                delete {{ image.userId }}
+              </span>
+              <span class="likes">
+                {{ comment.likeCount }} <span class="like"> Like </span>
+              </span>
             </div>
-          </div>
-          <div class="comment-content">
-            <h4 class="author"><a routerLink="">UserName</a></h4>
-            <p class="content-secondary">20.20.2000</p>
-            <p>
-              LOLOL
-            </p>
+            <p>{{ comment.content }}</p>
           </div>
         </div>
       </div>
@@ -117,3 +87,16 @@
   </div>
   <div style="clear:both"></div>
 </div>
+<app-confirmation-message
+  #msg
+  [message]="'Comment added successfuly.'"
+></app-confirmation-message>
+<app-confirmation-message
+  #msgDelete
+  [message]="'Comment deleted successfully.'"
+></app-confirmation-message>
+<app-agree-label
+  #confirmLabel
+  (emitter)="confirm()"
+  [message]="'You are going to delete this comment. Are you sure?'"
+></app-agree-label>

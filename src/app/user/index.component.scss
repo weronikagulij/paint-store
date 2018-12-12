@@ -15,7 +15,7 @@
 }
 
 .form-wrapper {
-  width: 500px;
+  max-width: 500px;
   margin: 0 auto;
   height: 350px;
 }
@@ -88,24 +88,23 @@ h4 {
 .main-view {
   height: 100vh;
   position: relative;
-  max-height: 1300px;
+  max-height: 1100px;
 
   .button-colored {
     border-radius: 20px;
     padding: 10px 25px;
     margin: 40px 0 0 60px;
   }
-
-  .hands-wrapper {
-    right: 3%;
-    height: 94%;
-    top: 6vh;
-    position: absolute;
-  }
-  svg {
-    height: 100%;
-    width: auto;
-  }
+}
+.hands-wrapper {
+  right: 3%;
+  height: 94%;
+  top: 6vh;
+  position: absolute;
+}
+svg {
+  height: 100%;
+  width: auto;
 }
 
 .join {
@@ -121,54 +120,30 @@ h4 {
     justify-content: space-between;
     position: relative;
   }
-  .right-section-images {
-    // position: absolute;
-    // left: 520px;
-    // top: 100px;
-  }
-  .left-section-images {
-    // position: relative;
-  }
-  .images {
-    width: 100%;
-  }
-
-  .images:nth-of-type(2) {
-    padding-top: 30%;
-  }
-
-  .image {
-    margin-bottom: 60px;
-
-    img {
-      width: 100%;
-      height: auto;
-      box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.17);
-    }
-  }
-  .content {
-    position: relative;
-    z-index: 50;
-  }
-  // .content:hover + .overlay.allowVisibility {
-  //   opacity: 0.1;
-  // }
-  // .overlay.allowVisibility:hover {
-  //   opacity: 0.1;
-  // }
-  // .overlay {
-  //   width: 460px;
-  //   transform: translateX(-30px);
-  //   height: 75vh;
-  //   max-height: 600px;
-  //   background-image: url("../../assets/img/tlo2.png");
-  //   position: fixed;
-  //   top: 12.5vh;
-  //   z-index: 0;
-  //   opacity: 0;
-  //   transition-duration: 0.5s;
-  // }
 }
+
+.images {
+  width: 100%;
+}
+
+.images:nth-of-type(2) {
+  padding-top: 30%;
+}
+
+.image {
+  margin-bottom: 60px;
+
+  img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.17);
+  }
+}
+.content {
+  position: relative;
+  z-index: 50;
+}
+
 @keyframes opacity {
   100% {
     opacity: 1;
@@ -253,7 +228,7 @@ path {
   }
 
   .mat-tab-label-container {
-    margin: 100px 0 40px;
+    margin: 30px 0 40px;
   }
 
   .mat-ink-bar {
@@ -285,4 +260,126 @@ path {
   margin-top: 50px;
   // transform: translateY(0);
   opacity: 1;
+}
+
+@media screen and (max-width: 1020px) {
+  .homepage-container {
+    padding: 0 40px;
+  }
+
+  .title span {
+    font-size: 80px;
+  }
+
+  .title h3 {
+    font-size: 60px;
+    top: 50px;
+    left: 50px;
+  }
+
+  .text p {
+    padding: 30px 0 0 50px;
+  }
+
+  .main-view .button-colored {
+    padding: 10px 25px;
+    margin: 40px 0 0 50px;
+  }
+
+  .hands-wrapper {
+    opacity: 0.6;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .text {
+    padding: 140px 0 20px;
+    position: static;
+    transform: translate(0);
+
+    p {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .hands-wrapper {
+    opacity: 0.5;
+    top: 15%;
+  }
+
+  .main-view {
+    height: auto;
+  }
+
+  .see-examples {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  :host ::ng-deep app-menu menu {
+    background: #fff;
+  }
+  .hands-wrapper {
+    display: none;
+  }
+
+  .title {
+    position: static;
+    height: auto;
+    span {
+      display: none;
+    }
+
+    h3 {
+      font-size: 35px;
+      position: static;
+    }
+  }
+
+  .text p {
+    padding: 20px 0 0;
+  }
+
+  .main-view .button-colored {
+    margin: 20px 0 0;
+  }
+
+  .see-examples {
+    margin-top: 0;
+  }
+
+  // images animation
+  h4 {
+    font-size: 22px;
+    padding: 70px 0 0;
+  }
+
+  .see-examples .flex-wrapper {
+    grid-template-columns: 100%;
+  }
+
+  .img6,
+  .img5 {
+    display: none;
+  }
+
+  .image {
+    width: 100%;
+    max-width: 400px;
+    margin: 100px auto 0;
+  }
+
+  .image:nth-of-type(1) {
+    margin-top: 100px;
+  }
+
+  .image:nth-of-type(1).visible {
+    margin-top: 50px;
+  }
+
+  .images:nth-of-type(2) {
+    padding-top: 0;
+  }
 }

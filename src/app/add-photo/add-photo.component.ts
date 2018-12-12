@@ -11,6 +11,7 @@ import {
 
 import * as $ from "jquery";
 import { ValidateFileForm } from "../validate-file-form";
+import { Message } from "@angular/compiler/src/i18n/i18n_ast";
 
 @Component({
   selector: "app-add-photo",
@@ -19,6 +20,7 @@ import { ValidateFileForm } from "../validate-file-form";
 })
 export class AddPhotoComponent implements OnInit {
   // @ViewChild("dragAndDrop") dragAndDrop: ElementRef;
+  @ViewChild("message") Message;
 
   // private file: any = [];
   private formData: FormData;
@@ -189,30 +191,7 @@ export class AddPhotoComponent implements OnInit {
       this.animateIcon("svg-upload");
       this.information = "Drop a file here";
 
-      // show confirmation message
-      let el = document.getElementsByClassName("message")[0];
-      el.classList.add("visible");
-
-      // remove message after 8 seconds
-      setTimeout(() => {
-        if (el.classList.contains("visible")) {
-          el.classList.add("hidden");
-          setTimeout(() => {
-            el.classList.remove("hidden");
-            el.classList.remove("visible");
-          }, 300);
-        }
-      }, 8000);
+      this.Message.showMessage();
     }
-  }
-
-  public closeMessage(id: number) {
-    let el = document.getElementsByClassName("message")[id];
-    el.classList.add("hidden");
-
-    setTimeout(() => {
-      el.classList.remove("hidden");
-      el.classList.remove("visible");
-    }, 300);
   }
 }
