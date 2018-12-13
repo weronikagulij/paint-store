@@ -4,6 +4,16 @@
   padding: 110px 20px 0;
 }
 
+.statistic-section span {
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: 0.05s;
+}
+
+.statistic-section span:hover {
+  border-bottom: 1px solid #a3a3a3;
+}
+
 .button-colored {
   text-transform: none;
   font-size: 14px;

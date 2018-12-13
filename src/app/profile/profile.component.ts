@@ -1,6 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
+import { ShortUserInfo } from "../classes/short-user-info";
+import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 
 @Component({
   selector: "app-profile",
@@ -8,6 +10,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild("label") label;
   private user: User = {
     about: "",
     accountId: 0,
@@ -21,10 +24,9 @@ export class ProfileComponent implements OnInit {
     name: "",
     postsCount: 0
   };
-
   private url = this.route.snapshot.params.id;
-  private loggedUser = {
-    loggedIn: true,
+  private _loggedUser = {
+    isLoggedIn: true,
     userId: 1
   };
 
@@ -34,23 +36,37 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.imageService
-      .selectUserById(this.route.snapshot.params.id)
-      .subscribe(res => {
-        this.user = res[0];
-      });
+    this.getUserData();
   }
 
-  showFollowed() {}
+  getUserData() {
+    this.imageService.selectUserById(this.url).subscribe(res => {
+      this.user = <User>res;
+    });
+  }
 
-  showFollowing() {}
+  showFollowed() {
+    let informationToSend: ShortUserInfo[];
+    this.imageService.getFollowed(this.url).subscribe(res => {
+      informationToSend = <ShortUserInfo[]>res;
+      this.label.show(informationToSend, "Followed by this user");
+    });
+  }
+
+  showFollowing() {
+    let informationToSend: ShortUserInfo[];
+    this.imageService.getFollowing(this.url).subscribe(res => {
+      informationToSend = <ShortUserInfo[]>res;
+      this.label.show(informationToSend, "Following by this user");
+    });
+  }
 
   getUser() {
     return this.user;
   }
 
-  getLoggedUser() {
-    return this.loggedUser;
+  get loggedUser() {
+    return this._loggedUser;
   }
 
   getUrl() {

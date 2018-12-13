@@ -1,3 +1,4 @@
+<app-menu></app-menu>
 <div class="centered">
   <div class="hero-img"><img src="{{image.imgLink}}" /></div>
   <div class="photo">
@@ -12,14 +13,20 @@
         <div class="photo-title">
           <h2>{{ image.title }}</h2>
           <div class="likes">
-            {{ image.likeCount }}
-            <span (click)="photoLike()" class="like">Like</span>
+            <span (click)="showLiking()">{{ image.likeCount }} likes </span>
+            <span (click)="photoLike()" class="like" *ngIf="!image.liked"
+              >Like</span
+            >
+            <span (click)="photoUnlike()" class="like" *ngIf="image.liked"
+              >Liked!</span
+            >
           </div>
         </div>
         <p class="description">{{ image.description }}</p>
         <p class="photo-tags content-secondary">
           <span class="tag-title">Tags: </span
-          ><span>{{ image.categoryTypeName }}</span>
+          ><span *ngFor="let tag of image.tagsList">{{ tag }} </span>
+          <span *ngIf="image.tagsList.length === 0">no tags added</span>
         </p>
       </div>
       <div class="add-comment">
@@ -68,18 +75,54 @@
                 <a href="/user/{{comment.userId}}">UserName</a>
               </h4>
               <p class="content-secondary">{{ comment.creationDate }}</p>
+              <span>(edited)</span>
               <span
                 class="delete"
                 (click)="removeComment(comment.id)"
                 *ngIf="comment.userId === userId"
               >
-                delete {{ image.userId }}
+                delete
               </span>
-              <span class="likes">
-                {{ comment.likeCount }} <span class="like"> Like </span>
+              <span
+                class="edit"
+                (click)="editComment(comment)"
+                *ngIf="comment.userId === userId"
+              >
+                edit
               </span>
+              <span class="likes" (click)="commentShowLiked(comment.id)">
+                {{ comment.likeCount }} likes
+              </span>
+              <span
+                (click)="commentLike(comment)"
+                class="like"
+                *ngIf="!comment.liked"
+              >
+                Like
+              </span>
+              <span
+                (click)="commentUnlike(comment)"
+                class="like"
+                *ngIf="comment.liked"
+                >Liked!</span
+              >
             </div>
-            <p>{{ comment.content }}</p>
+            <p *ngIf="!comment.isEditing">{{ comment.content }}</p>
+            <div *ngIf="comment.isEditing">
+              <form
+                #editComment="ngForm"
+                (ngSubmit)="sendEditComment(editComment, comment)"
+              >
+                <textarea name="value" ngModel="{{comment.content}}"></textarea>
+                <span (click)="discard(comment)">Discard</span>
+
+                <div class="warning" *ngIf="comment.editValid === false">
+                  Comment must contains at least 5 letters.
+                </div>
+
+                <button type="submit">Edit</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -87,16 +130,10 @@
   </div>
   <div style="clear:both"></div>
 </div>
-<app-confirmation-message
-  #msg
-  [message]="'Comment added successfuly.'"
-></app-confirmation-message>
-<app-confirmation-message
-  #msgDelete
-  [message]="'Comment deleted successfully.'"
-></app-confirmation-message>
+<app-confirmation-message #msg></app-confirmation-message>
 <app-agree-label
   #confirmLabel
   (emitter)="confirm()"
   [message]="'You are going to delete this comment. Are you sure?'"
 ></app-agree-label>
+<app-information-label #label [loggedUser]="loggedUser"></app-information-label>

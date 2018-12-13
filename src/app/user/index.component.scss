@@ -2,14 +2,15 @@
 
 :host ::ng-deep app-menu menu {
   box-shadow: none;
-  background: none;
+  position: static;
 }
 
-:host ::ng-deep app-menu .container-menu.visible {
-  background: #fff;
-}
+// :host ::ng-deep app-menu .container-menu.visible {
+//   background: #fff;
+// }
 
 .homepage-container {
+  margin-top: -50px;
   padding: 0 70px;
   font-family: "Playfair Display", serif;
 }
@@ -318,9 +319,6 @@ path {
 }
 
 @media screen and (max-width: 800px) {
-  :host ::ng-deep app-menu menu {
-    background: #fff;
-  }
   .hands-wrapper {
     display: none;
   }

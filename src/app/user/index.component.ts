@@ -77,15 +77,15 @@ export class IndexComponent implements OnInit {
         .addTo(controller);
     }
 
-    let controller = new ScrollMagic.Controller();
+    // let controller = new ScrollMagic.Controller();
 
-    let scene = new ScrollMagic.Scene({
-      triggerElement: ".hands-wrapper",
-      triggerHook: 0,
-      offset: 100
-    })
-      .setClassToggle("menu", "visible")
-      .addTo(controller);
+    // let scene = new ScrollMagic.Scene({
+    //   triggerElement: ".hands-wrapper",
+    //   triggerHook: 0,
+    //   offset: 100
+    // })
+    //   .setClassToggle("menu", "visible")
+    //   .addTo(controller);
 
     // $(".mat-tab-label-container").css("marginTop", "101px");
 

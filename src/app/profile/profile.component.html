@@ -1,4 +1,4 @@
-<!-- <app-menu></app-menu> -->
+<app-menu></app-menu>
 <div class="centered-profile">
   <div class="flex-wrapper">
     <div class="profile-introduction-container">
@@ -29,16 +29,6 @@
             <button type="button" area-label="follow" class="button-colored">
               I Follow
             </button>
-            <!-- SEND MESSAGE - FOR LATER -->
-            <!--
-              <button
-                type="button"
-                area-label="follow"
-                class="button-colored default"
-              >
-                I Send message
-              </button>
-            -->
           </div>
         </div>
 
@@ -61,11 +51,6 @@
           </p>
           <p class="content-secondary"><span>Likes</span> <span>120</span></p>
           <!-- to do: missing likes in database! -->
-          <!--
-            <p class="content-secondary">
-              <span>Most popular technique</span> <span>Paint</span>
-            </p>
-          -->
         </div>
       </div>
     </div>
@@ -81,32 +66,9 @@
         </li>
         <li><a routerLinkActive="active" routerLink="recent">Recent</a></li>
       </ul>
-      <!--
-        <div class="image-wrapper">
-          <div class="image-element">
-            <div class="image-cropped">
-              <a routerLink="image/randomImage">
-                <img src="https://via.placeholder.com/320x250" />
-              </a>
-            </div>
-            <div class="image-info">
-              <h3><a href="">Otherside</a></h3>
-              <div class="image-author">
-                <div class="avatar-container">
-                  <a class="avatar-link" href="">
-                    <img src="https://via.placeholder.com/22x22" />
-                  </a>
-                </div>
-                <div class="image-author-name">
-                  <a href="">Red Hot Chili Peppers</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      -->
       <router-outlet></router-outlet>
     </div>
   </div>
 </div>
+
+<app-information-label #label [loggedUser]="loggedUser"></app-information-label>

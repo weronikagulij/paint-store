@@ -1,3 +1,18 @@
-<p>
-  information-label works!
-</p>
+<div class="message-container" #wrapper>
+  <div class="wrapper">
+    <div class="header">
+      <span>{{ labelName }}</span>
+      <span (click)="close()" tabindex="0" class="close-button">X</span>
+    </div>
+    <div class="content">
+      <div class="item" *ngFor="let item of getData()">
+        <div class="img-wrapper"><img src="{{item.avatarImgLink}}" /></div>
+        <span class="name">{{ item.name }}</span>
+        <app-follow-button
+          [loggedUser]="this.loggedUser"
+          [idDestinateUser]="item.userId"
+        ></app-follow-button>
+      </div>
+    </div>
+  </div>
+</div>

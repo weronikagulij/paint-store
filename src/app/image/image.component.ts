@@ -5,6 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { UserComment } from "./comment";
 import { NgForm } from "@angular/forms";
 import { AgreeLabelComponent } from "../agree-label/agree-label.component";
+import { ShortUserInfo } from "../classes/short-user-info";
 
 @Component({
   selector: "app-image",
@@ -15,26 +16,31 @@ export class ImageComponent implements OnInit {
   @ViewChild("msg") Message;
   @ViewChild("msgDelete") msgDelete;
   @ViewChild("confirmLabel") confirmLabel;
+  @ViewChild("label") label;
   private _image: ImageExact = {
-    categoryToolName: "",
-    categoryTypeName: "",
     commentsCount: 0,
     creationDate: "",
     description: "",
     id: 0,
     imgLink: "",
     likeCount: 0,
+    tagsList: [],
     title: "",
     userId: 0,
     userOwnerImgLink: "",
     userOwnerName: "",
-    viewCount: 0
+    liked: false
   };
+
   private _comments: Comment[];
   private userId = 1; // TO DO: logowanie
   private formValid = true;
   private _loading = false;
   private commentIdToRemove = null;
+  private _loggedUser = {
+    isLoggedIn: true,
+    userId: 1
+  };
 
   constructor(private service: ImageService, private route: ActivatedRoute) {}
 
@@ -44,25 +50,43 @@ export class ImageComponent implements OnInit {
   }
 
   getImageData() {
-    this.service.ImageByPath(this.route.snapshot.params.id).subscribe(res => {
-      this._image = <ImageExact>res[0];
-    });
+    this.service
+      .ImageByPath(
+        this._loggedUser.userId.toString(),
+        this.route.snapshot.params.id
+      )
+      .subscribe(res => {
+        this._image = <ImageExact>res;
+        console.log(res);
+      });
   }
 
   getCommentsData() {
     this.service
-      .CommentsByImgPath(this.route.snapshot.params.id)
+      .CommentsByImgPath(
+        this._loggedUser.userId.toString(),
+        this.route.snapshot.params.id
+      )
       .subscribe(res => {
         this._comments = <Comment[]>res;
+        this._comments.forEach(comm => {
+          comm.isEditing = false;
+          comm.editValid = true;
+        });
+        console.log(this._comments);
       });
   }
 
+  isCommentValid(text: string): boolean {
+    if (text === null) return false;
+    if (typeof text === undefined) return false;
+    if (text === "") return false;
+    if (typeof text.length === undefined || text.length < 5) return false;
+    return true;
+  }
+
   onCommentUpload(form: NgForm) {
-    if (
-      form.value.text == null ||
-      form.value.text === "" ||
-      form.value.text.length < 5
-    ) {
+    if (!this.isCommentValid(form.value.text)) {
       // if comment is null
       this.formValid = false;
     } else {
@@ -75,9 +99,10 @@ export class ImageComponent implements OnInit {
       };
       // send message
       this.service.uploadComment(comment).subscribe(res => {
-        this.Message.showMessage();
+        this.Message.show("Comment uploaded succesfully.");
         this.formValid = true;
         this._loading = false;
+        this.getCommentsData();
       });
 
       form.resetForm();
@@ -87,17 +112,110 @@ export class ImageComponent implements OnInit {
   confirm() {
     this.service.removeComment(this.commentIdToRemove).subscribe(res => {
       this.getCommentsData();
-      this.msgDelete.showMessage();
+      this.Message.show("Comment deleted succesfully.");
     });
   }
 
   photoLike() {
-    console.log("liked");
+    this._image.likeCount += 1;
+    this._image.liked = true;
+    this.service
+      .likePost({
+        userId: this._loggedUser.userId,
+        postId: this.route.snapshot.params.id
+      })
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  photoUnlike() {
+    this._image.likeCount -= 1;
+    this._image.liked = false;
+    this.service
+      .unlikePost({
+        // to do: to nie dziala jeszcze
+        userId: this._loggedUser.userId,
+        postId: this.route.snapshot.params.id
+      })
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  showLiking() {
+    let informationToSend: ShortUserInfo[];
+    this.service.getPostLikes(this.route.snapshot.params.id).subscribe(res => {
+      informationToSend = <ShortUserInfo[]>res;
+      this.label.show(informationToSend, "Liked this image");
+    });
+  }
+
+  commentShowLiked(id: number) {
+    let informationToSend: ShortUserInfo[];
+    this.service.getCommentLikes(id.toString()).subscribe(res => {
+      informationToSend = <ShortUserInfo[]>res;
+      this.label.show(informationToSend, "Liked this comment");
+    });
+  }
+
+  commentLike(comment) {
+    comment.liked = true;
+    comment.likeCount += 1;
+    this.service
+      .likeComment({
+        userId: this._loggedUser.userId,
+        commentId: comment.id
+      })
+      .subscribe(res => {
+        console.log(res);
+      });
+  }
+
+  commentUnlike(comment) {
+    comment.liked = false;
+    comment.likeCount -= 1;
+    this.service
+      .unlikeComment({
+        userId: this._loggedUser.userId,
+        commentId: comment.id
+      })
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   removeComment(id: number) {
     this.commentIdToRemove = id;
     this.confirmLabel.show();
+  }
+
+  editComment(comment) {
+    comment.isEditing = true;
+  }
+
+  sendEditComment(form: NgForm, comment: Comment) {
+    if (this.isCommentValid(form.form.value.value)) {
+      comment.editValid = true;
+      let data = {
+        // to do: co tu wpisac??
+      };
+      this.service.editComment(data).subscribe(res => {
+        this.Message.show("Comment edited succesfully.");
+        comment.isEditing = false;
+      });
+    } else {
+      comment.editValid = false;
+    }
+  }
+
+  discard(comment) {
+    comment.isEditing = false;
+    comment.editValid = true;
+  }
+
+  get loggedUser() {
+    return this._loggedUser;
   }
 
   get image(): ImageExact {
@@ -114,26 +232,28 @@ export class ImageComponent implements OnInit {
 }
 
 interface ImageExact {
-  categoryToolName: string;
-  categoryTypeName: string;
   commentsCount: number;
   creationDate: string;
   description: string;
   id: number;
   imgLink: string;
   likeCount: number;
+  tagsList: number[];
   title: string;
   userId: number;
   userOwnerImgLink: string;
   userOwnerName: string;
-  viewCount: number;
+  liked: boolean;
 }
 
 interface Comment {
+  liked: boolean;
   content: string;
   creationDate: string;
   id: number;
   likeCount: number;
   userId: number;
   userOwnerImgLink: string;
+  isEditing: boolean;
+  editValid: boolean;
 }

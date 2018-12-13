@@ -7,15 +7,16 @@ import { Message } from "@angular/compiler/src/i18n/i18n_ast";
   styleUrls: ["./confirmation-message.component.scss"]
 })
 export class ConfirmationMessageComponent {
-  @Input("message") message;
   @ViewChild("msg") msgElement;
+  private message: string = "";
   constructor() {}
 
   // ngOnInit() {
   //   // this.showMessage();
   // }
 
-  showMessage() {
+  show(message: string) {
+    this.message = message;
     // show confirmation message
     let el = this.msgElement.nativeElement;
     el.classList.add("visible");

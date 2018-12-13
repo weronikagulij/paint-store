@@ -19,12 +19,12 @@ export class ImageService {
     return this._http.get(this.host + "api/Posts/" + id + "/GetFollowingPosts");
   }
 
-  public ImageByPath(id: string) {
-    return this._http.get(this.host + "api/Posts/" + id);
+  public ImageByPath(userId: string, postId: string) {
+    return this._http.get(this.host + "api/Posts/" + userId + "/" + postId);
   }
 
-  public CommentsByImgPath(id: string) {
-    return this._http.get(this.host + "api/Comments/" + id);
+  public CommentsByImgPath(userId: string, postId: string) {
+    return this._http.get(this.host + "api/Comments/" + userId + "/" + postId);
   }
 
   public userByPath(path: string) {
@@ -58,7 +58,42 @@ export class ImageService {
   }
 
   public selectUserRecentImages(id: string) {
-    // console.log(this.host + "api/Users/" + id + "/GetPosts");
     return this._http.get(this.host + "api/Users/" + id + "/GetPosts");
+  }
+
+  public getFollowed(id: string) {
+    return this._http.get(this.host + "api/Followers/GetFollowed/" + id);
+  }
+
+  public getFollowing(id: string) {
+    return this._http.get(this.host + "api/Followers/GetFollowing/" + id);
+  }
+
+  public getPostLikes(id: string) {
+    return this._http.get(this.host + "api/Likes/Post/" + id);
+  }
+
+  public unlikePost(data: any) {
+    return this._http.post(this.host + "api/Likes/Post/RemoveLike", data);
+  }
+
+  public likePost(data: any) {
+    return this._http.post(this.host + "api/Likes/Post/AddLike", data);
+  }
+
+  public getCommentLikes(id: string) {
+    return this._http.get(this.host + "api/Likes/Comment/" + id);
+  }
+
+  public likeComment(data: any) {
+    return this._http.post(this.host + "api/Likes/Comment/AddLike", data);
+  }
+
+  public unlikeComment(data: any) {
+    return this._http.post(this.host + "api/Likes/Comment/RemoveLike", data);
+  }
+
+  public editComment(data: any) {
+    return this._http.put(this.host + "/api/Comments/EditPostComment", data);
   }
 }
