@@ -9,6 +9,11 @@ menu {
   transition-duration: 0.3s;
 }
 
+menu.static {
+  position: relative;
+  box-shadow: none;
+}
+
 menu.logged-out {
   .container-menu {
     li.menu-user {

@@ -28,8 +28,10 @@ import { FileDropModule } from "ngx-file-drop";
 import { ConfirmationMessageComponent } from "./confirmation-message/confirmation-message.component";
 import { AgreeLabelComponent } from "./agree-label/agree-label.component";
 import { ImagesComponent } from "./images/images.component";
-import { FollowButtonComponent } from './follow-button/follow-button.component';
-import { InformationLabelComponent } from './information-label/information-label.component';
+import { FollowButtonComponent } from "./follow-button/follow-button.component";
+import { InformationLabelComponent } from "./information-label/information-label.component";
+import { LoginManager } from "./classes/login-manager";
+import { SettingsComponent } from "./settings/settings.component";
 
 const appRoutes: Routes = [
   {
@@ -56,6 +58,10 @@ const appRoutes: Routes = [
   {
     path: "messages",
     component: MessagesComponent
+  },
+  {
+    path: "settings",
+    component: SettingsComponent
   },
   {
     path: "user/:id",
@@ -121,7 +127,8 @@ const appRoutes: Routes = [
     AgreeLabelComponent,
     ImagesComponent,
     FollowButtonComponent,
-    InformationLabelComponent
+    InformationLabelComponent,
+    SettingsComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -134,7 +141,7 @@ const appRoutes: Routes = [
     MatTabsModule,
     FileDropModule
   ],
-  providers: [ImageService],
+  providers: [ImageService, LoginManager],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

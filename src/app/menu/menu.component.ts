@@ -1,7 +1,16 @@
-import { Component, OnInit, Input, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 import * as $ from "jquery";
 import * as ScrollMagic from "ScrollMagic";
 import { EventEmitter } from "@angular/core";
+import { Router } from "@angular/router";
+import { LoginManager } from "../classes/login-manager";
 
 @Component({
   selector: "app-menu",
@@ -9,17 +18,25 @@ import { EventEmitter } from "@angular/core";
   styleUrls: ["./menu.component.scss"]
 })
 export class MenuComponent implements OnInit {
-  // @Input() isLoggedIn: boolean;
-  // @Output() emitter = new EventEmitter();
+  @ViewChild("menu") menu: ElementRef;
   private isLoggedIn = true;
 
-  constructor() {}
+  constructor(private user: LoginManager, private router: Router) {}
 
   ngOnInit() {
     if (this.isLoggedIn === false) {
       $("menu").addClass("logged-out");
     }
+    if (
+      !this.menu.nativeElement.classList.contains("static") &&
+      window.location.pathname === "/homepage"
+    ) {
+      this.menu.nativeElement.classList.add("static");
+    }
+    this.animateSlideDown();
+  }
 
+  animateSlideDown() {
     let mainMenu = $(".menu-user");
     let toggledMenu = $(".menu-toggled");
     let button = mainMenu.find(".menu-toggle-down");

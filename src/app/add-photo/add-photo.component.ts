@@ -191,7 +191,7 @@ export class AddPhotoComponent implements OnInit {
       this.animateIcon("svg-upload");
       this.information = "Drop a file here";
 
-      this.Message.showMessage();
+      this.Message.show("File uploaded successfully.");
     }
   }
 }

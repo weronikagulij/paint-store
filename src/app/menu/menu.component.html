@@ -1,4 +1,4 @@
-<menu>
+<menu #menu>
   <div class="container-menu">
     <ul class="container-menu-ul">
       <li class="menu-logo">
@@ -31,18 +31,17 @@
         </form>
       </li>
       <li class="menu-user">
-        <a href=""><img src="https://via.placeholder.com/30x30"/></a>
-        <span><a href="">Imie Nazwisko</a></span>
+        <a href="/user/{{user.userId}}"
+          ><img src="https://via.placeholder.com/30x30"
+        /></a>
+        <span><a href="/user/{{user.userId}}">Imie Nazwisko</a></span>
         <button class="menu-toggle-down hoverable">
           <i class="icon-angle-down"></i>
         </button>
         <div class="menu-toggled hoverable">
           <ul>
             <li>
-              <a href=""><i class="icon-user"></i>Profile</a>
-            </li>
-            <li>
-              <a href=""><i class="icon-cog"></i>Settings</a>
+              <a href="/settings"><i class="icon-cog"></i>Edit profile</a>
             </li>
             <li>
               <a href="/upload-image"><i class="icon-plus"></i>Add</a>
