@@ -9,9 +9,16 @@
         <div class="img-wrapper"><img src="{{item.avatarImgLink}}" /></div>
         <span class="name">{{ item.name }}</span>
         <app-follow-button
+          *ngIf="item.userId !== loggedUser.userId"
           [loggedUser]="this.loggedUser"
           [idDestinateUser]="item.userId"
+          [followed]="item.followed"
         ></app-follow-button>
+
+        <!--
+          [ngClass]="item.followed === true ? 'followed' : ''"
+          (emitter)="emitter($event)"
+        -->
       </div>
     </div>
   </div>

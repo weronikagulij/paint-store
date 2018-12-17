@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     postsCount: 0
   };
   private url = this.route.snapshot.params.id;
-  private _loggedUser = {
+  private _loggedUser: IsUserLoggedIn = {
     isLoggedIn: true,
     userId: 1
   };
@@ -40,25 +40,32 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserData() {
-    this.imageService.selectUserById(this.url).subscribe(res => {
-      this.user = <User>res;
-    });
+    this.imageService
+      .selectUserById(this._loggedUser.userId.toString(), this.url)
+      .subscribe(res => {
+        this.user = <User>res;
+        console.log(this.user);
+      });
   }
 
   showFollowed() {
     let informationToSend: ShortUserInfo[];
-    this.imageService.getFollowed(this.url).subscribe(res => {
-      informationToSend = <ShortUserInfo[]>res;
-      this.label.show(informationToSend, "Followed by this user");
-    });
+    this.imageService
+      .getFollowed(this._loggedUser.userId.toString(), this.url)
+      .subscribe(res => {
+        informationToSend = <ShortUserInfo[]>res;
+        this.label.show(informationToSend, "Followed by this user");
+      });
   }
 
   showFollowing() {
     let informationToSend: ShortUserInfo[];
-    this.imageService.getFollowing(this.url).subscribe(res => {
-      informationToSend = <ShortUserInfo[]>res;
-      this.label.show(informationToSend, "Following by this user");
-    });
+    this.imageService
+      .getFollowing(this._loggedUser.userId.toString(), this.url)
+      .subscribe(res => {
+        informationToSend = <ShortUserInfo[]>res;
+        this.label.show(informationToSend, "Following by this user");
+      });
   }
 
   getUser() {

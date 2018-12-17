@@ -34,6 +34,15 @@ a {
   }
 }
 
+.hidden {
+  display: none;
+}
+
+input.invalid,
+input:focus.invalid {
+  border-bottom: 2px solid #dd6a6a;
+}
+
 .content-secondary {
   color: $color-light-grey;
   font-size: 14px;
@@ -501,17 +510,23 @@ $color-grey: #707070;
     margin-bottom: 30px;
   }
 
-  .image-file .file-input {
-    display: none;
+  .image-file {
+    height: 100%;
+    .file-input {
+      display: none;
+    }
   }
 
   .flex-wrapper {
     justify-content: space-between;
   }
 
+  .image-description {
+    width: calc(50% - 15px);
+  }
+
   .image-description,
   .image-file {
-    width: calc(50% - 15px);
     input,
     textarea {
       display: block;

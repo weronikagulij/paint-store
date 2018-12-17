@@ -34,13 +34,13 @@ export class ImagesComponent implements OnInit {
       this.imageService.selectUserRecentImages(id).subscribe(res => {
         // to do: get trending
         this.images = <Image[]>res;
-        console.log(this.images);
+        // console.log(this.images);
       });
     } else {
       this.imageService.selectUserRecentImages(id).subscribe(res => {
         // get recent
         this.images = <Image[]>res;
-        console.log(this.images);
+        // console.log(this.images);
       });
     }
   }

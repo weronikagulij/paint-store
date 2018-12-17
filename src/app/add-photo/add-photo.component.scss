@@ -3,3 +3,6 @@
     margin-bottom: 0;
   }
 }
+:host ::ng-deep app-input-file {
+  width: calc(50% - 15px);
+}

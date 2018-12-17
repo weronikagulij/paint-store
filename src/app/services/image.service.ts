@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { UserComment } from "../image/comment";
+import { FollowingData } from "../classes/following-data";
 
 @Injectable()
 export class ImageService {
@@ -53,47 +54,78 @@ export class ImageService {
     );
   }
 
-  public selectUserById(id: number) {
-    return this._http.get(this.host + "api/Users/" + id);
+  public selectUserById(loggedUserId: string, userId: string) {
+    return this._http.get(
+      this.host + "api/Users/" + loggedUserId + "/" + userId
+    );
   }
 
   public selectUserRecentImages(id: string) {
     return this._http.get(this.host + "api/Users/" + id + "/GetPosts");
   }
 
-  public getFollowed(id: string) {
-    return this._http.get(this.host + "api/Followers/GetFollowed/" + id);
+  public getFollowed(loggedUserId: string, userId: string) {
+    return this._http.get(
+      this.host + "api/Followers/GetFollowed/" + loggedUserId + "/" + userId
+    );
   }
 
-  public getFollowing(id: string) {
-    return this._http.get(this.host + "api/Followers/GetFollowing/" + id);
+  public getFollowing(loggedUserId: string, userId: string) {
+    return this._http.get(
+      this.host + "api/Followers/GetFollowing/" + loggedUserId + "/" + userId
+    );
   }
 
-  public getPostLikes(id: string) {
-    return this._http.get(this.host + "api/Likes/Post/" + id);
+  public getPostLikes(userId: string, postId: string) {
+    return this._http.get(
+      this.host + "api/Likes/Post/" + userId + "/" + postId
+    );
   }
 
-  public unlikePost(data: any) {
-    return this._http.post(this.host + "api/Likes/Post/RemoveLike", data);
+  public unlikePost(userId: string, postId: string) {
+    return this._http.delete(
+      this.host + "api/Likes/Post/RemoveLike/" + userId + "/" + postId
+    );
   }
 
   public likePost(data: any) {
     return this._http.post(this.host + "api/Likes/Post/AddLike", data);
   }
 
-  public getCommentLikes(id: string) {
-    return this._http.get(this.host + "api/Likes/Comment/" + id);
+  public getCommentLikes(userId: string, commentId: string) {
+    return this._http.get(
+      this.host + "api/Likes/Comment/" + userId + "/" + commentId
+    );
   }
 
   public likeComment(data: any) {
     return this._http.post(this.host + "api/Likes/Comment/AddLike", data);
   }
 
-  public unlikeComment(data: any) {
-    return this._http.post(this.host + "api/Likes/Comment/RemoveLike", data);
+  public unlikeComment(userId: string, postId: string) {
+    return this._http.delete(
+      this.host + "api/Likes/Comment/RemoveLike/" + userId + "/" + postId
+    );
   }
 
   public editComment(data: any) {
     return this._http.put(this.host + "/api/Comments/EditPostComment", data);
+  }
+
+  // followedUserId, followingUserId
+  public follow(data: FollowingData) {
+    return this._http.post(this.host + "/api/Followers/AddFollower", data);
+  }
+
+  // followedUserId, followingUserId
+  public unfollow(data: FollowingData) {
+    return this._http.delete(
+      this.host +
+        "/api/Followers/DeleteFollower" +
+        "/" +
+        data.followingUserId +
+        "/" +
+        data.followedUserId
+    );
   }
 }

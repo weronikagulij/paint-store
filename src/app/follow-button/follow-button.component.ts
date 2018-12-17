@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
+import { FollowingData } from "../classes/following-data";
+import { ImageService } from "../services/image.service";
 
 @Component({
   selector: "app-follow-button",
@@ -8,19 +10,41 @@ import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 })
 export class FollowButtonComponent implements OnInit {
   @Input() loggedUser: IsUserLoggedIn;
-  @Input() idDestinateUser;
+  @Input() idDestinateUser: number;
+  @Input() followed: boolean;
+  // @Output() emitter: EventEmitter<any> = new EventEmitter();
   public class = "";
-  constructor() {}
+  constructor(private service: ImageService) {}
 
   ngOnInit() {
-    // logged user can not follow himself
-    if (this.loggedUser.userId === this.idDestinateUser) this.class = "hidden";
-
     // if logged user already follows this user
     // to do
   }
 
   follow() {
-    console.log(this.loggedUser, this.idDestinateUser);
+    let data: FollowingData = {
+      followedUserId: this.idDestinateUser,
+      followingUserId: this.loggedUser.userId
+    };
+    this.service.follow(data).subscribe(res => {
+      // console.log(res);
+      // this.emitter.emit(this);
+      this.followed = true;
+      console.log(this.followed);
+    });
+  }
+
+  unFollow() {
+    let data: FollowingData = {
+      followedUserId: this.idDestinateUser,
+      followingUserId: this.loggedUser.userId
+    };
+
+    this.service.unfollow(data).subscribe(res => {
+      // console.log(res);
+      // this.emitter.emit(this);
+      this.followed = false;
+      console.log(this.followed);
+    });
   }
 }

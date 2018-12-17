@@ -57,7 +57,7 @@ export class ImageComponent implements OnInit {
       )
       .subscribe(res => {
         this._image = <ImageExact>res;
-        console.log(res);
+        // console.log(res);
       });
   }
 
@@ -73,7 +73,8 @@ export class ImageComponent implements OnInit {
           comm.isEditing = false;
           comm.editValid = true;
         });
-        console.log(this._comments);
+
+        // console.log(this._comments);
       });
   }
 
@@ -125,7 +126,7 @@ export class ImageComponent implements OnInit {
         postId: this.route.snapshot.params.id
       })
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
       });
   }
 
@@ -133,30 +134,37 @@ export class ImageComponent implements OnInit {
     this._image.likeCount -= 1;
     this._image.liked = false;
     this.service
-      .unlikePost({
-        // to do: to nie dziala jeszcze
-        userId: this._loggedUser.userId,
-        postId: this.route.snapshot.params.id
-      })
+      .unlikePost(
+        this._loggedUser.userId.toString(),
+        this.route.snapshot.params.id
+      )
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
       });
   }
 
   showLiking() {
     let informationToSend: ShortUserInfo[];
-    this.service.getPostLikes(this.route.snapshot.params.id).subscribe(res => {
-      informationToSend = <ShortUserInfo[]>res;
-      this.label.show(informationToSend, "Liked this image");
-    });
+    this.service
+      .getPostLikes(
+        this._loggedUser.userId.toString(),
+        this.route.snapshot.params.id
+      )
+      .subscribe(res => {
+        console.log("polubili ten post:\n", res);
+        informationToSend = <ShortUserInfo[]>res;
+        this.label.show(informationToSend, "Liked this image");
+      });
   }
 
   commentShowLiked(id: number) {
     let informationToSend: ShortUserInfo[];
-    this.service.getCommentLikes(id.toString()).subscribe(res => {
-      informationToSend = <ShortUserInfo[]>res;
-      this.label.show(informationToSend, "Liked this comment");
-    });
+    this.service
+      .getCommentLikes(this._loggedUser.userId.toString(), id.toString())
+      .subscribe(res => {
+        informationToSend = <ShortUserInfo[]>res;
+        this.label.show(informationToSend, "Liked this comment");
+      });
   }
 
   commentLike(comment) {
@@ -168,7 +176,7 @@ export class ImageComponent implements OnInit {
         commentId: comment.id
       })
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
       });
   }
 
@@ -176,12 +184,9 @@ export class ImageComponent implements OnInit {
     comment.liked = false;
     comment.likeCount -= 1;
     this.service
-      .unlikeComment({
-        userId: this._loggedUser.userId,
-        commentId: comment.id
-      })
+      .unlikeComment(this._loggedUser.userId.toString(), comment.id)
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
       });
   }
 
@@ -195,14 +200,18 @@ export class ImageComponent implements OnInit {
   }
 
   sendEditComment(form: NgForm, comment: Comment) {
-    if (this.isCommentValid(form.form.value.value)) {
+    let text = form.form.value.value;
+    if (this.isCommentValid(text)) {
       comment.editValid = true;
       let data = {
-        // to do: co tu wpisac??
+        id: comment.id,
+        content: text
       };
       this.service.editComment(data).subscribe(res => {
-        this.Message.show("Comment edited succesfully.");
+        this.Message.show("Comment edited succesfully.", res);
         comment.isEditing = false;
+        comment.edited = true;
+        comment.content = text;
       });
     } else {
       comment.editValid = false;
@@ -247,12 +256,14 @@ interface ImageExact {
 }
 
 interface Comment {
-  liked: boolean;
   content: string;
   creationDate: string;
+  edited: boolean;
   id: number;
   likeCount: number;
+  liked: boolean;
   userId: number;
+  userName: string;
   userOwnerImgLink: string;
   isEditing: boolean;
   editValid: boolean;

@@ -32,6 +32,13 @@ import { FollowButtonComponent } from "./follow-button/follow-button.component";
 import { InformationLabelComponent } from "./information-label/information-label.component";
 import { LoginManager } from "./classes/login-manager";
 import { SettingsComponent } from "./settings/settings.component";
+import { InputFileComponent } from "./forms/input-file/input-file.component";
+import { InputTextComponent } from "./forms/input-text/input-text.component";
+import { TextareaComponent } from "./forms/textarea/textarea.component";
+import { SubmitButtonComponent } from "./forms/submit-button/submit-button.component";
+import { ConfirmPasswordComponent } from "./forms/confirm-password/confirm-password.component";
+import { InputEmailComponent } from "./forms/input-email/input-email.component";
+// import { InputEmailComponent } from "./forms/input-email/input-email.component";
 
 const appRoutes: Routes = [
   {
@@ -128,7 +135,14 @@ const appRoutes: Routes = [
     ImagesComponent,
     FollowButtonComponent,
     InformationLabelComponent,
-    SettingsComponent
+    SettingsComponent,
+    InputFileComponent,
+    InputTextComponent,
+    TextareaComponent,
+    SubmitButtonComponent,
+    ConfirmPasswordComponent,
+    InputEmailComponent
+    // InputEmailComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

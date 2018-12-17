@@ -16,7 +16,6 @@ export class InformationLabelComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.loggedUser);
     document.addEventListener("click", e => {
       if ((<any>e).path[0].classList.contains("message-container")) {
         this.close();
@@ -34,15 +33,29 @@ export class InformationLabelComponent implements OnInit {
   }
 
   show(data, name) {
+    // stop scrolling when label visible
     document.querySelector("body").classList.add("stop-scrolling");
+
+    // show element
     const el = this.wrapper.nativeElement;
     el.classList.add("display");
     setTimeout(() => {
       el.classList.add("opacity");
     }, 0);
+
+    // set proper data - this.data is used for displaying users
     this.labelName = name;
     this.data = data;
   }
+
+  // emitter($event) {
+  //   console.log($event);
+  //   if ($event === true) {
+  //     console.log("wlasnie zafollowano");
+  //   } else {
+  //     console.log("unfollow");
+  //   }
+  // }
 
   getData() {
     return this.data;

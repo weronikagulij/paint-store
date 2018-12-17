@@ -16,18 +16,17 @@
                   getUser().name
                 }}</a>
               </h2>
-              <p class="content-secondary">I liverpool</p>
+              <p class="content-secondary">{{ getUser().link }}</p>
               <!-- to do: add info here -->
             </div>
           </div>
 
-          <div
-            class="buttons-wrapper"
-            *ngIf="getLoggedUser().userId != getUrl()"
-          >
-            <button type="button" area-label="follow" class="button-colored">
-              I Follow
-            </button>
+          <div class="buttons-wrapper" *ngIf="loggedUser.userId != getUrl()">
+            <app-follow-button
+              [loggedUser]="loggedUser"
+              [idDestinateUser]="getUrl()"
+              [followed]="getUser().followed"
+            ></app-follow-button>
           </div>
         </div>
 

@@ -71,10 +71,10 @@
           <div class="comment-content">
             <div class="header">
               <h4 class="author">
-                <a href="/user/{{comment.userId}}">UserName</a>
+                <a href="/user/{{comment.userId}}">{{ comment.userName }}</a>
               </h4>
               <p class="content-secondary">{{ comment.creationDate }}</p>
-              <span>(edited)</span>
+              <span *ngIf="comment.edited">(edited)</span>
               <span
                 class="delete"
                 (click)="removeComment(comment.id)"
