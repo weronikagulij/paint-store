@@ -1,5 +1,8 @@
 <div class="search">
-  <input type="text"/>
-  <a href=""><span class="icon">S</span></a>
-  <a href=""><span class="icon">L</span></a>
+  <input type="text" (keyup)="search(this.input.value)" #input />
+</div>
+<div class="search-result">
+  <ul>
+    <li></li>
+  </ul>
 </div>

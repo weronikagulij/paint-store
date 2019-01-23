@@ -1,6 +1,10 @@
 import { FormControl } from "@angular/forms";
 
 export function passwordsValidator(c: FormControl, fieldName: string) {
+  // field is optional
+  if (c.value === "" || typeof c.value === undefined) return null;
+  if (c.value.new === "" && c.value.confirm === "") return null;
+
   if (c.value === "" || typeof c.value === undefined)
     return {
       error: fieldName + "'s length must be at least 8 characters long."

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { textValidator } from "../validators/text-validator";
+import { shortTextValidator } from "../validators/text-validator";
+import { requiredTextValidator } from "../validators/text-validator";
 import { emailValidator } from "../validators/email-validator";
 import { passwordsValidator } from "../validators/passwords-validator";
+import { fileValidator } from "../validators/file-validator";
 
 @Component({
   selector: "app-settings",
@@ -22,19 +24,13 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      userName: [this.user.name, [Validators.required, textValidator]],
+      userName: [this.user.name, [Validators.required, requiredTextValidator]],
       email: [this.user.email, [Validators.required, emailValidator]],
-      shortInformation: [this.user.link, [Validators.required, textValidator]],
-      description: [
-        this.user.description,
-        [Validators.required, textValidator]
-      ],
-      password: ["", [Validators.required, passwordsValidator]]
+      shortInformation: [this.user.link, shortTextValidator],
+      description: [this.user.description],
+      password: ["", passwordsValidator],
+      file: ["", fileValidator]
     });
-  }
-
-  childEmitter($event) {
-    console.log($event);
   }
 
   onFormUpload(form: NgForm) {

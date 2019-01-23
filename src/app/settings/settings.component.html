@@ -15,7 +15,8 @@
 
       <input-text
         [data]="{
-          label: 'Short information'
+          label: 'Short information',
+          validation: 'short'
         }"
         formControlName="shortInformation"
       ></input-text>
@@ -36,14 +37,21 @@
 
       <confirm-password
         [data]="{
-          label: 'password'
+          label: 'password',
+          editable: true
         }"
         formControlName="password"
       ></confirm-password>
 
-      <!--
-        <app-input-file #file (emitter)="childEmitter($event)"></app-input-file>
-      -->
+      <!-- <input-file #file (emitter)="childEmitter($event)"> -->
+      <input-file
+        [data]="{
+          label: 'File'
+        }"
+        formControlName="file"
+      >
+      </input-file>
+
       <button area-label="upload file" class="button-colored" type="submit">
         Submit
       </button>

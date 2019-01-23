@@ -44,6 +44,8 @@ export abstract class InputField implements OnChanges, ControlValueAccessor {
   }
 
   stopEditing() {
+    this.Input.nativeElement.value = "";
+    this.propagateChange("");
     this.editing = false;
   }
 

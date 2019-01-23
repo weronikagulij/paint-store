@@ -1,23 +1,66 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import * as $ from "jquery";
+import {
+  forwardRef,
+  Component,
+  OnInit,
+  AfterContentChecked
+} from "@angular/core";
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  FormControl
+} from "@angular/forms";
+import { InputField } from "../input-field";
+// import { textValidator } from "src/app/validators/text-validator";
+import { fileValidator } from "../../validators/file-validator";
 
 @Component({
   selector: "input-file",
   templateUrl: "./input-file.component.html",
-  styleUrls: ["./input-file.component.scss"]
+  styleUrls: ["./input-file.component.scss"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputFileComponent),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => InputFileComponent),
+      multi: true
+    }
+  ]
 })
-export class InputFileComponent implements OnInit {
-  private allowedTypes = ["image/png", "image/jpeg"];
-  private allowedExtensions = ["png", "jpg"];
+export class InputFileComponent extends InputField implements OnInit {
   private _information = "Drop a file here";
-  private file: any = null;
   private elements = [];
   private iconsToAnimate = ["svg-upload", "svg-success", "svg-fail"];
-  private validateMessage = "";
-  private ok: boolean;
+  private first: boolean = true;
 
-  @Output() emitter: EventEmitter<any> = new EventEmitter();
-  constructor() {}
+  constructor() {
+    super();
+  }
+
+  validate(c: FormControl) {
+    let validator = fileValidator(c, this.data.label);
+    if (validator === null) {
+      // if there is no errors, animate succes icon
+
+      if (!this.first) {
+        this.animateIcon("svg-success");
+      } else this.first = false;
+    } else {
+      // animate error icon
+      this.animateIcon("svg-fail");
+    }
+
+    if (!this.first) {
+      super.setMessage(validator);
+    }
+
+    return validator;
+  }
 
   ngOnInit() {
     // for animating svg icons
@@ -39,14 +82,15 @@ export class InputFileComponent implements OnInit {
         $fileLabel.removeClass("is-dragover");
       })
       .on("drop", e => {
-        this.file = e.originalEvent.dataTransfer.files[0];
+        this.Input.nativeElement.files = e.originalEvent.dataTransfer.files;
+        // this.file = e.originalEvent.dataTransfer.files[0];
         this.dropped();
       });
 
     // if label is clicked
     let $fileInput = $(".file-input");
     $fileInput.on("change", () => {
-      this.file = $fileInput.prop("files")[0];
+      // this.file = $fileInput.prop("files")[0];
       this.dropped();
     });
 
@@ -59,44 +103,6 @@ export class InputFileComponent implements OnInit {
 
   get information() {
     return this._information;
-  }
-
-  private validateFile() {
-    let droppedFile = this.file;
-    if (
-      typeof droppedFile === "undefined" ||
-      typeof droppedFile.type === "undefined"
-    ) {
-      return {
-        isFileOk: false,
-        information: "File type is wrong."
-      };
-    }
-
-    if (
-      !this.allowedTypes.includes(droppedFile.type) ||
-      (droppedFile.type === "" &&
-        !this.allowedExtensions.includes(droppedFile.name.split(".").pop())) ||
-      droppedFile.size === 0
-    ) {
-      return {
-        isFileOk: false,
-        information: "File type is wrong."
-      };
-    }
-
-    if (droppedFile.size / 1024 / 1024 > 2) {
-      // 2 MB size
-      return {
-        isFileOk: false,
-        information: "File size is too big."
-      };
-    }
-
-    return {
-      isFileOk: true,
-      information: droppedFile.name
-    };
   }
 
   private animateIcon(icon: string) {
@@ -116,33 +122,10 @@ export class InputFileComponent implements OnInit {
   }
 
   private dropped() {
-    let validation = this.validateFile();
-    console.log(this.file);
-    this._information = validation.information;
-
-    if (validation.isFileOk === false) {
-      this.ok = false;
-      this.animateIcon("svg-fail");
-      this.file = null;
-    } else {
-      this.ok = true;
-      this.animateIcon("svg-success");
-      // this.formData.append("image", this.file);
-    }
-  }
-
-  private validate() {
-    this.emitter.emit(this.file);
-    if (this.file === null) {
-      this.ok = false;
-      this.validateMessage = "You must choose a file.";
-    } else this.validateMessage = "";
-
-    return this.ok;
+    super.change(this.Input.nativeElement.files[0]);
   }
 
   private clear() {
-    this.file = null;
     $(".file-input")[0].value = "";
     this.animateIcon("svg-upload");
     this._information = "Drop a file here";

@@ -1,4 +1,4 @@
-import { Component, forwardRef, ViewChild } from "@angular/core";
+import { Component, forwardRef, ViewChild, OnInit } from "@angular/core";
 import {
   ControlValueAccessor,
   NG_VALUE_ACCESSOR,
@@ -31,10 +31,14 @@ export class ConfirmPasswordComponent extends InputField {
     super();
   }
 
+  stopEditing() {
+    this.confirm.nativeElement.value = "";
+    super.stopEditing();
+  }
+
   validate(c: FormControl) {
     let validator = passwordsValidator(c, this.data.label);
     super.setMessage(validator);
-
     return validator;
   }
 }

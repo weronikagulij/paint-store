@@ -128,4 +128,9 @@ export class ImageService {
         data.followedUserId
     );
   }
+
+  // search
+  public search(searchWord: string) {
+    return this._http.get(this.host + "/api/Search/" + searchWord);
+  }
 }

@@ -6,7 +6,8 @@ import {
   FormControl
 } from "@angular/forms";
 import { InputField } from "../input-field";
-import { textValidator } from "src/app/validators/text-validator";
+import { requiredTextValidator } from "src/app/validators/text-validator";
+import { shortTextValidator } from "src/app/validators/text-validator";
 
 @Component({
   selector: "input-text",
@@ -31,9 +32,13 @@ export class InputTextComponent extends InputField {
   }
 
   validate(c: FormControl) {
-    let validator = textValidator(c, this.data.label);
+    let validator;
+    if (this.data.validation === "short") {
+      validator = shortTextValidator(c, this.data.label);
+    } else {
+      validator = requiredTextValidator(c, this.data.label);
+    }
     super.setMessage(validator);
-
     return validator;
   }
 }

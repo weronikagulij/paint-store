@@ -1,6 +1,12 @@
 import { FormControl } from "@angular/forms";
 
-export function textValidator(c: FormControl, fieldName: string) {
+export function shortTextValidator(c: FormControl, fieldName: string) {
+  return c.value.length > 90
+    ? { error: fieldName + " cannot be more than 90 characters long." }
+    : null;
+}
+
+export function requiredTextValidator(c: FormControl, fieldName: string) {
   return c.value.length < 4
     ? { error: fieldName + " must be at least 4 characters long." }
     : null;
