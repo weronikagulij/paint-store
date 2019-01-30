@@ -6,4 +6,4 @@ The portal contains also an images finder. Images are searched by tags or title 
 
 Project was made with Angular 6.
 
-![alt text](https://raw.githubusercontent.com/wjankowska/screenshots/master/paintstore1.PNG?token=Afbc2fbCMH8wkoQirdyW-NDbITD2gui_ks5cUZ_3wA%3D%3D)
+![alt text](https://raw.githubusercontent.com/wjankowska/screenshots/master/paintstore1.PNG)
