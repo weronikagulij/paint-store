@@ -49,3 +49,26 @@ $avatar-size: 22px;
 .container {
   text-align: center;
 }
+
+.image-wrapper {
+
+}
+
+
+@media only screen and (max-width: 1449px) {
+  .image-wrapper {
+    grid-template-columns: 300px 300px 300px;
+  }
+}
+
+@media only screen and (max-width: 1039px) {
+  .image-wrapper {
+    grid-template-columns: 300px 300px;
+  }
+}
+
+@media only screen and (max-width: 699px) {
+  .image-wrapper {
+    grid-template-columns: 300px;
+  }
+}

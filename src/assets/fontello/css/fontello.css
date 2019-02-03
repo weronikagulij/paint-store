@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?95365252');
-  src: url('../font/fontello.eot?95365252#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?95365252') format('woff2'),
-       url('../font/fontello.woff?95365252') format('woff'),
-       url('../font/fontello.ttf?95365252') format('truetype'),
-       url('../font/fontello.svg?95365252#fontello') format('svg');
+  src: url('../font/fontello.eot?52527720');
+  src: url('../font/fontello.eot?52527720#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?52527720') format('woff2'),
+       url('../font/fontello.woff?52527720') format('woff'),
+       url('../font/fontello.ttf?52527720') format('truetype'),
+       url('../font/fontello.svg?52527720#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?95365252#fontello') format('svg');
+    src: url('../font/fontello.svg?52527720#fontello') format('svg');
   }
 }
 */
@@ -55,11 +55,14 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-heart-empty:before { content: '\e800'; } /* '' */
-.icon-heart:before { content: '\e801'; } /* '' */
-.icon-cog:before { content: '\e802'; } /* '' */
-.icon-off:before { content: '\e803'; } /* '' */
-.icon-user:before { content: '\e804'; } /* '' */
-.icon-plus:before { content: '\e805'; } /* '' */
+.icon-plus:before { content: '\e800'; } /* '' */
+.icon-down-open:before { content: '\e801'; } /* '' */
+.icon-search:before { content: '\e802'; } /* '' */
+.icon-heart-empty:before { content: '\e803'; } /* '' */
+.icon-off:before { content: '\e804'; } /* '' */
+.icon-cog:before { content: '\e805'; } /* '' */
+.icon-facebook:before { content: '\f09a'; } /* '' */
+.icon-github-circled:before { content: '\f09b'; } /* '' */
 .icon-mail-alt:before { content: '\f0e0'; } /* '' */
-.icon-angle-down:before { content: '\f107'; } /* '' */
+.icon-comment-empty:before { content: '\f0e5'; } /* '' */
+.icon-google:before { content: '\f1a0'; } /* '' */

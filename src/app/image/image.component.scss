@@ -31,7 +31,7 @@ $radius: 5px;
 }
 
 .centered {
-  margin-bottom: 30px;
+  margin-bottom: 70px;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   padding-top: 0;
   // margin-top: 100px;
@@ -412,11 +412,42 @@ a:hover {
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1500px) {
   .centered {
-    margin-bottom: 0;
-    margin-top: 0;
+    box-shadow: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 100px 50px 100px;
+    background: #fff;
+    box-sizing: border-box;
+    margin: 0;
   }
 }
 
+@media only screen and (max-width: 1120px) {
+  .centered {
+    padding: 0 40px 50px;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+ .comments-wrapper {
+  flex-direction: column-reverse;
+
+  .description {
+    margin: 0 0 30px;
+    width: 100%;
+  }
+ }
+
+ .photo .photo-content {
+   padding: 10px 0;
+ }
+}
+
+@media only screen and (max-width: 700px) {
+  .centered {
+    padding: 0 30px 50px;
+  }
+}
 

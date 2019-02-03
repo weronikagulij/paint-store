@@ -1,6 +1,7 @@
 menu {
   background-color: #fff;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #dedede;
+  // box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
   margin: 0;
   padding: 0;
   position: fixed;
@@ -12,6 +13,7 @@ menu {
 menu.static {
   position: relative;
   box-shadow: none;
+  border-bottom: 0;
 }
 
 menu.logged-out {
@@ -141,6 +143,7 @@ menu.visible {
       margin-right: 8px;
     }
     button {
+      color: #c2c2c2;
       padding: 0;
       margin: 0;
       border: 0;
@@ -149,7 +152,7 @@ menu.visible {
       height: 50%;
       width: 30px;
       margin-left: -8px;
-      font-size: 18px;
+      font-size: 15px;
     }
   }
 }
@@ -230,4 +233,18 @@ menu.visible {
   }
 
   
+}
+
+@media only screen and (max-width: 1120px) {
+  .container-menu {
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container-menu {
+    padding: 0 30px;
+  }
 }

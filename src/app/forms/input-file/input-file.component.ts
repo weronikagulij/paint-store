@@ -43,6 +43,7 @@ export class InputFileComponent extends InputField implements OnInit {
   }
 
   validate(c: FormControl) {
+    console.log("validate")
     let validator = fileValidator(c, this.data.label);
     if (validator === null) {
       // if there is no errors, animate succes icon
@@ -70,15 +71,15 @@ export class InputFileComponent extends InputField implements OnInit {
     // add listeners to label
     let $fileLabel = $(".file-label");
     $fileLabel
-      .on("drag dragstart dragend dragover dragenter dragleave drop", function(
+      .on("drag dragstart dragend dragover dragenter dragleave drop", function (
         e
       ) {
         e.preventDefault();
       })
-      .on("dragover dragenter", function() {
+      .on("dragover dragenter", function () {
         $fileLabel.addClass("is-dragover");
       })
-      .on("dragleave dragend drop", function() {
+      .on("dragleave dragend drop", function () {
         $fileLabel.removeClass("is-dragover");
       })
       .on("drop", e => {
@@ -94,7 +95,7 @@ export class InputFileComponent extends InputField implements OnInit {
       this.dropped();
     });
 
-    $fileLabel.on("keyup", function(e) {
+    $fileLabel.on("keyup", function (e) {
       if (e.keyCode == 13) {
         $fileInput.trigger("click");
       }
@@ -129,5 +130,9 @@ export class InputFileComponent extends InputField implements OnInit {
     $(".file-input")[0].value = "";
     this.animateIcon("svg-upload");
     this._information = "Drop a file here";
+  }
+
+  public getFile() {
+    return this.Input.nativeElement.files[0];
   }
 }

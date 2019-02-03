@@ -31,7 +31,7 @@ export class AddPhotoComponent implements OnInit {
     this.validateMessage = new ValidateFileForm();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   public getValidationMessage(): ValidateFileForm {
     return this.validateMessage;
@@ -62,6 +62,8 @@ export class AddPhotoComponent implements OnInit {
       this.formData.append("category", form.form.value.category);
       this.validateMessage.category = "";
     }
+
+    console.log(this.File.getFile());
 
     // validate file
     if (this.File.validate() === false) {

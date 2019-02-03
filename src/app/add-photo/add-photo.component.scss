@@ -6,3 +6,34 @@
 :host ::ng-deep input-file {
   width: calc(50% - 15px);
 }
+
+@media only screen and (max-width: 1200px)  {
+  .centered {
+    background: #fff;
+  }
+  .upload-centered {
+    min-height: calc(100vh - 210px);
+    margin: 0 auto;
+  }
+
+  
+  h2 {
+    padding: 20px 0px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .flex-wrapper {
+    flex-direction: column;
+  }
+
+  .image-description {
+    width: 100%;
+  }
+
+  :host ::ng-deep input-file {
+    height: 130px;
+    width: 100%;
+  }
+} 

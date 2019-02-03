@@ -65,7 +65,7 @@ input:focus.invalid {
 }
 
 .centered {
-  max-width: 1200px;
+  max-width: 1290px;
   margin: 0 auto;
   padding-top: 70px;
   min-height: calc(100vh - 299px);
@@ -150,7 +150,7 @@ input:focus.invalid {
 // image
 .image-wrapper {
   display: grid;
-  grid-template-columns: 320px 320px 320px;
+  grid-template-columns: 300px 300px 300px 300px;
   margin: 0 auto;
   grid-gap: 30px;
 }
@@ -166,7 +166,7 @@ input:focus.invalid {
   }
 
   .image-cropped {
-    width: 320px;
+    width: 100%;
     height: 250px;
 
     img {

@@ -9,7 +9,7 @@ import { Message } from "@angular/compiler/src/i18n/i18n_ast";
 export class ConfirmationMessageComponent {
   @ViewChild("msg") msgElement;
   private message: string = "";
-  constructor() {}
+  constructor() { }
 
   // ngOnInit() {
   //   // this.showMessage();
@@ -30,7 +30,7 @@ export class ConfirmationMessageComponent {
           el.classList.remove("visible");
         }, 300);
       }
-    }, 6000);
+    }, 4000);
   }
 
   public closeMessage(id: number) {
