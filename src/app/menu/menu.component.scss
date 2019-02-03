@@ -74,6 +74,7 @@ menu.visible {
 .container-menu-ul {
   display: flex;
   height: 70px;
+  transition: 0.2s;
 
   a {
     color: #727272;
@@ -120,6 +121,22 @@ menu.visible {
       margin-right: 10px;
       display: block;
     }
+
+    .logged-user-icon {
+        display: block;
+        border-radius: 15px;
+        width: 30px;
+        height: 30px;
+        overflow: hidden;
+        margin-right: 8px;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+  }
+
     span {
       margin-right: 8px;
     }
@@ -129,14 +146,20 @@ menu.visible {
       border: 0;
       background: none;
       cursor: pointer;
-      height: 100%;
-      width: 50px;
-      margin-left: -20px;
+      height: 50%;
+      width: 30px;
+      margin-left: -8px;
+      font-size: 18px;
     }
   }
 }
 
-.container-menu .menu-toggled {
+.menu-toggled.visible {
+  display: block;
+}
+
+.menu-toggled {
+  display: none;
   position: absolute;
   top: 100%;
   right: 0;
@@ -166,8 +189,8 @@ menu.visible {
     border-top: 1px solid #e9e9e9;
     border-left: 1px solid #e9e9e9;
     border-right: 1px solid #e9e9e9;
-    opacity: 0;
-    display: none;
+    // opacity: 0;
+    // display: none;
     transition-duration: 0.2s;
   }
 
@@ -179,17 +202,17 @@ menu.visible {
     }
   }
 
-  li:nth-of-type(2) {
-    transition-delay: 0.06s;
-  }
+  // li:nth-of-type(2) {
+  //   transition-delay: 0.06s;
+  // }
 
-  li:nth-of-type(3) {
-    transition-delay: 0.08s;
-  }
+  // li:nth-of-type(3) {
+  //   transition-delay: 0.08s;
+  // }
 
-  li:nth-of-type(4) {
-    transition-delay: 0.1s;
-  }
+  // li:nth-of-type(4) {
+  //   transition-delay: 0.1s;
+  // }
 
   li:hover {
     background: #f2f2f2;
@@ -201,30 +224,10 @@ menu.visible {
   }
 }
 
-.container-menu .menu-toggled.menu-animate li {
-  opacity: 1;
+.scrolled {
+  .container-menu-ul {
+    height: 45px;
+  }
+
+  
 }
-
-.container-menu .menu-toggled.menu-visible li {
-  display: block;
-}
-
-// .container-menu .menu-user:hover .menu-toggled li {
-//   opacity: 1;
-//   visibility: visible;
-// }
-
-// .container-menu .menu-toggled:hover li {
-//   opacity: 1;
-//   visibility: visible;
-// }
-
-// .container-menu .menu-toggled:focus-within li {
-//   opacity: 1;
-//   visibility: visible;
-// }
-
-// .container-menu .menu-toggle-down:focus + .menu-toggled li {
-//   opacity: 1;
-//   visibility: visible;
-// }

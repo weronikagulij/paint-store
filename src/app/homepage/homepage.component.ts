@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class HomepageComponent implements OnInit {
   private _images: Image[];
+  loading: boolean = false;
 
   private user = {
     loggedIn: true,
@@ -20,7 +21,7 @@ export class HomepageComponent implements OnInit {
     private imgService: ImageService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (this.user.loggedIn) {
@@ -41,19 +42,26 @@ export class HomepageComponent implements OnInit {
   }
 
   recentImages() {
+    this.loading = true;
     this.imgService.selectRecentImages().subscribe(res => {
+      this.loading = false;
       this._images = <Image[]>res;
     });
   }
 
   popularImages() {
+    this.loading = true;
     this.imgService.selectPopularImages().subscribe(res => {
+      this.loading = false;
       this._images = <Image[]>res;
+      console.log(this._images);
     });
   }
 
   followedImages() {
+    this.loading = true;
     this.imgService.selectFollowedImages(this.user.userId).subscribe(res => {
+      this.loading = false;
       this._images = <Image[]>res;
     });
   }

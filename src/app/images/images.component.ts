@@ -14,6 +14,8 @@ export class ImagesComponent implements OnInit {
     // followed: "followed"
   };
 
+  loading: boolean = false;
+
   private images: Image[] = [];
   // private id = this.route.parent.snapshot.paramMap.get("id");
   // private path = this.route.snapshot.routeConfig.path;
@@ -21,7 +23,7 @@ export class ImagesComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getData();
@@ -30,17 +32,16 @@ export class ImagesComponent implements OnInit {
   getData() {
     let path = this.route.snapshot.routeConfig.path;
     let id = this.route.parent.snapshot.paramMap.get("id");
+    this.loading = true;
     if (path === this.selectedRoutes.recent) {
-      this.imageService.selectUserRecentImages(id).subscribe(res => {
-        // to do: get trending
+      this.imageService.selectUserTrendingImages(id).subscribe(res => {
         this.images = <Image[]>res;
-        // console.log(this.images);
+        this.loading = false;
       });
     } else {
       this.imageService.selectUserRecentImages(id).subscribe(res => {
-        // get recent
         this.images = <Image[]>res;
-        // console.log(this.images);
+        this.loading = false;
       });
     }
   }

@@ -14,15 +14,11 @@
             </div>
           </div>
           <div class="label-wrapper">
-            <label class="input-description" for="description"
-              >Description</label
-            >
+            <label class="input-description" for="description">Description</label>
             <textarea name="description" id="description" ngModel></textarea>
           </div>
           <div class="label-wrapper">
-            <label class="input-description" for="category"
-              >Choose category</label
-            >
+            <label class="input-description" for="category">Choose category</label>
             <select id="category" name="category" ngModel>
               <option value="cat1">Cat 1</option>
               <option value="Cat 2">Cat 2</option>
@@ -36,19 +32,10 @@
 
           <div class="label-wrapper">
             <span class="input-description">Enter tags</span>
-            <tag-input
-              ngModel
-              name="tags"
-              id="tags"
-              [maxItems]="'10'"
-              [addOnPaste]="'true'"
-              [animationDuration]="{ enter: '0ms', leave: '0ms' }"
-              [placeholder]="'Press Enter to add item'"
-              [separatorKeyCodes]="'[32, 13]'"
-            ></tag-input>
+            <tag-input ngModel name="tags" id="tags" [maxItems]="'10'" [addOnPaste]="'true'" [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+              [placeholder]="'Press Enter to add item'" [separatorKeyCodes]="'[32, 13]'"></tag-input>
           </div>
         </div>
-
         <input-file #file (emitter)="childEmitter($event)"></input-file>
       </div>
       <button area-label="upload file" class="button-colored" type="submit">

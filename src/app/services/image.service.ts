@@ -6,7 +6,7 @@ import { FollowingData } from "../classes/following-data";
 @Injectable()
 export class ImageService {
   private host = "http://paintstorerest.azurewebsites.net/";
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   public selectRecentImages() {
     return this._http.get(this.host + "api/Posts/AllPosts/the_newest");
@@ -61,7 +61,12 @@ export class ImageService {
   }
 
   public selectUserRecentImages(id: string) {
-    return this._http.get(this.host + "api/Users/" + id + "/GetPosts");
+    return this._http.get(this.host + "api/Users/" + id + "/GetPosts/the_newest");
+  }
+
+  public selectUserTrendingImages(id: string) {
+    return this._http.get(this.host + "api/Users/" + id + "/GetPosts/most_popular");
+
   }
 
   public getFollowed(loggedUserId: string, userId: string) {
@@ -121,11 +126,11 @@ export class ImageService {
   public unfollow(data: FollowingData) {
     return this._http.delete(
       this.host +
-        "/api/Followers/DeleteFollower" +
-        "/" +
-        data.followingUserId +
-        "/" +
-        data.followedUserId
+      "/api/Followers/DeleteFollower" +
+      "/" +
+      data.followingUserId +
+      "/" +
+      data.followedUserId
     );
   }
 

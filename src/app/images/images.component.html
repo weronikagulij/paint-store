@@ -1,3 +1,6 @@
+<div class="loading" *ngIf="loading === true">
+  <img src="../../assets/svg/loading-images.svg" />
+</div>
 <div class="image-wrapper">
   <div class="image-element" *ngFor="let image of getImages()">
     <div class="image-cropped">

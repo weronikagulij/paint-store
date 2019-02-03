@@ -76,46 +76,5 @@ export class IndexComponent implements OnInit {
         .setClassToggle(name + i, "visible")
         .addTo(controller);
     }
-
-    // let controller = new ScrollMagic.Controller();
-
-    // let scene = new ScrollMagic.Scene({
-    //   triggerElement: ".hands-wrapper",
-    //   triggerHook: 0,
-    //   offset: 100
-    // })
-    //   .setClassToggle("menu", "visible")
-    //   .addTo(controller);
-
-    // $(".mat-tab-label-container").css("marginTop", "101px");
-
-    // let scroll = function() {
-    //   let difference = $(window).scrollTop() - divOffsetTop; // start counting when div wrapping element is on the top of the page
-    //   let elementHeight = 600;
-
-    //   if (difference > 0 && difference < elementHeight) {
-    //     $(element).css("top", difference / 2 + 50);
-    //   }
-
-    //   if ($(window).scrollTop() > 10) {
-    //     $(menu).removeClass("not-visible");
-    //   } else {
-    //     $(menu).addClass("not-visible");
-    //   }
-    // };
-
-    // let waiting = false;
-    // $(window).scroll(function() {
-    //   if (waiting) {
-    //     return;
-    //   }
-    //   waiting = true;
-
-    //   scroll();
-
-    //   setTimeout(function() {
-    //     waiting = false;
-    //   }, 10);
-    // });
   }
 }

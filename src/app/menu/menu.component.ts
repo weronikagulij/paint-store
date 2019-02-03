@@ -11,6 +11,7 @@ import * as ScrollMagic from "ScrollMagic";
 import { EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginManager } from "../classes/login-manager";
+import { IsUserLoggedIn } from "../classes/is-user-logged-in";
 
 @Component({
   selector: "app-menu",
@@ -19,12 +20,14 @@ import { LoginManager } from "../classes/login-manager";
 })
 export class MenuComponent implements OnInit {
   @ViewChild("menu") menu: ElementRef;
-  private isLoggedIn = true;
+  @ViewChild("menuToggled") menuToggled: ElementRef;
+  @ViewChild("button") button: ElementRef;
 
-  constructor(private user: LoginManager, private router: Router) {}
+  constructor(private user: LoginManager, private router: Router) { }
 
   ngOnInit() {
-    if (this.isLoggedIn === false) {
+    // menu on homepage looks differently
+    if (this.user.userLoggedIn === false) {
       $("menu").addClass("logged-out");
     }
     if (
@@ -33,66 +36,30 @@ export class MenuComponent implements OnInit {
     ) {
       this.menu.nativeElement.classList.add("static");
     }
-    this.animateSlideDown();
-  }
 
-  animateSlideDown() {
-    let mainMenu = $(".menu-user");
-    let toggledMenu = $(".menu-toggled");
-    let button = mainMenu.find(".menu-toggle-down");
-    let hoverable = $(".hoverable");
-
-    function showMenu() {
-      toggledMenu.addClass("menu-visible");
-      setTimeout(() => {
-        toggledMenu.addClass("menu-animate");
-      }, 5);
-    }
-
-    function hideMenu() {
-      toggledMenu.removeClass("menu-animate");
-      setTimeout(() => {
-        toggledMenu.removeClass("menu-visible");
-      }, 20);
-    }
-
-    function isNextHoverFocusable(e) {
-      if (
-        !(
-          $(e.relatedTarget).hasClass("hoverable") ||
-          $(e.relatedTarget)
-            .parents()
-            .hasClass("hoverable")
-        )
-      ) {
-        return false;
-      }
-      return true;
-    }
-
-    $(hoverable)
-      .on("mouseenter touch", () => {
-        showMenu();
-      })
-      .on("mouseleave", e => {
-        if (!isNextHoverFocusable(e)) {
-          hideMenu();
-        }
-      })
-      .on("focusout", e => {
-        if (!isNextHoverFocusable(e)) {
-          hideMenu();
-        }
-      });
-
-    $(button).on("keyup", function(e) {
-      if (e.keyCode == 13) {
-        showMenu();
+    // hide toggled menu when clicked somewhere on page
+    document.addEventListener('click', (e) => {
+      if ((e.target !== this.menuToggled.nativeElement && !this.menuToggled.nativeElement.contains(e.target))
+        && (e.target !== this.button.nativeElement && !this.button.nativeElement.contains(e.target))) {
+        this.menuToggled.nativeElement.classList.remove('visible');
       }
     });
+
+    // scroll menu
+    for (let i = 1; i <= 6; i++) {
+      let controller = new ScrollMagic.Controller();
+
+      let scene = new ScrollMagic.Scene({
+        triggerElement: ".scrollmagic-toggle",
+        triggerHook: 0,
+        offset: 40
+      })
+        .setClassToggle(".container-menu", "scrolled")
+        .addTo(controller);
+    }
   }
 
-  // scrollDown() {
-  //   this.emitter.emit();
-  // }
+  toggleMenu() {
+    this.menuToggled.nativeElement.classList.toggle('visible');
+  }
 }

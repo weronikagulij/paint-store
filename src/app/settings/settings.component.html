@@ -6,53 +6,37 @@
       <form #formEdit="ngForm" (ngSubmit)="onFormUpload(formEdit.form.value)">
     -->
     <form [formGroup]="form" (ngSubmit)="onFormUpload(form)">
-      <input-text
-        [data]="{
+      <input-text [data]="{
           label: 'Name'
-        }"
-        formControlName="userName"
-      ></input-text>
+        }" formControlName="userName"></input-text>
 
-      <input-text
-        [data]="{
+      <input-text [data]="{
           label: 'Short information',
           validation: 'short'
         }"
-        formControlName="shortInformation"
-      ></input-text>
+        formControlName="shortInformation"></input-text>
 
-      <input-email
-        [data]="{
+      <input-email [data]="{
           label: 'Email'
-        }"
-        formControlName="email"
-      ></input-email>
+        }" formControlName="email"></input-email>
 
-      <input-textarea
-        [data]="{
+      <input-textarea [data]="{
           label: 'Description'
-        }"
-        formControlName="description"
-      ></input-textarea>
+        }" formControlName="description"></input-textarea>
 
-      <confirm-password
-        [data]="{
+      <confirm-password [data]="{
           label: 'password',
           editable: true
-        }"
-        formControlName="password"
-      ></confirm-password>
+        }" formControlName="password"></confirm-password>
 
       <!-- <input-file #file (emitter)="childEmitter($event)"> -->
-      <input-file
-        [data]="{
+      <span class="input-description">Input profile image</span>
+      <input-file [data]="{
           label: 'File'
-        }"
-        formControlName="file"
-      >
+        }" formControlName="file">
       </input-file>
 
-      <button area-label="upload file" class="button-colored" type="submit">
+      <button area-label="edit profile" class="button-colored" type="submit">
         Submit
       </button>
     </form>

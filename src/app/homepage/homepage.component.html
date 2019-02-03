@@ -2,16 +2,14 @@
   <div class="centered">
     <ul class="menu-list">
       <li>
-        <a
-          routerLinkActive="active"
-          routerLink="/"
-          [routerLinkActiveOptions]="{ exact: true }"
-          >Followed</a
-        >
+        <a routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{ exact: true }">Followed</a>
       </li>
       <li><a routerLinkActive="active" routerLink="/trending">Trending</a></li>
       <li><a routerLinkActive="active" routerLink="/recent">Recent</a></li>
     </ul>
+    <div class="loading" *ngIf="loading === true">
+      <img src="../../assets/svg/loading-images.svg" />
+    </div>
     <div class="image-wrapper">
       <div *ngFor="let image of images" class="image-element">
         <div class="image-cropped">
@@ -20,8 +18,10 @@
           </a>
         </div>
         <div class="image-info">
-          <h3>
+          <h3 class="image-title">
             <a routerLink="/image/{{image.id}}">{{ image.title }}</a>
+            <span>{{image.likeCount}} X</span>
+            <span>{{image.commentsCount}} X</span>
           </h3>
           <div class="image-author">
             <div class="avatar-container">
@@ -32,7 +32,7 @@
             <div class="image-author-name">
               <a routerLink="/user/{{image.userId}}">{{
                 image.userOwnerName
-              }}</a>
+                }}</a>
             </div>
           </div>
         </div>

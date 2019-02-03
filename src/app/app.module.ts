@@ -158,4 +158,4 @@ const appRoutes: Routes = [
   providers: [ImageService, LoginManager],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

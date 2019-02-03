@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,600");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700');
 html,
 body {
   font-family: "Roboto", sans-serif;
@@ -11,7 +12,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto", sans-serif; // jakas inna czcionka naglowkowa
+  font-weight: 500;
 }
 
 h2 {
@@ -141,6 +143,7 @@ input:focus.invalid {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: cover;
   }
 }
 
@@ -165,17 +168,12 @@ input:focus.invalid {
   .image-cropped {
     width: 320px;
     height: 250px;
-    // position: relative;
-    // overflow: hidden;
 
     img {
-      // position: absolute;
       width: 100%;
       height: 100%;
       border-radius: 3px 3px 0 0;
-      // top: 50%;
-      // left: 50%;
-      // transform: translate(-50%, -50%);
+      object-fit: cover;
     }
 
     a {
@@ -191,6 +189,21 @@ input:focus.invalid {
 
     h3 {
       font-weight: 400;
+      display: flex;
+      align-items: baseline;
+
+      a {
+        flex-grow: 1;
+      }
+
+      span {
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-left: 6px;
+        font-size: 13px;
+        color: #a2a0a0;
+        font-family: "Roboto", sans-serif;
+      }
     }
 
     // .image-author {
@@ -240,6 +253,10 @@ textarea {
 
   label {
     display: block;
+  }
+
+  label.hidden {
+    display: none;
   }
   // select {
   //   flex-grow: 1;
@@ -312,8 +329,8 @@ form .button-colored {
   .label-wrapper {
     position: relative;
     display: block;
-    top: 50%;
-    transform: translateY(-35px);
+    top: 50%;   
+     transform: translateY(-50%);
   }
 }
 
@@ -564,4 +581,15 @@ $color-grey: #707070;
     outline: none;
     background: #a17e67;
   }
+}
+
+
+.loading {
+  // display: block;
+  // height: 40px;
+  // margin-right: 10px;
+  
+ img {
+  margin-top: -90px;
+}
 }

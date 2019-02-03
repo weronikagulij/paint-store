@@ -6,6 +6,7 @@ $avatar-size: 22px;
   -webkit-transition: $time $type $property;
 }
 
+
 .animation-container {
   width: 100vw;
   height: 100vh;
@@ -40,24 +41,6 @@ $avatar-size: 22px;
 .container {
   margin-bottom: 70px;
 }
-
-//@mixin border-radius($radius) {
-//  border-radius: $radius;
-//  -moz-border-radius: $radius;
-//  -webkit-border-radius: $radius;
-//}
-//@mixin box-shadow($shadow) {
-//  box-shadow: $shadow;
-//  -moz-box-shadow: $shadow;
-//  -webkit-box-shadow: $shadow;
-//}
-
-//@mixin background() {
-//
-//  background-position:center center;
-//  background-repeat:no-repeat;
-//  background-size:cover;
-//}
 
 .centered {
   display: inline-block;

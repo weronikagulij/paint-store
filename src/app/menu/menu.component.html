@@ -2,7 +2,7 @@
   <div class="container-menu">
     <ul class="container-menu-ul">
       <li class="menu-logo">
-        <a href=""><img src="https://via.placeholder.com/170x40"/></a>
+        <a href=""><img src="https://via.placeholder.com/170x40" /></a>
       </li>
       <!-- <li> -->
 
@@ -32,15 +32,15 @@
         </form>
       -->
       <!-- </li> -->
-      <li><app-search></app-search></li>
+      <li>
+        <app-search></app-search>
+      </li>
       <li class="menu-user">
-        <a href="/user/{{user.userId}}"
-          ><img src="https://via.placeholder.com/30x30"
-        /></a>
-        <button class="menu-toggle-down hoverable">
+        <a href="/user/{{user.userId}}" class="logged-user-icon"><img src="https://via.placeholder.com/30x30" /></a>
+        <button class="menu-toggle-down" (click)="toggleMenu()" #button>
           <i class="icon-angle-down"></i>
         </button>
-        <div class="menu-toggled hoverable">
+        <div class="menu-toggled" #menuToggled>
           <ul>
             <li>
               <a href="/settings"><i class="icon-cog"></i>Edit profile</a>
@@ -49,7 +49,7 @@
               <a href="/upload-image"><i class="icon-plus"></i>Add</a>
             </li>
             <li>
-              <a href=""><i class="icon-off"></i>Logout</a>
+              <a href="#"><i class="icon-off"></i>Logout</a>
             </li>
           </ul>
         </div>
@@ -64,3 +64,4 @@
     </ul>
   </div>
 </menu>
+<div class="scrollmagic-toggle"></div>
