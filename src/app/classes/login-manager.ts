@@ -1,16 +1,50 @@
-export class LoginManager {
-  private _userId: number;
-  private _userLoggedIn: boolean;
-  constructor() {
-    this._userId = 1;
-    this._userLoggedIn = true;
+import { LocalStorageService } from "angular-web-storage";
+import { StorageData } from "./storage-data";
+
+export abstract class LoginManager {
+  private static _userId: number = null;
+  private static _userLoggedIn: boolean = null;
+  private static _userToken: string = null;
+  private static local: LocalStorageService = new LocalStorageService();
+
+  constructor() {}
+
+  private static checkAuth() {
+    if (
+      this._userId === null &&
+      this._userLoggedIn === null &&
+      this._userToken === null
+    ) {
+      let data = this.local.get(StorageData.getKey());
+      console.log(data);
+      if (data === null) {
+        this._userLoggedIn = false;
+        this._userId = 0;
+        this._userToken = "";
+      } else {
+        this._userId = data.userId;
+        this._userToken = data.token;
+        this._userLoggedIn = true;
+      }
+    }
   }
 
-  get userId(): number {
+  public static loginUser(data) {
+    this.local.set(StorageData.getKey(), data);
+  }
+
+  public static userId(): number {
+    this.checkAuth();
     return this._userId;
   }
 
-  get userLoggedIn(): boolean {
+  public static userLoggedIn(): boolean {
+    this.checkAuth();
     return this._userLoggedIn;
+  }
+
+  public static userToken(): string {
+    this.checkAuth();
+    return this._userToken;
   }
 }

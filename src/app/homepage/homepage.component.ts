@@ -2,29 +2,28 @@ import { Component, OnInit } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import * as $ from "jquery";
 import { ActivatedRoute, Router } from "@angular/router";
+import { LoggedIn } from "../classes/logged-in";
 
 @Component({
   selector: "app-homepage",
   templateUrl: "./homepage.component.html",
   styleUrls: ["./homepage.component.scss"]
 })
-export class HomepageComponent implements OnInit {
+export class HomepageComponent extends LoggedIn implements OnInit {
   private _images: Image[];
   loading: boolean = false;
-
-  private user = {
-    loggedIn: true,
-    userId: 1
-  };
 
   constructor(
     private imgService: ImageService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    if (this.user.loggedIn) {
+    super.ngOnInit();
+    if (this._loggedIn) {
       if (this.router.url === "/") {
         this.followedImages();
       } else if (this.router.url === "/trending") {
@@ -60,7 +59,7 @@ export class HomepageComponent implements OnInit {
 
   followedImages() {
     this.loading = true;
-    this.imgService.selectFollowedImages(this.user.userId).subscribe(res => {
+    this.imgService.selectFollowedImages(this._loggedId).subscribe(res => {
       this.loading = false;
       this._images = <Image[]>res;
     });
@@ -68,10 +67,6 @@ export class HomepageComponent implements OnInit {
 
   get images(): Array<Image> {
     return this._images;
-  }
-
-  public isLoggedIn(): boolean {
-    return this.user.loggedIn;
   }
 }
 

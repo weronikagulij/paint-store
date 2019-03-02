@@ -12,22 +12,32 @@ import { EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { LoginManager } from "../classes/login-manager";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
+import { LoggedIn } from "../classes/logged-in";
+import { NgForm } from "@angular/forms";
+import { AccountService } from "../services/account.service";
 
 @Component({
   selector: "app-menu",
   templateUrl: "./menu.component.html",
   styleUrls: ["./menu.component.scss"]
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent extends LoggedIn implements OnInit {
   @ViewChild("menu") menu: ElementRef;
   @ViewChild("menuToggled") menuToggled: ElementRef;
   @ViewChild("button") button: ElementRef;
+  @ViewChild("input") input: ElementRef;
+  @ViewChild("input2") input2: ElementRef;
 
-  constructor(private user: LoginManager, private router: Router) { }
+  private host = "http://localhost:4200/";
+
+  constructor(private router: Router, private _accountService: AccountService) {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
     // menu on homepage looks differently
-    if (this.user.userLoggedIn === false) {
+    if (this._loggedIn === false) {
       $("menu").addClass("logged-out");
     }
     if (
@@ -38,10 +48,14 @@ export class MenuComponent implements OnInit {
     }
 
     // hide toggled menu when clicked somewhere on page
-    document.addEventListener('click', (e) => {
-      if ((e.target !== this.menuToggled.nativeElement && !this.menuToggled.nativeElement.contains(e.target))
-        && (e.target !== this.button.nativeElement && !this.button.nativeElement.contains(e.target))) {
-        this.menuToggled.nativeElement.classList.remove('visible');
+    document.addEventListener("click", e => {
+      if (
+        e.target !== this.menuToggled.nativeElement &&
+        !this.menuToggled.nativeElement.contains(e.target) &&
+        (e.target !== this.button.nativeElement &&
+          !this.button.nativeElement.contains(e.target))
+      ) {
+        this.menuToggled.nativeElement.classList.remove("visible");
       }
     });
 
@@ -57,9 +71,34 @@ export class MenuComponent implements OnInit {
         .setClassToggle(".container-menu", "scrolled")
         .addTo(controller);
     }
+
+    // listen to path change
   }
 
   toggleMenu() {
-    this.menuToggled.nativeElement.classList.toggle('visible');
+    this.menuToggled.nativeElement.classList.toggle("visible");
+  }
+
+  onLogin(form: NgForm) {
+    this._accountService
+      .getUserToken({
+        email: form.form.value.email,
+        password: form.form.value.password
+      })
+      .subscribe(
+        res => {
+          LoginManager.loginUser(res);
+          window.location.replace(this.host);
+        },
+        err => {
+          this.input.nativeElement.classList.add("invalid");
+          this.input2.nativeElement.classList.add("invalid");
+        }
+      );
+  }
+
+  onKeyup() {
+    this.input.nativeElement.classList.remove("invalid");
+    this.input2.nativeElement.classList.remove("invalid");
   }
 }

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TagInputModule } from "ngx-chips";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTabsModule } from "@angular/material/tabs";
+import { AngularWebStorageModule } from "angular-web-storage";
 
 import { AppComponent } from "./app.component";
 import { HomepageComponent } from "./homepage/homepage.component";
@@ -38,7 +39,9 @@ import { TextareaComponent } from "./forms/textarea/textarea.component";
 import { SubmitButtonComponent } from "./forms/submit-button/submit-button.component";
 import { ConfirmPasswordComponent } from "./forms/confirm-password/confirm-password.component";
 import { InputEmailComponent } from "./forms/input-email/input-email.component";
-// import { InputEmailComponent } from "./forms/input-email/input-email.component";
+import { AccountService } from "./services/account.service";
+import { InputPasswordComponent } from "./forms/input-password/input-password.component";
+import { InputOptionComponent } from "./forms/input-option/input-option.component";
 
 const appRoutes: Routes = [
   {
@@ -141,7 +144,9 @@ const appRoutes: Routes = [
     TextareaComponent,
     SubmitButtonComponent,
     ConfirmPasswordComponent,
-    InputEmailComponent
+    InputEmailComponent,
+    InputPasswordComponent,
+    InputOptionComponent
     // InputEmailComponent
   ],
   imports: [
@@ -153,9 +158,10 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     MatTabsModule,
-    FileDropModule
+    FileDropModule,
+    AngularWebStorageModule
   ],
-  providers: [ImageService, LoginManager],
+  providers: [ImageService, AccountService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -2,65 +2,75 @@
   <div class="container-menu">
     <ul class="container-menu-ul">
       <li class="menu-logo">
-        <a href=""><img src="https://via.placeholder.com/170x40" /></a>
+        <a routerLink=""
+          ><img
+            src="../../assets/img/logo.png"
+            height="80px"
+            style="opacity: 0.5"
+        /></a>
       </li>
       <!-- <li> -->
 
       <!-- TO DO: zapytac Wojtasa czy form moze byc -->
 
-      <!--
-        <form>
-          <div class="label-wrapper">
-            <input
-              placeholder="Login"
-              type="text"
-              id="username"
-              name="username"
-              ngModel
-            />
-          </div>
-          <div class="label-wrapper">
-            <input
-              placeholder="Password"
-              type="password"
-              id="password"
-              name="password"
-              ngModel
-            />
-          </div>
-          <button class="button-colored" type="submit">LOGIN</button>
-        </form>
-      -->
+      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+        <div class="label-wrapper">
+          <input
+            placeholder="E-mail"
+            type="text"
+            id="email"
+            name="email"
+            ngModel
+            #input
+            (keyup)="onKeyup()"
+          />
+        </div>
+        <div class="label-wrapper">
+          <input
+            placeholder="Password"
+            type="password"
+            id="password"
+            name="password"
+            ngModel
+            #input2
+            (keyup)="onKeyup()"
+          />
+        </div>
+        <button class="button-colored" type="submit">LOGIN</button>
+      </form>
+
       <!-- </li> -->
-      <li>
+      <li class="search">
         <app-search></app-search>
       </li>
       <li class="menu-user">
-        <a href="/user/{{user.userId}}" class="logged-user-icon"><img src="https://via.placeholder.com/30x30" /></a>
+        <!-- /user/{{ LoginManager.userId() }} -->
+        <a routerLink="/user/{{ loggedId }}" class="logged-user-icon"
+          ><img src="../../assets/img/avatar.png" width="40px"
+        /></a>
         <button class="menu-toggle-down" (click)="toggleMenu()" #button>
           <i class="icon-down-open"></i>
         </button>
         <div class="menu-toggled" #menuToggled>
           <ul>
             <li>
-              <a href="/settings"><i class="icon-cog"></i>Edit profile</a>
+              <a routerLink="/settings"><i class="icon-cog"></i>Edit profile</a>
             </li>
             <li>
-              <a href="/upload-image"><i class="icon-plus"></i>Add</a>
+              <a routerLink="/upload-image"><i class="icon-plus"></i>Add</a>
             </li>
             <li>
-              <a href="#"><i class="icon-off"></i>Logout</a>
+              <a routerLink="#"><i class="icon-off"></i>Logout</a>
             </li>
           </ul>
         </div>
       </li>
 
-      <li class="join-us-button">
+      <!-- <li class="join-us-button">
         <a class="button-colored" (click)="scrollDown()">
-          <!-- routerLink="/homepage" fragment="join" class="button-colored" -->
           JOIN
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </menu>

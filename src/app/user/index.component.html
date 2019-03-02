@@ -8,11 +8,11 @@
 				</div>
 				<p>A place created for traditional artists, where they can gain feedback, inspiration and advice and meet people
 					with similar interests.</p>
-				<button class="button-colored" (click)="scrollDown()">JOIN US</button>
+				<button class="button-colored" (click)="scrollDown()" *ngIf="loggedIn === false">JOIN US</button>
 			</div>
 
 			<div class="hands-wrapper">
-				<svg version="1.1" class="hands" opacity="0.4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+				<svg version="1.1" style="height: 80%; margin-top: 10%" class="hands" opacity="0.4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 				 x="0px" y="0px" viewBox="0 0 578 686" enable-background="new 0 0 578 686" xml:space="preserve">
 					<g class="right-hand">
 						<g class="finger4">
@@ -485,74 +485,69 @@
 			<div class="flex-wrapper">
 				<div class="images">
 					<div class="image img1">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg" />
 					</div>
 					<div class="image img3">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg"  />
 					</div>
 					<div class="image img5">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg" />
 					</div>
 				</div>
 				<div class="images">
 					<div class="image img2">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg" />
 					</div>
 					<div class="image img4">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg" />
 					</div>
 					<div class="image img6">
-						<img src="https://via.placeholder.com/400x360" />
+						<img src="../../assets/img/placeholder.jpg"  />
 					</div>
 				</div>
 			</div>
 			<h4 class="more"><a href="">Explore more</a></h4>
 		</div>
-		<div class="join">
+	
+		<div class="join" *ngIf="loggedIn === false">
 
 			<mat-tab-group>
 				<mat-tab label="Join">
 					<div class="form-wrapper">
-						<form *ngIf="this.registerFormRes.formOk === false" #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)">
-							<div class="label-wrapper">
-								<label class="input-description" for="username">Username</label>
-								<input type="text" id="username" name="username" ngModel />
-								<div class="warning" *ngIf="this.registerFormRes.username.valid === false">{{this.registerFormRes.username.message}}</div>
-							</div>
-							<div class="label-wrapper">
-								<label class="input-description" for="password">Password</label>
-								<input type="password" id="password" name="password" ngModel />
-								<div class="warning" *ngIf="this.registerFormRes.password.valid === false">{{this.registerFormRes.password.message}}</div>
-							</div>
-							<div class="label-wrapper">
-								<label class="input-description" for="confirmPassword">Confirm password</label>
-								<input type="password" id="confirmPassword" name="confirmPassword" ngModel />
-								<div class="warning" *ngIf="this.registerFormRes.confirmPassword.valid === false">{{this.registerFormRes.confirmPassword.message}}</div>
-							</div>
-							<div class="label-wrapper">
-								<label class="input-description" for="email">E-mail</label>
-								<input type="text" id="email" name="email" ngModel />
-								<div class="warning" *ngIf="this.registerFormRes.email.valid === false">{{this.registerFormRes.email.message}}</div>
-							</div>
-							<button class="submit-button button-colored">JOIN</button>
+						<form *ngIf="registered === false" [formGroup]="registerForm" (ngSubmit)="onRegister(registerForm)">
+							<input-text [data]="{
+								label: 'Username'
+							}" formControlName="name"></input-text>
+							<confirm-password [data]="{
+								label: 'Password'
+							}" formControlName="passwords"></confirm-password>
+							<input-email [data]="{
+								label: 'E-mail'
+							}" formControlName="email"></input-email>
+							<div class="warning summary-warning" *ngIf="registerWarning !== ''">{{registerWarning}}</div>
+							<button area-label="edit profile" class="button-colored" type="submit">
+								Submit
+							</button>
 						</form>
-						<div *ngIf="this.registerFormRes.formOk === true" class="registered">Thank You for registration! Log in.</div>
+						<div *ngIf="registered === true" >You have been succesfully registered. Log in.</div>
 					</div>
 				</mat-tab>
 				<mat-tab label="Sign in">
 					<div class="form-wrapper">
-						<form #logIn="ngForm" (ngSubmit)="onLogin(logIn)">
-							<div class="label-wrapper">
-								<label class="input-description" for="username">Username</label>
-								<input type="text" id="username" name="username" ngModel />
-							</div>
-							<div class="label-wrapper">
-								<label class="input-description" for="password">Password</label>
-								<input type="password" id="password" name="password" ngModel />
-								<div class="warning" *ngIf="this.loginFormRes.valid === false">{{this.loginFormRes.message}}</div>
-							</div>
-							<button class="submit-button button-colored">LOGIN</button>
-						</form>
+						<form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm)">
+								<input-email [data]="{
+									label: 'Email',
+									placeholder: 'e-mail'
+									}" formControlName="email"></input-email>
+					
+								<input-password [data]="{
+									label: 'Password'
+								}" formControlName="password"></input-password>
+								<div class="warning summary-warning" *ngIf="loginWarning !== ''">{{loginWarning}}</div>
+								<button area-label="edit profile" class="button-colored" type="submit">
+									Submit
+								</button>
+							</form>
 					</div>
 				</mat-tab>
 			</mat-tab-group>

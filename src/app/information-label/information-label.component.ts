@@ -1,21 +1,25 @@
 import { Component, OnInit, ViewChild, Input } from "@angular/core";
 import { ShortUserInfo } from "../classes/short-user-info";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
+import { LoggedIn } from "../classes/logged-in";
 
 @Component({
   selector: "app-information-label",
   templateUrl: "./information-label.component.html",
   styleUrls: ["./information-label.component.scss"]
 })
-export class InformationLabelComponent implements OnInit {
+export class InformationLabelComponent extends LoggedIn implements OnInit {
   @ViewChild("wrapper") wrapper;
-  @Input() loggedUser: IsUserLoggedIn;
+  // @Input() loggedUser: IsUserLoggedIn;
   private labelName: string;
   private data: ShortUserInfo[];
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
     document.addEventListener("click", e => {
       if ((<any>e).path[0].classList.contains("message-container")) {
         this.close();

@@ -16,14 +16,30 @@ menu.static {
   border-bottom: 0;
 }
 
+.logo {
+  color: BLACK;
+  /* FONT-WEIGHT: 600; */
+  border: 2px SOLID #515151;
+  padding: 8px;
+  font-family: "Playfair Display", serif;
+}
+
+.container-menu-ul li.search {
+  display: flex;
+}
+
 menu.logged-out {
+  form {
+    display: flex;
+  }
+
   .container-menu {
     li.menu-user {
       display: none;
     }
 
-    .container-menu-ul li.join-us-button {
-      display: flex;
+    .container-menu-ul li.search {
+      display: none;
     }
   }
 
@@ -33,7 +49,7 @@ menu.logged-out {
 }
 
 form {
-  display: flex;
+  display: none;
   flex-shrink: 0;
   flex-grow: 0;
   justify-content: space-between;
@@ -125,19 +141,19 @@ menu.visible {
     }
 
     .logged-user-icon {
-        display: block;
-        border-radius: 15px;
-        width: 30px;
-        height: 30px;
-        overflow: hidden;
-        margin-right: 8px;
+      display: block;
+      border-radius: 15px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      margin-right: 8px;
       img {
         display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
+      }
     }
-  }
 
     span {
       margin-right: 8px;
@@ -231,8 +247,6 @@ menu.visible {
   .container-menu-ul {
     height: 45px;
   }
-
-  
 }
 
 @media only screen and (max-width: 1120px) {

@@ -3,13 +3,14 @@ import { ImageService } from "../services/image.service";
 import { ActivatedRoute } from "@angular/router";
 import { ShortUserInfo } from "../classes/short-user-info";
 import { IsUserLoggedIn } from "../classes/is-user-logged-in";
+import { LoggedIn } from "../classes/logged-in";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"]
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent extends LoggedIn implements OnInit {
   @ViewChild("label") label;
   private user: User = {
     about: "",
@@ -25,23 +26,26 @@ export class ProfileComponent implements OnInit {
     postsCount: 0
   };
   private url = this.route.snapshot.params.id;
-  private _loggedUser: IsUserLoggedIn = {
-    isLoggedIn: true,
-    userId: 1
-  };
+  // private _loggedUser: IsUserLoggedIn = {
+  //   isLoggedIn: true,
+  //   userId: 1
+  // };
 
   constructor(
     private imageService: ImageService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
     this.getUserData();
   }
 
   getUserData() {
     this.imageService
-      .selectUserById(this._loggedUser.userId.toString(), this.url)
+      .selectUserById(this._loggedId.toString(), this.url)
       .subscribe(res => {
         this.user = <User>res;
         console.log(this.user);
@@ -51,7 +55,7 @@ export class ProfileComponent implements OnInit {
   showFollowed() {
     let informationToSend: ShortUserInfo[];
     this.imageService
-      .getFollowed(this._loggedUser.userId.toString(), this.url)
+      .getFollowed(this._loggedId.toString(), this.url)
       .subscribe(res => {
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Followed by this user");
@@ -61,7 +65,7 @@ export class ProfileComponent implements OnInit {
   showFollowing() {
     let informationToSend: ShortUserInfo[];
     this.imageService
-      .getFollowing(this._loggedUser.userId.toString(), this.url)
+      .getFollowing(this._loggedId.toString(), this.url)
       .subscribe(res => {
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Following by this user");
@@ -73,7 +77,7 @@ export class ProfileComponent implements OnInit {
   }
 
   get loggedUser() {
-    return this._loggedUser;
+    return this._loggedId;
   }
 
   getUrl() {

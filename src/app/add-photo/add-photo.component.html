@@ -2,8 +2,12 @@
 <div class="centered">
   <div class="upload-centered">
     <h2>Upload a file</h2>
+    <!-- tytuł 
+    opis
+    kategorie
+    tagi -->
 
-    <form #imgUpload="ngForm" (ngSubmit)="onFormUpload(imgUpload)">
+    <!-- <form #imgUpload="ngForm" (ngSubmit)="onFormUpload(imgUpload)">
       <div class="flex-wrapper">
         <div class="image-description">
           <div class="label-wrapper">
@@ -41,6 +45,27 @@
       <button area-label="upload file" class="button-colored" type="submit">
         Submit
       </button>
+    </form> -->
+
+    <form [formGroup]="uploadForm" (ngSubmit)="onUpload(uploadForm)">
+      <input-text
+        [data]="{
+          label: 'Title'
+        }"
+        formControlName="title"
+      ></input-text>
+      <input-textarea
+        [data]="{ label: 'Description' }"
+        formControlName="description"
+      ></input-textarea>
+      <tag-input
+        [maxItems]="'10'"
+        [addOnPaste]="'true'"
+        [animationDuration]="{ enter: '0ms', leave: '0ms' }"
+        [placeholder]="'Press Enter to add item'"
+        [separatorKeyCodes]="'[32, 13]'"
+        formControlName="tags"
+      ></tag-input>
     </form>
   </div>
 </div>

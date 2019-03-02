@@ -15,13 +15,17 @@ export class SearchComponent implements OnInit {
 
   public loading = false;
 
-  constructor(private service: ImageService) { }
+  constructor(private service: ImageService) {}
 
   ngOnInit() {
-    document.addEventListener("click", (e) => {
-      console.log(e);
-      if ((e.target !== this.SearchResult.nativeElement && !this.SearchResult.nativeElement.contains(e.target))
-        && (e.target !== this.SearchField.nativeElement && !this.SearchField.nativeElement.contains(e.target))) {
+    document.addEventListener("click", e => {
+      // console.log(e);
+      if (
+        e.target !== this.SearchResult.nativeElement &&
+        !this.SearchResult.nativeElement.contains(e.target) &&
+        (e.target !== this.SearchField.nativeElement &&
+          !this.SearchField.nativeElement.contains(e.target))
+      ) {
         this.SearchResult.nativeElement.classList.remove("display");
       }
     });
@@ -35,8 +39,7 @@ export class SearchComponent implements OnInit {
           if (JSON.stringify(res) !== "[]") {
             this.res = <SearchRes[]>res;
             this.SearchResult.nativeElement.classList.add("display");
-          }
-          else {
+          } else {
             this.res = null;
             this.SearchResult.nativeElement.classList.remove("display");
           }
@@ -55,10 +58,10 @@ export class SearchComponent implements OnInit {
 }
 
 interface SearchRes {
-  avatarImgLink: string,
-  count: number,
-  followedCount: number,
-  id: number,
-  name: string,
-  tagName: string
+  avatarImgLink: string;
+  count: number;
+  followedCount: number;
+  id: number;
+  name: string;
+  tagName: string;
 }

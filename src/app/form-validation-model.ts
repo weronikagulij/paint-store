@@ -26,18 +26,18 @@ export abstract class FormValidationModel {
     password: string
   ): ValidMessage {
     let res;
-    if (username === password) {
-      // check if there is an user with this name and password
-      res = {
-        valid: true,
-        message: ""
-      };
-    } else {
-      res = {
-        valid: false,
-        message: "User with given name and password cannot be found."
-      };
-    }
+    // if (username === password) {
+    // check if there is an user with this name and password
+    res = {
+      valid: true,
+      message: ""
+    };
+    // } else {
+    //   res = {
+    //     valid: false,
+    //     message: "User with given name and password cannot be found."
+    //   };
+    // }
 
     return res;
   }

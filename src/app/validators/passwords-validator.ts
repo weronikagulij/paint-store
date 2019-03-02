@@ -2,6 +2,10 @@ import { FormControl } from "@angular/forms";
 
 export function passwordsValidator(c: FormControl, fieldName: string) {
   // field is optional
+  if (!c.dirty) {
+    return null;
+  }
+
   if (c.value === "" || typeof c.value === undefined) return null;
   if (c.value.new === "" && c.value.confirm === "") return null;
 

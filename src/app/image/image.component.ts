@@ -6,13 +6,15 @@ import { UserComment } from "./comment";
 import { NgForm } from "@angular/forms";
 import { AgreeLabelComponent } from "../agree-label/agree-label.component";
 import { ShortUserInfo } from "../classes/short-user-info";
+import { LoggedIn } from "../classes/logged-in";
+import { LoginManager } from "../classes/login-manager";
 
 @Component({
   selector: "app-image",
   templateUrl: "./image.component.html",
   styleUrls: ["./image.component.scss"]
 })
-export class ImageComponent implements OnInit {
+export class ImageComponent extends LoggedIn implements OnInit {
   @ViewChild("msg") Message;
   @ViewChild("msgDelete") msgDelete;
   @ViewChild("confirmLabel") confirmLabel;
@@ -33,28 +35,24 @@ export class ImageComponent implements OnInit {
   };
 
   private _comments: Comment[];
-  private userId = 1; // TO DO: logowanie
   private formValid = true;
   private _loading = false;
   private commentIdToRemove = null;
-  private _loggedUser = {
-    isLoggedIn: true,
-    userId: 1
-  };
 
-  constructor(private service: ImageService, private route: ActivatedRoute) {}
+  constructor(private service: ImageService, private route: ActivatedRoute) {
+    super();
+  }
 
   ngOnInit() {
+    super.ngOnInit();
+    console.log(this.loggedIn, LoginManager.userLoggedIn());
     this.getCommentsData();
     this.getImageData();
   }
 
   getImageData() {
     this.service
-      .ImageByPath(
-        this._loggedUser.userId.toString(),
-        this.route.snapshot.params.id
-      )
+      .ImageByPath(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         this._image = <ImageExact>res;
         // console.log(res);
@@ -64,7 +62,7 @@ export class ImageComponent implements OnInit {
   getCommentsData() {
     this.service
       .CommentsByImgPath(
-        this._loggedUser.userId.toString(),
+        this._loggedId.toString(),
         this.route.snapshot.params.id
       )
       .subscribe(res => {
@@ -94,37 +92,45 @@ export class ImageComponent implements OnInit {
       this._loading = true;
       const comment = {
         PostId: this.route.snapshot.params.id,
-        UserId: this.userId,
+        UserId: this._loggedId,
         Content: form.value.text,
         LikeCount: 0
       };
       // send message
-      this.service.uploadComment(comment).subscribe(res => {
-        this.Message.show("Comment uploaded succesfully.");
-        this.formValid = true;
-        this._loading = false;
-        this.getCommentsData();
-      });
+      this.service
+        .uploadComment(comment, this._loggedId, this._loggedToken)
+        .subscribe(res => {
+          this.Message.show("Comment uploaded succesfully.");
+          this.formValid = true;
+          this._loading = false;
+          this.getCommentsData();
+        });
 
       form.resetForm();
     }
   }
 
   confirm() {
-    this.service.removeComment(this.commentIdToRemove).subscribe(res => {
-      this.getCommentsData();
-      this.Message.show("Comment deleted succesfully.");
-    });
+    this.service
+      .removeComment(this.commentIdToRemove, this._loggedId, this._loggedToken)
+      .subscribe(res => {
+        this.getCommentsData();
+        this.Message.show("Comment deleted succesfully.");
+      });
   }
 
   photoLike() {
     this._image.likeCount += 1;
     this._image.liked = true;
     this.service
-      .likePost({
-        userId: this._loggedUser.userId,
-        postId: this.route.snapshot.params.id
-      })
+      .likePost(
+        {
+          userId: this._loggedId,
+          postId: this.route.snapshot.params.id
+        },
+        this._loggedId,
+        this._loggedToken
+      )
       .subscribe(res => {
         // console.log(res);
       });
@@ -135,8 +141,10 @@ export class ImageComponent implements OnInit {
     this._image.liked = false;
     this.service
       .unlikePost(
-        this._loggedUser.userId.toString(),
-        this.route.snapshot.params.id
+        this._loggedId.toString(),
+        this.route.snapshot.params.id,
+        this._loggedId,
+        this._loggedToken
       )
       .subscribe(res => {
         // console.log(res);
@@ -146,10 +154,7 @@ export class ImageComponent implements OnInit {
   showLiking() {
     let informationToSend: ShortUserInfo[];
     this.service
-      .getPostLikes(
-        this._loggedUser.userId.toString(),
-        this.route.snapshot.params.id
-      )
+      .getPostLikes(this._loggedId.toString(), this.route.snapshot.params.id)
       .subscribe(res => {
         console.log("polubili ten post:\n", res);
         informationToSend = <ShortUserInfo[]>res;
@@ -160,7 +165,7 @@ export class ImageComponent implements OnInit {
   commentShowLiked(id: number) {
     let informationToSend: ShortUserInfo[];
     this.service
-      .getCommentLikes(this._loggedUser.userId.toString(), id.toString())
+      .getCommentLikes(this._loggedId.toString(), id.toString())
       .subscribe(res => {
         informationToSend = <ShortUserInfo[]>res;
         this.label.show(informationToSend, "Liked this comment");
@@ -171,10 +176,14 @@ export class ImageComponent implements OnInit {
     comment.liked = true;
     comment.likeCount += 1;
     this.service
-      .likeComment({
-        userId: this._loggedUser.userId,
-        commentId: comment.id
-      })
+      .likeComment(
+        {
+          userId: this._loggedId,
+          postId: comment.id
+        },
+        this._loggedId.toString(),
+        this._loggedToken
+      )
       .subscribe(res => {
         // console.log(res);
       });
@@ -184,7 +193,7 @@ export class ImageComponent implements OnInit {
     comment.liked = false;
     comment.likeCount -= 1;
     this.service
-      .unlikeComment(this._loggedUser.userId.toString(), comment.id)
+      .unlikeComment(this._loggedId.toString(), comment.id)
       .subscribe(res => {
         // console.log(res);
       });
@@ -207,12 +216,14 @@ export class ImageComponent implements OnInit {
         id: comment.id,
         content: text
       };
-      this.service.editComment(data).subscribe(res => {
-        this.Message.show("Comment edited succesfully.", res);
-        comment.isEditing = false;
-        comment.edited = true;
-        comment.content = text;
-      });
+      this.service
+        .editComment(data, this._loggedId, this._loggedToken)
+        .subscribe(res => {
+          this.Message.show("Comment edited succesfully.", res);
+          comment.isEditing = false;
+          comment.edited = true;
+          comment.content = text;
+        });
     } else {
       comment.editValid = false;
     }
@@ -221,10 +232,6 @@ export class ImageComponent implements OnInit {
   discard(comment) {
     comment.isEditing = false;
     comment.editValid = true;
-  }
-
-  get loggedUser() {
-    return this._loggedUser;
   }
 
   get image(): ImageExact {
