@@ -6,7 +6,6 @@ $avatar-size: 22px;
   -webkit-transition: $time $type $property;
 }
 
-
 .animation-container {
   width: 100vw;
   height: 100vh;
@@ -40,35 +39,4 @@ $avatar-size: 22px;
 
 .container {
   margin-bottom: 70px;
-}
-
-.centered {
-  display: inline-block;
-  margin: 0 auto;
-}
-.container {
-  text-align: center;
-}
-
-.image-wrapper {
-
-}
-
-
-@media only screen and (max-width: 1449px) {
-  .image-wrapper {
-    grid-template-columns: 300px 300px 300px;
-  }
-}
-
-@media only screen and (max-width: 1039px) {
-  .image-wrapper {
-    grid-template-columns: 300px 300px;
-  }
-}
-
-@media only screen and (max-width: 699px) {
-  .image-wrapper {
-    grid-template-columns: 300px;
-  }
 }

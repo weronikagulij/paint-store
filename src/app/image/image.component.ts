@@ -179,9 +179,9 @@ export class ImageComponent extends LoggedIn implements OnInit {
       .likeComment(
         {
           userId: this._loggedId,
-          postId: comment.id
+          commentId: comment.id
         },
-        this._loggedId.toString(),
+        this._loggedId,
         this._loggedToken
       )
       .subscribe(res => {
@@ -193,7 +193,7 @@ export class ImageComponent extends LoggedIn implements OnInit {
     comment.liked = false;
     comment.likeCount -= 1;
     this.service
-      .unlikeComment(this._loggedId.toString(), comment.id)
+      .unlikeComment(this._loggedId, comment.id, this._loggedToken)
       .subscribe(res => {
         // console.log(res);
       });

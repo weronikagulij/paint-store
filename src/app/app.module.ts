@@ -42,6 +42,8 @@ import { InputEmailComponent } from "./forms/input-email/input-email.component";
 import { AccountService } from "./services/account.service";
 import { InputPasswordComponent } from "./forms/input-password/input-password.component";
 import { InputOptionComponent } from "./forms/input-option/input-option.component";
+import { ImageElementComponent } from "./image-element/image-element.component";
+import { TagsComponent } from "./tags/tags.component";
 
 const appRoutes: Routes = [
   {
@@ -99,6 +101,10 @@ const appRoutes: Routes = [
     path: "homepage",
     component: IndexComponent
   },
+  {
+    path: "tags/:id",
+    component: TagsComponent
+  },
   // {
   //   path: "homepage",
   //   component: IndexComponent,
@@ -146,7 +152,9 @@ const appRoutes: Routes = [
     ConfirmPasswordComponent,
     InputEmailComponent,
     InputPasswordComponent,
-    InputOptionComponent
+    InputOptionComponent,
+    ImageElementComponent,
+    TagsComponent
     // InputEmailComponent
   ],
   imports: [

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -22,14 +22,18 @@ export class AccountService {
   }
 
   registerUser(data: any) {
-    // let data = {
-    //   name: name,
-    //   email: email,
-    //   password: password
-    // };
-    console.log(data);
-    //   let headers = new HttpHeaders();
-    //  headers.append("Authorization", "Basic " + btoa("username:password"));
     return this._http.post(this.host + "api/Users/AddUser", data);
+  }
+
+  logoutUser(data, id: number, token: string) {
+    let headers = new HttpHeaders();
+    headers = headers.append(
+      "Authorization",
+      "Basic " + btoa("" + id + ":" + token)
+    );
+    headers = headers.append("Content-Type", "application/json");
+    return this._http.post(this.host + "api/SignIn/Out", data, {
+      headers: headers
+    });
   }
 }

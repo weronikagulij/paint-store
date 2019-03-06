@@ -38,6 +38,7 @@ export class SearchComponent implements OnInit {
         res => {
           if (JSON.stringify(res) !== "[]") {
             this.res = <SearchRes[]>res;
+            console.log(this.res);
             this.SearchResult.nativeElement.classList.add("display");
           } else {
             this.res = null;

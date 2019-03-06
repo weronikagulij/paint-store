@@ -33,6 +33,10 @@ export abstract class LoginManager {
     this.local.set(StorageData.getKey(), data);
   }
 
+  public static logoutUser() {
+    this.local.remove(StorageData.getKey());
+  }
+
   public static userId(): number {
     this.checkAuth();
     return this._userId;

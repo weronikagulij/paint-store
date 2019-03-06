@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ImageService } from "../services/image.service";
 import { Photo } from "./photo";
-import { NgForm } from "@angular/forms";
+import { NgForm, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {
   UploadEvent,
   UploadFile,
@@ -11,78 +11,59 @@ import {
 
 import { ValidateFileForm } from "../validate-file-form";
 import { Message } from "@angular/compiler/src/i18n/i18n_ast";
+import { requiredTextValidator } from "../validators/text-validator";
+import { fileValidator } from "../validators/file-validator";
+import { LoggedIn } from "../classes/logged-in";
 
 @Component({
   selector: "app-add-photo",
   templateUrl: "./add-photo.component.html",
   styleUrls: ["./add-photo.component.scss"]
 })
-export class AddPhotoComponent implements OnInit {
-  // @ViewChild("dragAndDrop") dragAndDrop: ElementRef;
+export class AddPhotoComponent extends LoggedIn implements OnInit {
   @ViewChild("message") Message;
   @ViewChild("file") File;
 
-  // private file: any = [];
-  private formData: FormData;
-  public validateMessage: ValidateFileForm;
+  private _uploadWarning = "";
+  private uploadForm: FormGroup;
 
-  constructor() {
-    this.formData = new FormData();
-    this.validateMessage = new ValidateFileForm();
+  constructor(private fb: FormBuilder, private service: ImageService) {
+    super();
+    this.uploadForm = this.fb.group({
+      title: ["", [Validators.required, requiredTextValidator]],
+      description: "",
+      tags: "",
+      category: "",
+      file: ["", fileValidator]
+    });
   }
 
-  ngOnInit() { }
-
-  public getValidationMessage(): ValidateFileForm {
-    return this.validateMessage;
+  ngOnInit() {
+    super.ngOnInit();
   }
 
-  childEmitter($event) {
-    this.formData.append("image", $event);
-  }
-
-  public onFormUpload(form: NgForm) {
-    let formOk = true;
-    this.formData.append("username", "ania");
-
-    if (form.form.value.title === null || form.form.value.title.length < 3) {
-      formOk = false;
-      this.validateMessage.title = "Title must be at least 4 characters long.";
-    } else {
-      this.formData.append("title", form.form.value.title);
-      this.validateMessage.title = "";
-    }
-
-    this.formData.append("description", form.form.value.description);
-
-    if (form.form.value.category === null || form.form.value.category === "") {
-      formOk = false;
-      this.validateMessage.category = "You must choose a category.";
-    } else {
-      this.formData.append("category", form.form.value.category);
-      this.validateMessage.category = "";
-    }
-
+  public onUpload(form: NgForm) {
     console.log(this.File.getFile());
+    if (form.status === "INVALID") {
+      this._uploadWarning = "Title and file must be added.";
+    } else {
+      let newTags = [];
+      let tags = form.value.tags;
 
-    // validate file
-    if (this.File.validate() === false) {
-      formOk = false;
+      if (tags !== [] && tags !== "") {
+        // console.log(tags);
+        tags.forEach(el => {
+          newTags.push(el.value);
+        });
+      }
+      form.value.tags = newTags;
+      // console.log(form.value);
+      this.service.uploadImage(form.value, this._loggedId, this._loggedToken);
+      this._uploadWarning = "";
     }
-    // form.form.value.tags are array of objects
-    // [ { display: "tag1", value: "tag1" } ]
+  }
 
-    this.formData.append("tags", form.form.value.tags);
-
-    if (formOk === true) {
-      form.reset();
-      this.File.clear();
-      // this.file = null;
-      // $(".file-input")[0].value = "";
-      // this.animateIcon("svg-upload");
-      // this.information = "Drop a file here";
-
-      this.Message.show("File uploaded successfully.");
-    }
+  get uploadWarning(): string {
+    return this._uploadWarning;
   }
 }

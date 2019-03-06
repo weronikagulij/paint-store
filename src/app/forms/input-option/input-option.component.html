@@ -1,17 +1,24 @@
 <div class="label-wrapper">
-  <label class="input-description" for="title">{{ data.label }}</label>
+  <label class="input-description">{{ data.label }}</label>
   <span
     *ngIf="data.editable === true && editing === false"
     (click)="startEditing()"
     >Edit</span
   >
-  <input
+  <select
+    id="category"
+    name="category"
     [ngClass]="validateMessage !== '' ? 'invalid' : null"
     [ngClass]="editing === true || data.editable !== true ? null : 'hidden'"
     type="text"
     #input
-    (keyup)="change(this.Input.nativeElement.value)"
-  />
+    (change)="change(this.Input.nativeElement.value)"
+  >
+    <option value="cat1">Cat 1</option>
+    <option value="Cat 2">Cat 2</option>
+    <option value="Cat 3">Cat 3</option>
+    <option value="Cat 4">Cat 4</option>
+  </select>
   <span
     *ngIf="data.editable === true && editing === true"
     class="reject"

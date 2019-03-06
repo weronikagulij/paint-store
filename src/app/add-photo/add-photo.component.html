@@ -1,51 +1,6 @@
-<!-- <app-menu></app-menu> -->
-<div class="centered">
+<div class="centered centered-block">
   <div class="upload-centered">
     <h2>Upload a file</h2>
-    <!-- tytuł 
-    opis
-    kategorie
-    tagi -->
-
-    <!-- <form #imgUpload="ngForm" (ngSubmit)="onFormUpload(imgUpload)">
-      <div class="flex-wrapper">
-        <div class="image-description">
-          <div class="label-wrapper">
-            <label class="input-description" for="title">Title</label>
-            <input type="text" id="title" name="title" ngModel />
-            <div class="warning" *ngIf="this.validateMessage.title !== ''">
-              {{ this.validateMessage.title }}
-            </div>
-          </div>
-          <div class="label-wrapper">
-            <label class="input-description" for="description">Description</label>
-            <textarea name="description" id="description" ngModel></textarea>
-          </div>
-          <div class="label-wrapper">
-            <label class="input-description" for="category">Choose category</label>
-            <select id="category" name="category" ngModel>
-              <option value="cat1">Cat 1</option>
-              <option value="Cat 2">Cat 2</option>
-              <option value="Cat 3">Cat 3</option>
-              <option value="Cat 4">Cat 4</option>
-            </select>
-            <div class="warning" *ngIf="this.validateMessage.category !== ''">
-              {{ this.validateMessage.category }}
-            </div>
-          </div>
-
-          <div class="label-wrapper">
-            <span class="input-description">Enter tags</span>
-            <tag-input ngModel name="tags" id="tags" [maxItems]="'10'" [addOnPaste]="'true'" [animationDuration]="{ enter: '0ms', leave: '0ms' }"
-              [placeholder]="'Press Enter to add item'" [separatorKeyCodes]="'[32, 13]'"></tag-input>
-          </div>
-        </div>
-        <input-file #file (emitter)="childEmitter($event)"></input-file>
-      </div>
-      <button area-label="upload file" class="button-colored" type="submit">
-        Submit
-      </button>
-    </form> -->
 
     <form [formGroup]="uploadForm" (ngSubmit)="onUpload(uploadForm)">
       <input-text
@@ -58,6 +13,7 @@
         [data]="{ label: 'Description' }"
         formControlName="description"
       ></input-textarea>
+      <label class="input-description">Tags</label>
       <tag-input
         [maxItems]="'10'"
         [addOnPaste]="'true'"
@@ -66,6 +22,24 @@
         [separatorKeyCodes]="'[32, 13]'"
         formControlName="tags"
       ></tag-input>
+      <!-- <input-option
+        [data]="{ label: 'Choose category' }"
+        formControlName="category"
+      ></input-option> -->
+      <input-file
+        [data]="{
+          label: 'File'
+        }"
+        formControlName="file"
+        #file
+      >
+      </input-file>
+      <div class="warning summary-warning" *ngIf="uploadWarning !== ''">
+        {{ uploadWarning }}
+      </div>
+      <button area-label="upload file" class="button-colored" type="submit">
+        Submit
+      </button>
     </form>
   </div>
 </div>

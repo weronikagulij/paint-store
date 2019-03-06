@@ -29,6 +29,7 @@ export class MenuComponent extends LoggedIn implements OnInit {
   @ViewChild("input2") input2: ElementRef;
 
   private host = "http://localhost:4200/";
+  private loginPage = "http://localhost:4200/homepage";
 
   constructor(private router: Router, private _accountService: AccountService) {
     super();
@@ -71,8 +72,6 @@ export class MenuComponent extends LoggedIn implements OnInit {
         .setClassToggle(".container-menu", "scrolled")
         .addTo(controller);
     }
-
-    // listen to path change
   }
 
   toggleMenu() {
@@ -100,5 +99,14 @@ export class MenuComponent extends LoggedIn implements OnInit {
   onKeyup() {
     this.input.nativeElement.classList.remove("invalid");
     this.input2.nativeElement.classList.remove("invalid");
+  }
+
+  logout() {
+    this._accountService
+      .logoutUser({ id: this.loggedId }, this._loggedId, this._loggedToken)
+      .subscribe(res => {
+        LoginManager.logoutUser();
+        window.location.replace(this.loginPage);
+      });
   }
 }

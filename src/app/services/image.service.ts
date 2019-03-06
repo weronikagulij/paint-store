@@ -28,41 +28,15 @@ export class ImageService {
     return this._http.get(this.host + "api/Comments/" + userId + "/" + postId);
   }
 
-  // public userByPath(path: string) {
-  //   return this._http.post("http://localhost/rysujemy/userById.php", path);
-  // }
-
-  // public imagesByUserPath(path: string) {
-  //   return this._http.post(
-  //     "http://localhost/rysujemy/ImagesByUserId.php",
-  //     path
-  //   );
-  // }
-
-  // public uploadImages(image: FormData) {
-  //   //console.log(image, description);
-  //   return this._http.post("http://localhost/rysujemy/imgUpload.php", image);
-  // }
-
   public uploadComment(comment: any, id: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+    let headers = this.getHeaders(id, token);
     return this._http.post(this.host + "api/Comments/AddPostComment", comment, {
       headers: headers
     });
   }
 
   public removeComment(id: number, idToken: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + idToken + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+    let headers = this.getHeaders(id, token);
 
     return this._http.delete(
       this.host + "api/Comments/DeletePostComment/" + id,
@@ -106,13 +80,19 @@ export class ImageService {
     );
   }
 
-  public unlikePost(userId: string, postId: string, id: number, token: string) {
+  private getHeaders(id: number, token: string): HttpHeaders {
     let headers = new HttpHeaders();
     headers = headers.append(
       "Authorization",
       "Basic " + btoa("" + id + ":" + token)
     );
     headers = headers.append("Content-Type", "application/json");
+
+    return headers;
+  }
+
+  public unlikePost(userId: string, postId: string, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
 
     return this._http.delete(
       this.host + "api/Likes/Post/RemoveLike/" + userId + "/" + postId,
@@ -123,12 +103,7 @@ export class ImageService {
   }
 
   public likePost(data: any, id: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+    let headers = this.getHeaders(id, token);
     return this._http.post(this.host + "api/Likes/Post/AddLike", data, {
       headers: headers
     });
@@ -140,63 +115,48 @@ export class ImageService {
     );
   }
 
-  public likeComment(data: any, id: string, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+  public likeComment(data: any, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
 
     return this._http.post(this.host + "api/Likes/Comment/AddLike", data, {
       headers: headers
     });
   }
 
-  public unlikeComment(userId: string, postId: string) {
+  public unlikeComment(userId: number, postId: string, token: string) {
+    let headers = this.getHeaders(userId, token);
+    // console.log(postId);
     return this._http.delete(
-      this.host + "api/Likes/Comment/RemoveLike/" + userId + "/" + postId
+      this.host + "api/Likes/Comment/RemoveLike/" + userId + "/" + postId,
+      {
+        headers: headers
+      }
     );
   }
 
   public editComment(data: any, id: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
-    return this._http.put(this.host + "/api/Comments/EditPostComment", data, {
+    let headers = this.getHeaders(id, token);
+    return this._http.put(this.host + "api/Comments/EditPostComment", data, {
       headers: headers
     });
   }
 
   // followedUserId, followingUserId
   public follow(data: FollowingData, id: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+    let headers = this.getHeaders(id, token);
 
-    return this._http.post(this.host + "/api/Followers/AddFollower", data, {
+    return this._http.post(this.host + "api/Followers/AddFollower", data, {
       headers: headers
     });
   }
 
   // followedUserId, followingUserId
   public unfollow(data: FollowingData, id: number, token: string) {
-    let headers = new HttpHeaders();
-    headers = headers.append(
-      "Authorization",
-      "Basic " + btoa("" + id + ":" + token)
-    );
-    headers = headers.append("Content-Type", "application/json");
+    let headers = this.getHeaders(id, token);
 
     return this._http.delete(
       this.host +
-        "/api/Followers/DeleteFollower" +
+        "api/Followers/DeleteFollower" +
         "/" +
         data.followingUserId +
         "/" +
@@ -205,8 +165,28 @@ export class ImageService {
     );
   }
 
-  // search
   public search(searchWord: string) {
-    return this._http.get(this.host + "/api/Search/" + searchWord);
+    return this._http.get(this.host + "api/Search/" + searchWord);
+  }
+
+  public imagesByTag(tag: string) {
+    return this._http.get(this.host + "api/Posts/AllPostsByTag/" + tag);
+  }
+
+  public uploadImage(data, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    console.log("data file", data.file);
+    this._http
+      .post(this.host + "api/UploadImage", data.file, {
+        headers: headers
+      })
+      .subscribe(
+        res => {
+          console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
   }
 }
