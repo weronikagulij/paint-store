@@ -175,18 +175,21 @@ export class ImageService {
 
   public uploadImage(data, id: number, token: string) {
     let headers = this.getHeaders(id, token);
-    console.log("data file", data.file);
-    this._http
-      .post(this.host + "api/UploadImage", data.file, {
-        headers: headers
-      })
-      .subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log(err);
-        }
-      );
+    console.log("data file", data);
+    let fd = new FormData();
+    fd.append("file", data);
+    return this._http.post(this.host + "api/UploadImage", fd, {
+      headers: headers
+    });
+  }
+
+  upload(fileToUpload: any, id: number, token: string) {
+    let headers = this.getHeaders(id, token);
+    const input = new FormData();
+    input.append('file', fileToUpload);
+
+    return this._http.post(this.host + "api/UploadImage", input, {
+      headers: headers
+    });
   }
 }
