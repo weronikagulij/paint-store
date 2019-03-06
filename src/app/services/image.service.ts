@@ -6,7 +6,7 @@ import { FollowingData } from "../classes/following-data";
 @Injectable()
 export class ImageService {
   private host = "http://paintstorerest.azurewebsites.net/";
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   public selectRecentImages() {
     return this._http.get(this.host + "api/Posts/AllPosts/the_newest");
@@ -156,11 +156,11 @@ export class ImageService {
 
     return this._http.delete(
       this.host +
-        "api/Followers/DeleteFollower" +
-        "/" +
-        data.followingUserId +
-        "/" +
-        data.followedUserId,
+      "api/Followers/DeleteFollower" +
+      "/" +
+      data.followingUserId +
+      "/" +
+      data.followedUserId,
       { headers: headers }
     );
   }
@@ -174,22 +174,28 @@ export class ImageService {
   }
 
   public uploadImage(data, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
-    console.log("data file", data);
+    let headers = new HttpHeaders(), fileRes: FileRes = null;
+    headers = headers.append(
+      "Authorization",
+      "Basic " + btoa("" + id + ":" + token)
+    );
+
     let fd = new FormData();
     fd.append("file", data);
-    return this._http.post(this.host + "api/UploadImage", fd, {
+
+    this._http.post(this.host + "api/UploadImage", fd, {
       headers: headers
+    }).subscribe(res => {
+      fileRes = <FileRes>res;
+      console.log(fileRes);
     });
   }
 
-  upload(fileToUpload: any, id: number, token: string) {
-    let headers = this.getHeaders(id, token);
-    const input = new FormData();
-    input.append('file', fileToUpload);
+}
 
-    return this._http.post(this.host + "api/UploadImage", input, {
-      headers: headers
-    });
-  }
+interface FileRes {
+  caption: string
+  format: string
+  publicId: string
+  url: string
 }
